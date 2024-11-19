@@ -4,8 +4,8 @@
 
 package frc.lib.util;
 
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkMaxLowLevel;
+import com.revrobotics.spark.SparkMax;
+import com.revrobotics.spark.SparkLowLevel;
 
 /** Sets motor usage for a Spark Max motor controller */
 public class CANSparkMaxUtil {
