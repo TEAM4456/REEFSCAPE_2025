@@ -1,9 +1,9 @@
 package frc.robot.Subsystems;
 
-import com.revrobotics.CANSparkMax;
+import com.revrobotics.spark.SparkMax;
 import com.revrobotics.RelativeEncoder;
-import com.revrobotics.SparkPIDController;
-import com.revrobotics.CANSparkLowLevel.MotorType;
+import com.revrobotics.spark.SparkClosedLoopController;
+import com.revrobotics.spark.SparkLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -14,21 +14,21 @@ import frc.robot.Constants;
 
 
 public class Elevator extends SubsystemBase {
-    private CANSparkMax elevatorRight;
+    private SparkMax elevatorRight;
     private RelativeEncoder elevatorRightEncoder;
-    private final SparkPIDController elevatorRightPIDController;
+    private final SparkClosedLoopController elevatorRightPIDController;
 
-    private CANSparkMax elevatorLeft;
+    private SparkMax elevatorLeft;
     private RelativeEncoder elevatorLeftEncoder;
-    private final SparkPIDController elevatorLeftPIDController;
+    private final SparkClosedLoopController elevatorLeftPIDController;
 
   public Elevator() {
-    elevatorRight = new CANSparkMax(15,MotorType.kBrushless);
+    elevatorRight = new SparkMax(15,MotorType.kBrushless);
     elevatorRight.setOpenLoopRampRate(.5);
     elevatorRightEncoder = elevatorRight.getEncoder();
-    elevatorRightPIDController = elevatorRight.getPIDController();
+    elevatorRightPIDController = elevatorRight.getSparkClosedLoopController();
 
-    elevatorLeft = new CANSparkMax(14,MotorType.kBrushless);
+    elevatorLeft = new SparkMax(14,MotorType.kBrushless);
     elevatorLeft.setOpenLoopRampRate(.5);
     elevatorLeftEncoder = elevatorLeft.getEncoder();
     elevatorLeftPIDController = elevatorLeft.getPIDController();
