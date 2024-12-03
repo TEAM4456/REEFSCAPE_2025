@@ -1,10 +1,11 @@
 package frc.robot.Subsystems;
 
 import com.revrobotics.spark.SparkMax;
-import com.revrobotics.RelativeEncoder;
+import com.revrobotics.spark.config.SparkMaxConfig;
 import com.revrobotics.spark.SparkClosedLoopController;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.motorcontrol.Spark;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -15,11 +16,11 @@ import frc.robot.Constants;
 
 public class Elevator extends SubsystemBase {
     private SparkMax elevatorRight;
-    private RelativeEncoder elevatorRightEncoder;
+    private SparkMaxConfig elevatorRightEncoder;
     private final SparkClosedLoopController elevatorRightPIDController;
 
     private SparkMax elevatorLeft;
-    private RelativeEncoder elevatorLeftEncoder;
+    private SparkMaxConfig elevatorLeftEncoder;
     private final SparkClosedLoopController elevatorLeftPIDController;
 
   public Elevator() {
@@ -33,14 +34,10 @@ public class Elevator extends SubsystemBase {
     elevatorLeftEncoder = elevatorLeft.getEncoder();
     elevatorLeftPIDController = elevatorLeft.getPIDController();
 
-    elevatorRightPIDController.setP(1);
-    elevatorRightPIDController.setI(0);
-    elevatorRightPIDController.setD(0);
+    elevatorRightPIDController.pid(1, 0, 0);
     elevatorRightPIDController.setFF(0);
 
-    elevatorLeftPIDController.setP(1);
-    elevatorLeftPIDController.setI(0);
-    elevatorLeftPIDController.setD(0);
+    elevatorLeftPIDController.pid(1, 0, 0);
     elevatorLeftPIDController.setFF(0);
 
   }
@@ -56,8 +53,8 @@ public class Elevator extends SubsystemBase {
   public void elevatorStop(){
     elevatorRight.set(0);
     elevatorLeft.set(0);
-    elevatorLeftPIDController.setReference(elevatorLeftEncoder.getPosition(), CANSparkMax.ControlType.kPosition);
-    elevatorRightPIDController.setReference(elevatorRightEncoder.getPosition(), CANSparkMax.ControlType.kPosition);
+    elevatorLeftPIDController.setReference(elevatorLeftEncoder.getPosition(), SparkMax.ControlType.kPosition);
+    elevatorRightPIDController.setReference(elevatorRightEncoder.getPosition(), SparkMax.ControlType.kPosition);
   }
 
 
@@ -65,12 +62,12 @@ public class Elevator extends SubsystemBase {
 
 
   public void setElevatorPositionUp(){
-    elevatorLeftPIDController.setReference(Constants.ElevatorPositions.leftElevatorUp, CANSparkMax.ControlType.kPosition);
-    elevatorRightPIDController.setReference(Constants.ElevatorPositions.rightElevatorUp, CANSparkMax.ControlType.kPosition);
+    elevatorLeftPIDController.setReference(Constants.ElevatorPositions.leftElevatorUp, SparkMax.ControlType.kPosition);
+    elevatorRightPIDController.setReference(Constants.ElevatorPositions.rightElevatorUp, SparkMax.ControlType.kPosition);
   }
   public void setElevatorPositionDown(){
-    elevatorLeftPIDController.setReference(Constants.ElevatorPositions.leftElevatorDown, CANSparkMax.ControlType.kPosition);
-    elevatorRightPIDController.setReference(Constants.ElevatorPositions.rightElevatorDown, CANSparkMax.ControlType.kPosition);
+    elevatorLeftPIDController.setReference(Constants.ElevatorPositions.leftElevatorDown, SparkMax.ControlType.kPosition);
+    elevatorRightPIDController.setReference(Constants.ElevatorPositions.rightElevatorDown, SparkMax.ControlType.kPosition);
   }
   public Command setElevatorPositionUpCommand(){
     return run(() -> setElevatorPositionUp()).until(() -> (Math.abs(elevatorRightEncoder.getPosition() - Constants.ElevatorPositions.rightElevatorUp) < 1) && (Math.abs(elevatorLeftEncoder.getPosition() - Constants.ElevatorPositions.leftElevatorUp) < 1));
