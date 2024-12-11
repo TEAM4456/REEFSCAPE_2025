@@ -6,7 +6,7 @@ package frc.robot.Subsystems;
 import com.ctre.phoenix.sensors.CANCoder;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.SparkMaxConfig;
-import com.revrobotics.CANSparkBase.ControlType;
+import com.revrobotics.CANSparkBase.ControlType; //Can't find this in change log, not sure if changed DanF1
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkBase.PersistMode;

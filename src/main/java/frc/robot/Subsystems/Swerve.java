@@ -6,18 +6,18 @@ package frc.robot.Subsystems;
 
 import java.util.Optional;
 
-import org.photonvision.EstimatedRobotPose;
-import org.photonvision.PhotonCamera;
-import org.photonvision.PhotonPoseEstimator;
-import org.photonvision.PhotonPoseEstimator.PoseStrategy;
-import org.photonvision.targeting.PhotonPipelineResult;
-import org.photonvision.targeting.PhotonTrackedTarget;
+import org.photonvision.EstimatedRobotPose;//NO DECLARATION FOR PHOTONVISION
+import org.photonvision.PhotonCamera;//NO DECLARATION FOR PHOTONVISION
+import org.photonvision.PhotonPoseEstimator;//NO DECLARATION FOR PHOTONVISION
+import org.photonvision.PhotonPoseEstimator.PoseStrategy;//NO DECLARATION FOR PHOTONVISION
+import org.photonvision.targeting.PhotonPipelineResult;//NO DECLARATION FOR PHOTONVISION
+import org.photonvision.targeting.PhotonTrackedTarget;//NO DECLARATION FOR PHOTONVISION
 
 import com.studica.frc.AHRS;
 import com.pathplanner.lib.auto.AutoBuilder;
-import com.pathplanner.lib.util.HolonomicPathFollowerConfig;
-import com.pathplanner.lib.util.PIDConstants;
-import com.pathplanner.lib.util.ReplanningConfig;
+import com.pathplanner.lib.util.HolonomicPathFollowerConfig;//NO DECLARATION
+import com.pathplanner.lib.util.PIDConstants;//NO DECLARATION
+import com.pathplanner.lib.util.ReplanningConfig;//NO DECLARATION
 
 import edu.wpi.first.apriltag.AprilTagFieldLayout;
 import edu.wpi.first.apriltag.AprilTagFields;
@@ -26,6 +26,7 @@ import edu.wpi.first.math.VecBuilder;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
@@ -65,7 +66,7 @@ public class Swerve extends SubsystemBase {
 
   public Swerve(Vision v) {
     this.photonVision = v;
-    m_gyro = new AHRS(SPI.Port.kMXP);
+    m_gyro = new AHRS(SPI.Port.kMXP); //FROM PUBLIC CLASS AHRS DAN_F
     //.configFactoryDefault();
     zeroHeading();
     mSwerveMods =
@@ -89,7 +90,7 @@ public class Swerve extends SubsystemBase {
   
      
     swervePoseEstimator =
-            new SwerveDrivePoseEstimator(
+            new SwerveDrivePoseEstimator(//FROM CLASS SwerveDrivePoseEstimator DAN_F
                     Constants.Swerve.swerveKinematics,
                     getRotation2d(),
                     getModulePositions(),
@@ -100,7 +101,7 @@ public class Swerve extends SubsystemBase {
 
 
     SmartDashboard.putData("Field", field);
-    AutoBuilder.configureHolonomic(
+    AutoBuilder.configureHolonomic(//FROM CLASS AUTOBUILDER DAN_F
         this::getPose, // Robot pose supplier
         this::resetPose, // Method to reset odometry (will be called if your auto has a starting pose)
         this::getRobotRelativeSpeeds, // ChassisSpeeds supplier. MUST BE ROBOT RELATIVE
@@ -110,7 +111,7 @@ public class Swerve extends SubsystemBase {
             new PIDConstants(5, Constants.Swerve.angleKI, Constants.Swerve.angleKD), // Rotation PID constants
             4, // Max module speed, in m/s
             0.4, // Drive base radius in meters. Distance from robot center to furthest module.
-            new ReplanningConfig() // Default path replanning config. See the API for the options here
+            new ReplanningConfig() //NO DECLARATION DAN_F Default path replanning config. See the API for the options here
         ),
                 () -> {
                     // Boolean supplier that controls when the path will be mirrored for the red alliance
@@ -165,11 +166,11 @@ public class Swerve extends SubsystemBase {
   }
 
   public Pose2d getPose() {
-    return swerveOdometry.getPoseMeters();
+    return swerveOdometry.getPoseMeters();//NO DECLARATION FOR SWERVEODOMETRY 
   }
 
   public void resetPose(Pose2d pose) {
-    swerveOdometry.resetPosition(getRotation2d(), getModulePositions(), pose);
+    swerveOdometry.resetPosition(getRotation2d(), getModulePositions(), pose);//NO DECLARATION FOR SWERVEODOMETRY 
   }
 
   public ChassisSpeeds getRobotRelativeSpeeds(){
@@ -192,7 +193,7 @@ public class Swerve extends SubsystemBase {
   }
   
   public void resetOdometry(Pose2d pose) {
-    swerveOdometry.resetPosition(getRotation2d(), getModulePositions(), pose);
+    swerveOdometry.resetPosition(getRotation2d(), getModulePositions(), pose);//NO DECLARATION FOR SWERVEODOMETRY 
   }
 
   public SwerveModuleState[] getStates() {
@@ -272,7 +273,7 @@ public Rotation2d getRotation2d() {
       SmartDashboard.putNumber("Angle Estimate Y",visionEstimateAngle.get().estimatedPose.toPose2d().getY());
 
     }*/
-    Optional<EstimatedRobotPose> visionEstimateFront = photonVision.getEstimatedPoseFront();
+    Optional<EstimatedRobotPose> visionEstimateFront = photonVision.getEstimatedPoseFront();//FROM VISION.JAVA
   
     if(visionEstimateFront.isPresent()){
       swervePoseEstimator.addVisionMeasurement(visionEstimateFront.get().estimatedPose.toPose2d(), visionEstimateFront.get().timestampSeconds);
