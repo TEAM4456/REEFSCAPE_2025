@@ -14,10 +14,11 @@ import org.photonvision.targeting.PhotonPipelineResult;//NO DECLARATION FOR PHOT
 import org.photonvision.targeting.PhotonTrackedTarget;//NO DECLARATION FOR PHOTONVISION
 
 import com.studica.frc.AHRS;
+import com.studica.frc.AHRS.NavXComType;
 import com.pathplanner.lib.auto.AutoBuilder;
-import com.pathplanner.lib.util.HolonomicPathFollowerConfig;//NO DECLARATION
-import com.pathplanner.lib.util.PIDConstants;//NO DECLARATION
-import com.pathplanner.lib.util.ReplanningConfig;//NO DECLARATION
+// import com.pathplanner.lib.util.HolonomicPathFollowerConfig;//NO DECLARATION
+// import com.pathplanner.lib.util.PIDConstants;//NO DECLARATION
+// import com.pathplanner.lib.util.ReplanningConfig;//NO DECLARATION
 
 import edu.wpi.first.apriltag.AprilTagFieldLayout;
 import edu.wpi.first.apriltag.AprilTagFields;
@@ -66,7 +67,7 @@ public class Swerve extends SubsystemBase {
 
   public Swerve(Vision v) {
     this.photonVision = v;
-    m_gyro = new AHRS(SPI.Port.kMXP); //FROM PUBLIC CLASS AHRS DAN_F
+    m_gyro = new AHRS(NavXComType.kMXP_SPI); //FROM PUBLIC CLASS AHRS DAN_F *Changed to updated studica syntax By B.Mcc
     //.configFactoryDefault();
     zeroHeading();
     mSwerveMods =
@@ -101,31 +102,31 @@ public class Swerve extends SubsystemBase {
 
 
     SmartDashboard.putData("Field", field);
-    AutoBuilder.configureHolonomic(//FROM CLASS AUTOBUILDER DAN_F
-        this::getPose, // Robot pose supplier
-        this::resetPose, // Method to reset odometry (will be called if your auto has a starting pose)
-        this::getRobotRelativeSpeeds, // ChassisSpeeds supplier. MUST BE ROBOT RELATIVE
-        this::driveRobotRelative, // Method that will drive the robot given ROBOT RELATIVE ChassisSpeeds
-        new HolonomicPathFollowerConfig( // HolonomicPathFollowerConfig, this should likely live in your Constants class
-            new PIDConstants(Constants.Swerve.driveKP, Constants.Swerve.driveKI, Constants.Swerve.driveKD), // Translation PID constants
-            new PIDConstants(5, Constants.Swerve.angleKI, Constants.Swerve.angleKD), // Rotation PID constants
-            4, // Max module speed, in m/s
-            0.4, // Drive base radius in meters. Distance from robot center to furthest module.
-            new ReplanningConfig() //NO DECLARATION DAN_F Default path replanning config. See the API for the options here
-        ),
-                () -> {
-                    // Boolean supplier that controls when the path will be mirrored for the red alliance
-                    // This will flip the path being followed to the red side of the field.
-                    // THE ORIGIN WILL REMAIN ON THE BLUE SIDE
+    // AutoBuilder.configureHolonomic(//FROM CLASS AUTOBUILDER DAN_F
+    //     this::getPose, // Robot pose supplier
+    //     this::resetPose, // Method to reset odometry (will be called if your auto has a starting pose)
+    //     this::getRobotRelativeSpeeds, // ChassisSpeeds supplier. MUST BE ROBOT RELATIVE
+    //     this::driveRobotRelative, // Method that will drive the robot given ROBOT RELATIVE ChassisSpeeds
+    //     new HolonomicPathFollowerConfig( // HolonomicPathFollowerConfig, this should likely live in your Constants class
+    //         new PIDConstants(Constants.Swerve.driveKP, Constants.Swerve.driveKI, Constants.Swerve.driveKD), // Translation PID constants
+    //         new PIDConstants(5, Constants.Swerve.angleKI, Constants.Swerve.angleKD), // Rotation PID constants
+    //         4, // Max module speed, in m/s
+    //         0.4, // Drive base radius in meters. Distance from robot center to furthest module.
+    //         new ReplanningConfig() //NO DECLARATION DAN_F Default path replanning config. See the API for the options here
+    //     ),
+    //             () -> {
+    //                 // Boolean supplier that controls when the path will be mirrored for the red alliance
+    //                 // This will flip the path being followed to the red side of the field.
+    //                 // THE ORIGIN WILL REMAIN ON THE BLUE SIDE
 
-                    var alliance = DriverStation.getAlliance();
-                    if (alliance.isPresent()) {
-                        return alliance.get() == DriverStation.Alliance.Red;
-                    }
-                    return false;
-                },
-                this // Reference to this subsystem to set requirements
-        );
+    //                 var alliance = DriverStation.getAlliance();
+    //                 if (alliance.isPresent()) {
+    //                     return alliance.get() == DriverStation.Alliance.Red;
+    //                 }
+    //                 return false;
+    //             },
+    //             this // Reference to this subsystem to set requirements
+    //     );
     }
   public void drive(Translation2d translation, double rotation, /*boolean fieldRelative,*/ boolean isOpenLoop) {
       SwerveModuleState[] swerveModuleStates = 
@@ -166,12 +167,12 @@ public class Swerve extends SubsystemBase {
   }
 
   public Pose2d getPose() {
-    return swerveOdometry.getPoseMeters();//NO DECLARATION FOR SWERVEODOMETRY 
+    return swervePoseEstimator.getEstimatedPosition();//NO DECLARATION FOR SWERVEODOMETRY 
   }
 
-  public void resetPose(Pose2d pose) {
-    swerveOdometry.resetPosition(getRotation2d(), getModulePositions(), pose);//NO DECLARATION FOR SWERVEODOMETRY 
-  }
+  // public void resetPose(Pose2d pose) {
+  //   swerveOdometry.resetPosition(getRotation2d(), getModulePositions(), pose);//NO DECLARATION FOR SWERVEODOMETRY 
+  // }
 
   public ChassisSpeeds getRobotRelativeSpeeds(){
     ChassisSpeeds chassisSpeeds = Constants.Swerve.swerveKinematics.toChassisSpeeds(getStates());
@@ -192,9 +193,9 @@ public class Swerve extends SubsystemBase {
     }
   }
   
-  public void resetOdometry(Pose2d pose) {
-    swerveOdometry.resetPosition(getRotation2d(), getModulePositions(), pose);//NO DECLARATION FOR SWERVEODOMETRY 
-  }
+  // public void resetOdometry(Pose2d pose) {
+  //   swerveOdometry.resetPosition(getRotation2d(), getModulePositions(), pose);//NO DECLARATION FOR SWERVEODOMETRY 
+  // }
 
   public SwerveModuleState[] getStates() {
     SwerveModuleState[] states = new SwerveModuleState[4];
@@ -297,6 +298,10 @@ public Rotation2d getRotation2d() {
           "Mod " + mod.moduleNumber + " Integrated", mod.getState().angle.getDegrees());
       SmartDashboard.putNumber(
           "Mod " + mod.moduleNumber + " Velocity", mod.getState().speedMetersPerSecond);
+      SmartDashboard.putNumber(
+          "Mod " + mod.moduleNumber + " CANCoder", mod.getCanCoder().getDegrees());
+      SmartDashboard.putNumber(
+         "Mod " + mod.moduleNumber + " CANCoder * 360)", mod.getCanCoder360().getDegrees());
     }
  
   }
