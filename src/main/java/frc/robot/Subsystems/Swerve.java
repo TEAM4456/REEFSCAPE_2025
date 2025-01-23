@@ -3,7 +3,7 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.Subsystems;
-
+//test commit
 import java.util.Optional;
 
 import org.photonvision.EstimatedRobotPose;//NO DECLARATION FOR PHOTONVISION
@@ -15,7 +15,7 @@ import org.photonvision.targeting.PhotonTrackedTarget;//NO DECLARATION FOR PHOTO
 
 import com.studica.frc.AHRS;
 import com.pathplanner.lib.auto.AutoBuilder;
-import com.pathplanner.lib.util.HolonomicPathFollowerConfig;//NO DECLARATION
+import com.pathplanner.lib.controllers.PPHolonomicDriveController;//NO DECLARATION
 import com.pathplanner.lib.util.PIDConstants;//NO DECLARATION
 import com.pathplanner.lib.util.ReplanningConfig;//NO DECLARATION
 
@@ -106,7 +106,7 @@ public class Swerve extends SubsystemBase {
         this::resetPose, // Method to reset odometry (will be called if your auto has a starting pose)
         this::getRobotRelativeSpeeds, // ChassisSpeeds supplier. MUST BE ROBOT RELATIVE
         this::driveRobotRelative, // Method that will drive the robot given ROBOT RELATIVE ChassisSpeeds
-        new HolonomicPathFollowerConfig( // HolonomicPathFollowerConfig, this should likely live in your Constants class
+        new PPHolonomicDriveController( // HolonomicPathFollowerConfig, this should likely live in your Constants class
             new PIDConstants(Constants.Swerve.driveKP, Constants.Swerve.driveKI, Constants.Swerve.driveKD), // Translation PID constants
             new PIDConstants(5, Constants.Swerve.angleKI, Constants.Swerve.angleKD), // Rotation PID constants
             4, // Max module speed, in m/s
