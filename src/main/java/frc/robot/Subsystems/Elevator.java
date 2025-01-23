@@ -25,26 +25,27 @@ public class Elevator extends SubsystemBase {
 
   public Elevator() {
     elevatorRight = new SparkMax(15, MotorType.kBrushless);
-    elevatorLeft = new SparkMax(14, MotorType.kBrushless);
+    elevatorLeft  = new SparkMax(14, MotorType.kBrushless);
   }
-//     elevatorRight = new SparkMax(15,MotorType.kBrushless);
-//     elevatorRight.setOpenLoopRampRate(.5);
-//     elevatorRightEncoder = elevatorRight.getEncoder();
-//     elevatorRightPIDController = elevatorRight.getSparkClosedLoopController();
+ /* 
+     elevatorRight = new SparkMax(15,MotorType.kBrushless);
+     elevatorRight.setOpenLoopRampRate(.5);
+     elevatorRightEncoder = elevatorRight.getEncoder();
+     elevatorRightPIDController = elevatorRight.getSparkClosedLoopController();
 
-//     elevatorLeft = new SparkMax(14,MotorType.kBrushless);
-//     elevatorLeft.setOpenLoopRampRate(.5);
-//     elevatorLeftEncoder = elevatorLeft.getEncoder();
-//     elevatorLeftPIDController = elevatorLeft.getPIDController();
+     elevatorLeft = new SparkMax(14,MotorType.kBrushless);
+     elevatorLeft.setOpenLoopRampRate(.5);
+     elevatorLeftEncoder = elevatorLeft.getEncoder();
+     elevatorLeftPIDController = elevatorLeft.getPIDController();
 
-//     elevatorRightPIDController.pid(1, 0, 0);
-//     elevatorRightPIDController.setFF(0);
+     elevatorRightPIDController.pid(1, 0, 0);
+     elevatorRightPIDController.setFF(0);
 
-//     elevatorLeftPIDController.pid(1, 0, 0);
-//     elevatorLeftPIDController.setFF(0);
+     elevatorLeftPIDController.pid(1, 0, 0);
+     elevatorLeftPIDController.setFF(0);
 
-//   }
-    
+   }
+    */
 //   public void elevatorUp(){
 //     elevatorRight.set(-Constants.ElevatorPositions.elevatorSpeed);
 //     elevatorLeft.set(Constants.ElevatorPositions.elevatorSpeed);
