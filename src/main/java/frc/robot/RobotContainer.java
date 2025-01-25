@@ -88,6 +88,15 @@ public class RobotContainer {
 
 
 
+    //XBOX CODE FOR ELEVATOR UP AND ELEVATOR DOWN, RIGHT TRIGGER RAISES
+    //THE ELEVATOR AND LEFT TRIGGER LOWERS THE ELEVATOR 
+    //CHANGE MADE SATURDAY 1-25
+
+    driver.rightTrigger().whileTrue(elevator.elevatorUp());
+    driver.leftTrigger().whileTrue(elevator.elevatorDown());
+
+
+
 
 
     // Configure the button bindings
