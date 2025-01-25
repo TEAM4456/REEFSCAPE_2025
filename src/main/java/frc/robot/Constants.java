@@ -165,7 +165,7 @@ public final class Constants {
     public static final double leftElevatorUp = 150;
     public static final double leftElevatorDown = 0;
 
-    public static final double elevatorSpeed = .3;
+    public static final double elevatorSpeed = .2;
   }
  
 

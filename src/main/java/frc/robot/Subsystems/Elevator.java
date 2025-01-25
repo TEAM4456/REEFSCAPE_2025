@@ -8,26 +8,20 @@ import com.revrobotics.spark.SparkLowLevel.MotorType;
 import edu.wpi.first.wpilibj.motorcontrol.Spark;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 //test
 
 public class Elevator extends SubsystemBase {
-    private SparkMax elevatorRight;
+    private SparkMax elevatorMotor;
     private SparkMaxConfig elevatorRightEncoder;
     private SparkClosedLoopController elevatorRightPIDController;
 
-    private SparkMax elevatorLeft;
-    private SparkMaxConfig elevatorLeftEncoder;
-    private SparkClosedLoopController elevatorLeftPIDController;
-
   public Elevator() {
-    elevatorRight = new SparkMax(15, MotorType.kBrushless);
-    elevatorLeft  = new SparkMax(14, MotorType.kBrushless);
+    elevatorMotor = new SparkMax(18, MotorType.kBrushless);
   }
- /* 
+/* 
      elevatorRight = new SparkMax(15,MotorType.kBrushless);
      elevatorRight.setOpenLoopRampRate(.5);
      elevatorRightEncoder = elevatorRight.getEncoder();
@@ -45,15 +39,15 @@ public class Elevator extends SubsystemBase {
      elevatorLeftPIDController.setFF(0);
 
    }
-    */
-//   public void elevatorUp(){
-//     elevatorRight.set(-Constants.ElevatorPositions.elevatorSpeed);
-//     elevatorLeft.set(Constants.ElevatorPositions.elevatorSpeed);
-//   }
-//   public void elevatorDown(){
-//     elevatorRight.set(Constants.ElevatorPositions.elevatorSpeed);
-//     elevatorLeft.set(-Constants.ElevatorPositions.elevatorSpeed);
-//   }
+   */
+  //When called, this moves the moter at negative elevatorSpeed to go up
+  public void elevatorUp(){
+    elevatorMotor.set(-Constants.ElevatorPositions.elevatorSpeed);
+  }
+  //When called, this moves the moter at positive elevatorSpeed to go down
+  public void elevatorDown(){
+    elevatorMotor.set(Constants.ElevatorPositions.elevatorSpeed);
+  }
 //   public void elevatorStop(){
 //     elevatorRight.set(0);
 //     elevatorLeft.set(0);
