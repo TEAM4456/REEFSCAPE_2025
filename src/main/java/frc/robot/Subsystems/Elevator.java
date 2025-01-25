@@ -15,15 +15,12 @@ import frc.robot.Constants;
 
 public class Elevator extends SubsystemBase {
     private SparkMax elevatorMotor;
-    private SparkMaxConfig elevatorRightEncoder;
-    private SparkClosedLoopController elevatorRightPIDController;
+    private SparkMaxConfig elevatorEncoder;
+    private SparkClosedLoopController elevatorPIDController;
 
   public Elevator() {
     elevatorMotor = new SparkMax(18, MotorType.kBrushless);
-  }
-/* 
-     elevatorRight = new SparkMax(15,MotorType.kBrushless);
-     elevatorRight.setOpenLoopRampRate(.5);
+    /*elevatorMotor.setOpenLoopRampRate(.5);
      elevatorRightEncoder = elevatorRight.getEncoder();
      elevatorRightPIDController = elevatorRight.getSparkClosedLoopController();
 
@@ -39,7 +36,7 @@ public class Elevator extends SubsystemBase {
      elevatorLeftPIDController.setFF(0);
 
    }
-   */
+  
   //When called, this moves the moter at negative elevatorSpeed to go up
   public void elevatorUp(){
     elevatorMotor.set(-Constants.ElevatorPositions.elevatorSpeed);
@@ -78,3 +75,4 @@ public class Elevator extends SubsystemBase {
 //     SmartDashboard.putNumber("elevatorPositionRight",elevatorRightEncoder.getPosition());
 //     SmartDashboard.putNumber("elevatorPositionRight", elevatorLeftEncoder.getPosition());
 }
+*/
