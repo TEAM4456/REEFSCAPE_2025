@@ -2,6 +2,8 @@ package frc.robot.Subsystems;
 
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.SparkMaxConfig;
+import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
+import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkClosedLoopController;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 
@@ -15,25 +17,30 @@ import frc.robot.Constants;
 
 public class Elevator extends SubsystemBase {
     private SparkMax elevatorMotor;
-    private SparkMaxConfig elevatorEncoder;
+    private RelativeEncoder elevatorEncoder; //maybe not needed with 2025 migration
     private SparkClosedLoopController elevatorPIDController;
+    private SparkMaxConfig elevatorConfig;
 
   public Elevator() {
-    elevatorMotor = new SparkMax(18, MotorType.kBrushless);
-    /*elevatorMotor.setOpenLoopRampRate(.5);
-     elevatorRightEncoder = elevatorRight.getEncoder();
-     elevatorRightPIDController = elevatorRight.getSparkClosedLoopController();
+    SparkMax elevatorMotor = new SparkMax(18, MotorType.kBrushless);
+    SparkMaxConfig elevatorConfig = new SparkMaxConfig();
+    
+    elevatorConfig
+      .idleMode(IdleMode.kBrake);
+    elevatorConfig.closedLoop
+      .pid(1,0,0);
 
-     elevatorLeft = new SparkMax(14,MotorType.kBrushless);
-     elevatorLeft.setOpenLoopRampRate(.5);
-     elevatorLeftEncoder = elevatorLeft.getEncoder();
-     elevatorLeftPIDController = elevatorLeft.getPIDController();
+   /* look into getting rid of this? Not sure if needed? Sat 1/25
+   
+   elevatorMotor.setOpenLoopRampRate(.5);
+    elevatorEncoder = elevatorMotor.getEncoder();
+    elevatorPIDController = elevatorMotor.getClosedLoopController();
+    
 
-     elevatorRightPIDController.pid(1, 0, 0);
-     elevatorRightPIDController.setFF(0);
+     elevatorPIDController.pid(1, 0, 0);
+     elevatorPIDController.setFF(0);
 
-     elevatorLeftPIDController.pid(1, 0, 0);
-     elevatorLeftPIDController.setFF(0);
+  
 
    }
   
@@ -45,9 +52,9 @@ public class Elevator extends SubsystemBase {
   public void elevatorDown(){
     elevatorMotor.set(Constants.ElevatorPositions.elevatorSpeed);
   }
-//   public void elevatorStop(){
-//     elevatorRight.set(0);
-//     elevatorLeft.set(0);
+   public void elevatorStop(){
+     elevatorMotor.set(0);
+
 //     elevatorLeftPIDController.setReference(elevatorLeftEncoder.getPosition(), SparkMax.ControlType.kPosition);
 //     elevatorRightPIDController.setReference(elevatorRightEncoder.getPosition(), SparkMax.ControlType.kPosition);
 //   }
