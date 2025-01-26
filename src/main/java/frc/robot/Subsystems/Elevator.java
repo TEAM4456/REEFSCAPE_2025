@@ -38,7 +38,7 @@ public class Elevator extends SubsystemBase {
     
 
      elevatorPIDController.pid(1, 0, 0);
-     elevatorPIDController.setFF(0);
+     elevatorPIDController.setFF(0); */
 
   
 
@@ -57,7 +57,7 @@ public class Elevator extends SubsystemBase {
 
 //     elevatorLeftPIDController.setReference(elevatorLeftEncoder.getPosition(), SparkMax.ControlType.kPosition);
 //     elevatorRightPIDController.setReference(elevatorRightEncoder.getPosition(), SparkMax.ControlType.kPosition);
-//   }
+/  }
 
 
 
