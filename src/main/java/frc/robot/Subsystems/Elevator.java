@@ -22,8 +22,8 @@ public class Elevator extends SubsystemBase {
     private SparkMaxConfig elevatorConfig;
 
   public Elevator() {
-    SparkMax elevatorMotor = new SparkMax(18, MotorType.kBrushless);
-    SparkMaxConfig elevatorConfig = new SparkMaxConfig();
+    elevatorMotor = new SparkMax(18, MotorType.kBrushless);
+    elevatorConfig = new SparkMaxConfig();
     
     elevatorConfig
       .idleMode(IdleMode.kBrake);
@@ -54,10 +54,10 @@ public class Elevator extends SubsystemBase {
   }
    public void elevatorStop(){
      elevatorMotor.set(0);
-
+}
 //     elevatorLeftPIDController.setReference(elevatorLeftEncoder.getPosition(), SparkMax.ControlType.kPosition);
 //     elevatorRightPIDController.setReference(elevatorRightEncoder.getPosition(), SparkMax.ControlType.kPosition);
-/  }
+  
 
 
 
@@ -82,4 +82,3 @@ public class Elevator extends SubsystemBase {
 //     SmartDashboard.putNumber("elevatorPositionRight",elevatorRightEncoder.getPosition());
 //     SmartDashboard.putNumber("elevatorPositionRight", elevatorLeftEncoder.getPosition());
 }
-*/
