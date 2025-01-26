@@ -80,22 +80,28 @@ public class RobotContainer {
             () -> driver.getRawAxis(rotationAxis)));
 
 
-    //Pathplanner Auto Components
+    //Create Automated Commands here that make use of multiple subsystems [can be used in autonomous or teleop]
+    //(ex. auto coral station pickup: moves elevator and elevator pivot)
+    //See Crescendo's code for examples
+
+    //stop Feed and Shoot Motors
+    //See Crescendo's code for "stop Feed and Shoot Motors" at this location in code
+    //Placed here in RobotContainer because makes use of commands from multiple different subsystems? (Fact check this)
+    
+    //Create othe commands that require multiple subsystems here
+
+
+
+
+    //Create Autonomous Routines here (sequences for first 15s of match)
+    //See Crescendo's code for examples
+
+
+
 
     //Puts Sendable Chooser on SmartDashboard
     chooser = new SendableChooser<Command>();
     SmartDashboard.putData("Auto:", chooser);
-
-
-
-    //XBOX CODE FOR ELEVATOR UP AND ELEVATOR DOWN, RIGHT TRIGGER RAISES
-    //THE ELEVATOR AND LEFT TRIGGER LOWERS THE ELEVATOR 
-    //CHANGE MADE SATURDAY 1-25
-
-    driver.rightTrigger().whileTrue(elevator.elevatorUp());
-    driver.leftTrigger().whileTrue(elevator.elevatorDown());
-
-
 
 
 
@@ -111,21 +117,6 @@ public class RobotContainer {
 
 
 
-
-
-
-    //Automated Sequences (Teleop) Go Here [look at Crescendo's code for examples]
-    
-    //Autonomous Sequences (Auto) Go Here [look at Crescendo's code for examples]
-    
-
-    //stop Feed and Shoot Motors
-    //See Crescendo's code for "stop Feed and Shoot Motors" at this location in code
-    //Placed here in RobotContainer because makes use of commands from multiple different subsystems? (Fact check this)
-    
-
-    //Create othe commands that require multiple subsystems here
-       
   //Add options for autonomous routines so that they appear in sendable chooser on SmartDashboard
   //https://docs.wpilib.org/en/stable/docs/software/dashboards/smartdashboard/choosing-an-autonomous-program-from-smartdashboard.html 
   private void configureButtonBindings() {
@@ -143,6 +134,14 @@ public class RobotContainer {
         () -> -driver.getRawAxis(translationAxis),
         () -> -driver.getRawAxis(strafeAxis),
         () -> driver.getRawAxis(rotationAxis)));
+
+    //XBOX CODE FOR ELEVATOR UP AND ELEVATOR DOWN, RIGHT TRIGGER RAISES
+    //THE ELEVATOR AND LEFT TRIGGER LOWERS THE ELEVATOR, a BUTTON STOPS THE ELEVATOR 
+    //CHANGE MADE SATURDAY 1-25
+
+    driver.rightTrigger().whileTrue(elevator.elevatorUpCommand());
+    driver.leftTrigger().whileTrue(elevator.elevatorDownCommand());
+    driver.a().toggleOnTrue(elevator.elevatorStopCommand());
 
     //Driver #2
     second.back().toggleOnTrue(

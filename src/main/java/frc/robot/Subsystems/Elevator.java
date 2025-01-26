@@ -31,7 +31,6 @@ public class Elevator extends SubsystemBase {
       .pid(1,0,0);
 
    /* look into getting rid of this? Not sure if needed? Sat 1/25
-   
    elevatorMotor.setOpenLoopRampRate(.5);
     elevatorEncoder = elevatorMotor.getEncoder();
     elevatorPIDController = elevatorMotor.getClosedLoopController();
@@ -39,12 +38,11 @@ public class Elevator extends SubsystemBase {
 
      elevatorPIDController.pid(1, 0, 0);
      elevatorPIDController.setFF(0); */
-
-  
-
    }
   
-  //When called, this moves the moter at negative elevatorSpeed to go up
+  /* Create your elevator Methods (? correct terminology) here */
+
+  //When called, this moves the motor at negative elevatorSpeed to go up
   public void elevatorUp(){
     elevatorMotor.set(-Constants.ElevatorPositions.elevatorSpeed);
   }
@@ -59,10 +57,6 @@ public class Elevator extends SubsystemBase {
 //     elevatorRightPIDController.setReference(elevatorRightEncoder.getPosition(), SparkMax.ControlType.kPosition);
   
 
-
-
-
-
 //   public void setElevatorPositionUp(){
 //     elevatorLeftPIDController.setReference(Constants.ElevatorPositions.leftElevatorUp, SparkMax.ControlType.kPosition);
 //     elevatorRightPIDController.setReference(Constants.ElevatorPositions.rightElevatorUp, SparkMax.ControlType.kPosition);
@@ -71,7 +65,25 @@ public class Elevator extends SubsystemBase {
 //     elevatorLeftPIDController.setReference(Constants.ElevatorPositions.leftElevatorDown, SparkMax.ControlType.kPosition);
 //     elevatorRightPIDController.setReference(Constants.ElevatorPositions.rightElevatorDown, SparkMax.ControlType.kPosition);
 //   }
-//   public Command setElevatorPositionUpCommand(){
+//   
+
+  /*Create manually controlled commands here */
+
+   public Command elevatorUpCommand(){
+      return run(() -> elevatorUp());
+    }
+
+    public Command elevatorDownCommand(){
+      return run(() -> elevatorDown());
+    }
+
+    public Command elevatorStopCommand(){
+      return run(() -> elevatorStop());
+    }
+
+    /*Create set position commands here */
+
+//  public Command setElevatorPositionUpCommand(){
 //     return run(() -> setElevatorPositionUp()).until(() -> (Math.abs(elevatorRightEncoder.getPosition() - Constants.ElevatorPositions.rightElevatorUp) < 1) && (Math.abs(elevatorLeftEncoder.getPosition() - Constants.ElevatorPositions.leftElevatorUp) < 1));
 //   }
 //   public Command setElevatorPositionDownCommand(){
