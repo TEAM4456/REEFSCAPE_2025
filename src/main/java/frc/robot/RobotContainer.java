@@ -141,7 +141,7 @@ public class RobotContainer {
 
     driver.rightTrigger().whileTrue(elevator.elevatorUpCommand());
     driver.leftTrigger().whileTrue(elevator.elevatorDownCommand());
-    driver.a().toggleOnTrue(elevator.elevatorStopCommand());
+    driver.a().whileTrue(elevator.elevatorStopCommand());
 
     //Driver #2
     second.back().toggleOnTrue(
