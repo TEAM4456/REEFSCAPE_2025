@@ -1,10 +1,12 @@
 package frc.robot.Subsystems;
 
-// Imports for the liear actuator
+// Imports for the linear actuator
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.config.ClosedLoopConfig;
+import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
+import com.revrobotics.spark.config.SparkMaxConfig;
 
 // Imports for the command system
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -18,6 +20,7 @@ public class ElevatorPivot extends SubsystemBase {
 
     //Object declarations
     private SparkMax pivotElvMotor;
+    private SparkMaxConfig pivotElvConfig;
     private RelativeEncoder pivotElvMotorEncoder;
     private final ClosedLoopConfig pivotElvMotorController;
 
@@ -27,8 +30,14 @@ public class ElevatorPivot extends SubsystemBase {
         pivotElvMotorEncoder = pivotElvMotor.getEncoder();
         pivotElvMotorController = new ClosedLoopConfig();
 
+        pivotElvConfig = new SparkMaxConfig();  //CONFIGURATIONS FOR Pivot Elevator MOTOR BELOW
+        pivotElvConfig.idleMode(IdleMode.kBrake);
+        pivotElvConfig.closedLoop.pid(1,0,0);
+
         //Setting the PID values
         pivotElvMotorController.pid(Constants.Swerve.angleKP, Constants.Swerve.angleKI, Constants.Swerve.angleKD);
     }
+
+   
 
 }

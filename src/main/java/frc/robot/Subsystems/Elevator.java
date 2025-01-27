@@ -23,11 +23,8 @@ public class Elevator extends SubsystemBase {
   public Elevator() {
     elevatorMotor = new SparkMax(18, MotorType.kBrushless);
     elevatorConfig = new SparkMaxConfig();
-    
-    elevatorConfig
-      .idleMode(IdleMode.kBrake);
-    elevatorConfig.closedLoop
-      .pid(1,0,0);
+    elevatorConfig.idleMode(IdleMode.kBrake);
+    elevatorConfig.closedLoop.pid(1,0,0);
 
    /* look into getting rid of this? Not sure if needed? Sat 1/25
    elevatorMotor.setOpenLoopRampRate(.5);
