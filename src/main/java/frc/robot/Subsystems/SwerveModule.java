@@ -122,7 +122,7 @@ public class SwerveModule {
       .inverted(Constants.Swerve.angleInvert)
       .idleMode(Constants.Swerve.angleNeutralMode);
     turnConfig.encoder
-      .positionConversionFactor(360/(150/7));
+      .positionConversionFactor(360/(12.8)); //changed from (360/(150/7)) to (360/12.8) to reflect steering gear ratio of MK4c
       //.velocityConversionFactor(1000);
     turnConfig.closedLoop
       .feedbackSensor(FeedbackSensor.kPrimaryEncoder)

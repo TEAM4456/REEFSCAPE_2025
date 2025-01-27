@@ -13,11 +13,10 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
-//test
 
 public class Elevator extends SubsystemBase {
     private SparkMax elevatorMotor;
-    private RelativeEncoder elevatorEncoder; //maybe not needed with 2025 migration
+    private RelativeEncoder elevatorEncoder; 
     private SparkClosedLoopController elevatorPIDController;
     private SparkMaxConfig elevatorConfig;
 
@@ -89,8 +88,9 @@ public class Elevator extends SubsystemBase {
 //   public Command setElevatorPositionDownCommand(){
 //     return run(() -> setElevatorPositionDown()).until(() -> (Math.abs(elevatorRightEncoder.getPosition() - Constants.ElevatorPositions.rightElevatorDown) < 1) && (Math.abs(elevatorLeftEncoder.getPosition() - Constants.ElevatorPositions.leftElevatorDown) < 1));
 //   }
-//   @Override
-//   public void periodic() {
-//     SmartDashboard.putNumber("elevatorPositionRight",elevatorRightEncoder.getPosition());
-//     SmartDashboard.putNumber("elevatorPositionRight", elevatorLeftEncoder.getPosition());
-}
+  @Override
+    public void periodic(){
+      SmartDashboard.putNumber("elevatorPosition",elevatorEncoder.getPosition());
+    }
+  }
+
