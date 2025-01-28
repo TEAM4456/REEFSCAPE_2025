@@ -22,6 +22,7 @@ public class Elevator extends SubsystemBase {
 
   public Elevator() {
     elevatorMotor = new SparkMax(18, MotorType.kBrushless);
+    elevatorEncoder = elevatorMotor.getEncoder();
     elevatorConfig = new SparkMaxConfig();
     elevatorConfig.idleMode(IdleMode.kBrake);
     elevatorConfig.closedLoop.pid(1,0,0);
