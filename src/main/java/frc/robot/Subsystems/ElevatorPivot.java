@@ -22,20 +22,19 @@ public class ElevatorPivot extends SubsystemBase {
     private SparkMax pivotElvMotor;
     private SparkMaxConfig pivotElvConfig;
     private RelativeEncoder pivotElvMotorEncoder;
-    private final ClosedLoopConfig pivotElvMotorController;
+    private final ClosedLoopConfig pivotElvPIDController;
 
     public ElevatorPivot() {
         //Setting the object's values
         pivotElvMotor = new SparkMax(15, MotorType.kBrushless);
         pivotElvMotorEncoder = pivotElvMotor.getEncoder();
-        pivotElvMotorController = new ClosedLoopConfig();
+        pivotElvPIDController = new ClosedLoopConfig();
 
         pivotElvConfig = new SparkMaxConfig();  //CONFIGURATIONS FOR Pivot Elevator MOTOR BELOW
         pivotElvConfig.idleMode(IdleMode.kBrake);
         pivotElvConfig.closedLoop.pid(1,0,0);
 
-        //Setting the PID values
-        pivotElvMotorController.pid(Constants.Swerve.angleKP, Constants.Swerve.angleKI, Constants.Swerve.angleKD);
+        
     }
 
    
