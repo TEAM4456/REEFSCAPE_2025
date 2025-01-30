@@ -2,7 +2,6 @@
 Below is copied exactly from elevator.java
 */
 package frc.robot.Subsystems;
-
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
@@ -15,6 +14,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.Constants.ElevatorPositions;
 
 public class IntakePivot extends SubsystemBase {
     private SparkMax intakePivotMotor;
@@ -22,7 +22,7 @@ public class IntakePivot extends SubsystemBase {
     private SparkClosedLoopController intakePivotPIDController;
     private SparkMaxConfig intakePivotConfig;
 
-    public intakePivot() {
+    public IntakePivot() {
         intakePivotMotor = new SparkMax(19, MotorType.kBrushless);
         intakePivotEncoder = intakePivotMotor.getEncoder();
         intakePivotConfig = new SparkMaxConfig();
