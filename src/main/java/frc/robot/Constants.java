@@ -45,6 +45,12 @@ public final class Constants {
           new Translation2d(-wheelBase / 2.0, trackWidth / 2.0),
           new Translation2d(-wheelBase / 2.0, -trackWidth / 2.0));
 
+    /* REEFSCAPE 2025 CORAL LEVELS (right now it's in inches off ground so number is lowkey wrong :/ )*/
+    public static final double l1 = 18;
+    public static final double l2 = 31.875;
+    public static final double l3 = 47.625;
+    public static final double l4 = 72;
+
     /* Swerve Voltage Compensation */
     public static final double voltageComp = 12.0;
 
@@ -166,6 +172,12 @@ public final class Constants {
     public static final double leftElevatorDown = 0;
 
     public static final double elevatorSpeed = .2;
+  }
+
+  public static final class ElevatorPivotPositions{
+    public static final double elevatorPivotUp = -150;
+    public static final double elevatorPivotDown = 0;
+    public static final double elevatorPivotSpeed = .2;
   }
  
 
