@@ -40,6 +40,32 @@ public class ElevatorPivot extends SubsystemBase {
         pivotElvConfig.idleMode(IdleMode.kBrake);
         pivotElvConfig.closedLoop.pid(1,0,0);
 
-        
     }
-}
+
+    public void elevatorPivotUp(){
+        pivotElvMotor.set(-Constants.ElevatorPivotPositions.elevatorPivotSpeed);
+      }
+      public void elevatorPivotDown(){
+        pivotElvMotor.set(Constants.ElevatorPivotPositions.elevatorPivotSpeed);
+      }
+      public void elevatorPivotStop()
+      {
+        pivotElvMotor.set(0);
+   }
+   public Command elevatorPivotUpCommand(){
+    return run(() -> elevatorPivotUp()).withTimeout(0.1);
+  }
+
+  public Command elevatorPivotDownCommand(){
+    return run(() -> elevatorPivotDown()).withTimeout(0.1);
+  }
+
+  public Command elevatorPivotStopCommand(){
+    return run(() -> elevatorPivotStop());
+  }
+  @Override
+    public void periodic(){
+      SmartDashboard.putNumber("elevatorPivotPosition",pivotElvMotorEncoder.getPosition());
+    }
+  }
+
