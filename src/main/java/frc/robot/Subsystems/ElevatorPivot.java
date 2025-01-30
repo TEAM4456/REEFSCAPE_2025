@@ -36,7 +36,4 @@ public class ElevatorPivot extends SubsystemBase {
 
         
     }
-
-   
-
 }
