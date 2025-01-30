@@ -1,12 +1,17 @@
 package frc.robot.Subsystems;
 
+
 // Imports for the linear actuator
+
+
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.config.ClosedLoopConfig;
+
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkMaxConfig;
+
 
 // Imports for the command system
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -17,6 +22,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class ElevatorPivot extends SubsystemBase {
+
 
     //Object declarations
     private SparkMax pivotElvMotor;
