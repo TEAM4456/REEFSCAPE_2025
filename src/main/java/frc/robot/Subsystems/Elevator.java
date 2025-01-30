@@ -67,7 +67,7 @@ public class Elevator extends SubsystemBase {
   /*Create manually controlled commands here */
 
    public Command elevatorUpCommand(){
-      return run(() -> elevatorUp());
+      return run(() -> elevatorUp()).withTimeout(0.1);
     }
 
     public Command elevatorDownCommand(){
