@@ -44,7 +44,7 @@ public class Vision extends SubsystemBase {
         //photonPoseEstimatorAngle = new PhotonPoseEstimator(fieldLayout, PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR, camera, Constants.VisionConstants.ROBOT_TO_LIMELIGHT1);
         //photonPoseEstimatorAngle.setMultiTagFallbackStrategy(PoseStrategy.LOWEST_AMBIGUITY);
 
-        photonPoseEstimatorFront = new PhotonPoseEstimator(fieldLayout, PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR, camera2, Constants.VisionConstants.ROBOT_TO_LIMELIGHT2);
+        photonPoseEstimatorFront = new PhotonPoseEstimator(fieldLayout, PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR, Constants.VisionConstants.ROBOT_TO_LIMELIGHT2);
         photonPoseEstimatorFront.setMultiTagFallbackStrategy(PoseStrategy.LOWEST_AMBIGUITY);
     }
     /* 
@@ -65,7 +65,7 @@ public class Vision extends SubsystemBase {
     public Optional<EstimatedRobotPose> getEstimatedPoseFront() {
         PhotonPipelineResult result2 = camera2.getLatestResult();
         if(result2.hasTargets()){
-         Optional<EstimatedRobotPose> robotPose = photonPoseEstimatorFront.update();
+         Optional<EstimatedRobotPose> robotPose = photonPoseEstimatorFront.update(result2);
          return robotPose;
                   
             
