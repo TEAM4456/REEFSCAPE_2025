@@ -12,6 +12,7 @@ import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkMaxConfig;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
 public class Climber extends SubsystemBase {
     // p - proportional gain value i,- integral gain value,d - derivative gain value
@@ -37,15 +38,17 @@ public class Climber extends SubsystemBase {
         rightClimberConfig = new SparkMaxConfig(); // CONFIGURATIONS FOR RIGHT CLIMBER MOTOR BELOW
         rightClimberConfig.idleMode(IdleMode.kBrake);
         rightClimberConfig.closedLoop.pid(1,0,0);
-        /*
+    }
+
+        
         public void climberUp() {
             leftClimberMotor.set(-Constants.ClimberPositions.climberSpeed);
             rightClimberMotor.set(Constants.ClimberPositions.climberSpeed);
         }
         public void climberDown() {
-            leftClimberMotor.set(-Constants.ClimberPositions.climberSpeed);
-            rightClimberMotor.set(Constants.ClimberPositions.climberSpeed);
+            leftClimberMotor.set(Constants.ClimberPositions.climberSpeed);
+            rightClimberMotor.set(-Constants.ClimberPositions.climberSpeed);
         }
-        */
+        
     }
-}
+

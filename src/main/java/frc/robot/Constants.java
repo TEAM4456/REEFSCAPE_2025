@@ -4,7 +4,6 @@ import java.util.HashMap;
 
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 
-import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Rotation3d;
@@ -178,6 +177,10 @@ public final class Constants {
     public static final double elevatorPivotUp = -150;
     public static final double elevatorPivotDown = 0;
     public static final double elevatorPivotSpeed = .2;
+  }
+
+  public static final class ClimberPositions{
+    public static final double climberSpeed = .2;
   }
  
 
