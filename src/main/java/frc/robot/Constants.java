@@ -173,10 +173,23 @@ public final class Constants {
     public static final double elevatorSpeed = .2;
   }
 
+  public static final class IntakePositions{
+    public static final double intakeUp = -150;
+    public static final double intakeDown = 0;
+
+    public static final double intakeSpeed = .2;
+  }
+
+  //All of these values aren't correct, they are just placeholders
+  //Variables have been set up though to be referenced within other classes
   public static final class ElevatorPivotPositions{
     public static final double elevatorPivotUp = -150;
     public static final double elevatorPivotDown = 0;
     public static final double elevatorPivotSpeed = .2;
+
+    public static final double elevatorPivotIntakePosition = 0.0;
+    public static final double elevatorPivotScoringPosition = 0.0;
+    public static final double elevatorPivotClimbPosition = 0.0;
   }
 
   public static final class ClimberPositions{
