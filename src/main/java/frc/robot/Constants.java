@@ -39,10 +39,10 @@ public final class Constants {
 
     public static final SwerveDriveKinematics swerveKinematics =
       new SwerveDriveKinematics(
-          new Translation2d(wheelBase / 2.0, trackWidth / 2.0),
-          new Translation2d(wheelBase / 2.0, -trackWidth / 2.0),
           new Translation2d(-wheelBase / 2.0, trackWidth / 2.0),
-          new Translation2d(-wheelBase / 2.0, -trackWidth / 2.0));
+          new Translation2d(-wheelBase / 2.0, -trackWidth / 2.0),
+          new Translation2d(wheelBase / 2.0, trackWidth / 2.0),
+          new Translation2d(wheelBase / 2.0, -trackWidth / 2.0));
 
     /* REEFSCAPE 2025 CORAL LEVELS (right now it's in inches off ground so number is lowkey wrong :/ )*/
     public static final double l1 = 18;
