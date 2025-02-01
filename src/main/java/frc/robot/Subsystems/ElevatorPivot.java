@@ -29,12 +29,14 @@ public class ElevatorPivot extends SubsystemBase {
   private SparkMaxConfig pivotElvConfig;
   private RelativeEncoder pivotElvMotorEncoder;
   private final ClosedLoopConfig pivotElvPIDController;
+  private SparkClosedLoopController pivotElvSet;
 
   public ElevatorPivot() {
     //Setting the object's values
     pivotElvMotor = new SparkMax(15, MotorType.kBrushless);
     pivotElvMotorEncoder = pivotElvMotor.getEncoder();
     pivotElvPIDController = new ClosedLoopConfig();
+    pivotElvSet = pivotElvMotor.getClosedLoopController();
 
     //CONFIGURATIONS FOR Pivot Elevator MOTOR BELOW
     pivotElvConfig = new SparkMaxConfig();
@@ -55,13 +57,13 @@ public class ElevatorPivot extends SubsystemBase {
   }
 
   public void elevatorPivotIntakePosition() {
-    pivotElvPIDController.setReference(Constants.ElevatorPivotPositions.elevatorPivotIntakePosition, SparkBase.ControlType.kPosition);
+    pivotElvSet.setReference(Constants.ElevatorPivotPositions.elevatorPivotIntakePosition, SparkBase.ControlType.kPosition);
   }
   public void elevatorPivotScoringPosition() {
-    pivotElvPIDController.setReference(Constants.ElevatorPivotPositions.elevatorPivotScoringPosition, SparkBase.ControlType.kPosition);
+    pivotElvSet.setReference(Constants.ElevatorPivotPositions.elevatorPivotScoringPosition, SparkBase.ControlType.kPosition);
   }
   public void elevatorPivotClimbPosition() {
-    pivotElvPIDController.setReference(Constants.ElevatorPivotPositions.elevatorPivotClimbPosition, SparkBase.ControlType.kPosition);
+    pivotElvSet.setReference(Constants.ElevatorPivotPositions.elevatorPivotClimbPosition, SparkBase.ControlType.kPosition);
   }
 
 
@@ -77,13 +79,13 @@ public class ElevatorPivot extends SubsystemBase {
   }
 
   public Command elevatorPivotIntakePositionCommand() {
-    return run(() -> elevatorPivotUp()).withTimeout(0.1);
+    return run(() -> elevatorPivotIntakePosition());
   }
   public Command elevatorPivotScoringPositionCommand() {
-    return run(() -> elevatorPivotDown()).withTimeout(0.1);
+    return run(() -> elevatorPivotScoringPosition());
   }
   public Command elevatorPivotClimbPositionCommand() {
-    return run(() -> elevatorPivotStop());
+    return run(() -> elevatorPivotClimbPosition());
   }
 
   @Override
