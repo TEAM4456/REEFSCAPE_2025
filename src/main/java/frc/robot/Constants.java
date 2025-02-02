@@ -4,7 +4,6 @@ import java.util.HashMap;
 
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 
-import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -47,6 +46,12 @@ public final class Constants {
           new Translation2d(wheelBase / 2.0, -trackWidth / 2.0),
           new Translation2d(-wheelBase / 2.0, trackWidth / 2.0),
           new Translation2d(-wheelBase / 2.0, -trackWidth / 2.0));
+
+    /* REEFSCAPE 2025 CORAL LEVELS (right now it's in inches off ground so number is lowkey wrong :/ )*/
+    public static final double l1 = 18;
+    public static final double l2 = 31.875;
+    public static final double l3 = 47.625;
+    public static final double l4 = 72;
 
     /* Swerve Voltage Compensation */
     public static final double voltageComp = 12.0;
@@ -100,7 +105,7 @@ public final class Constants {
       public static final int angleMotorID = 6;
       public static final int driveMotorID = 5;
       public static final int canCoderID = 11;
-      public static final Rotation2d angleOffset = Rotation2d.fromDegrees(158.37876);
+      public static final Rotation2d angleOffset = Rotation2d.fromDegrees(158.5);
       public static final SwerveModuleConstants constants =
           new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
     }
@@ -110,7 +115,7 @@ public final class Constants {
       public static final int angleMotorID = 8;
       public static final int driveMotorID = 7;
       public static final int canCoderID = 12;
-      public static final Rotation2d angleOffset = Rotation2d.fromDegrees(32.256);
+      public static final Rotation2d angleOffset = Rotation2d.fromDegrees(30.8);
       public static final SwerveModuleConstants constants =
           new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
     }
@@ -120,7 +125,7 @@ public final class Constants {
       public static final int angleMotorID = 4;
       public static final int driveMotorID = 3;
       public static final int canCoderID = 10;
-      public static final Rotation2d angleOffset = Rotation2d.fromDegrees(321.24);
+      public static final Rotation2d angleOffset = Rotation2d.fromDegrees(321.8);
       public static final SwerveModuleConstants constants =
           new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
     }
@@ -130,7 +135,7 @@ public final class Constants {
       public static final int angleMotorID = 2;
       public static final int driveMotorID = 1;
       public static final int canCoderID = 9;
-      public static final Rotation2d angleOffset = Rotation2d.fromDegrees(44.64828);
+      public static final Rotation2d angleOffset = Rotation2d.fromDegrees(40.5);
       public static final SwerveModuleConstants constants =
           new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
     }
@@ -169,6 +174,29 @@ public final class Constants {
     public static final double leftElevatorDown = 0;
 
     public static final double elevatorSpeed = .2;
+  }
+
+  public static final class IntakePositions{
+    public static final double intakeUp = -150;
+    public static final double intakeDown = 0;
+
+    public static final double intakeSpeed = .2;
+  }
+
+  //All of these values aren't correct, they are just placeholders
+  //Variables have been set up though to be referenced within other classes
+  public static final class ElevatorPivotPositions{
+    public static final double elevatorPivotUp = -150;
+    public static final double elevatorPivotDown = 0;
+    public static final double elevatorPivotSpeed = .2;
+
+    public static final double elevatorPivotIntakePosition = 0.0;
+    public static final double elevatorPivotScoringPosition = 0.0;
+    public static final double elevatorPivotClimbPosition = 0.0;
+  }
+
+  public static final class ClimberPositions{
+    public static final double climberSpeed = .2;
   }
  
 

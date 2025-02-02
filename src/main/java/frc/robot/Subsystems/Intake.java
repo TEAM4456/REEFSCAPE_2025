@@ -14,43 +14,43 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 
-public class Elevator extends SubsystemBase {
-    private SparkMax elevatorMotor;
-    private RelativeEncoder elevatorEncoder; 
-    private SparkClosedLoopController elevatorPIDController;
-    private SparkMaxConfig elevatorConfig;
+public class Intake extends SubsystemBase {
+    private SparkMax intakeMotor;
+    private RelativeEncoder intakeEncoder; 
+    private SparkClosedLoopController intakePIDController;
+    private SparkMaxConfig intakeConfig;
 
-  public Elevator() {
-    elevatorMotor = new SparkMax(18, MotorType.kBrushless);
-    elevatorEncoder = elevatorMotor.getEncoder();
-    elevatorConfig = new SparkMaxConfig();
-    elevatorConfig.idleMode(IdleMode.kBrake);
-    elevatorConfig.closedLoop.pid(1,0,0);
+  public Intake() {
+    intakeMotor = new SparkMax(18, MotorType.kBrushless);
+    intakeEncoder = intakeMotor.getEncoder();
+    intakeConfig = new SparkMaxConfig();
+    intakeConfig.idleMode(IdleMode.kBrake);
+    intakeConfig.closedLoop.pid(1,0,0);
 
     /*  // look into getting rid of this? Not sure if needed? Sat 1/25
-   //elevatorMotor.setOpenLoopRampRate(.5);
-    elevatorEncoder = elevatorMotor.getEncoder();
-    elevatorPIDController = elevatorMotor.getClosedLoopController();
+   //intakeMotor.setOpenLoopRampRate(.5);
+    intakeEncoder = intakeMotor.getEncoder();
+    intakePIDController = intakeMotor.getClosedLoopController();
 
-     //elevatorPIDController.pid(1, 0, 0);
-     elevatorPIDController.setFF(0); */
+     //intakePIDController.pid(1, 0, 0);
+     intakePIDController.setFF(0); */
    }
   
-  /* Create your elevator Methods (? correct terminology) here */
+  /* Create your intake Methods (? correct terminology) here */
 
-  //When called, this moves the motor at negative elevatorSpeed to go up
-  public void elevatorUp(){
-    elevatorMotor.set(-Constants.ElevatorPositions.elevatorSpeed);
+  //When called, this moves the motor at negative intakeSpeed to go up
+  public void intakeUp(){
+    intakeMotor.set(-Constants.IntakePositions.intakeSpeed);
   }
   //When called, this moves the moter at positive elevatorSpeed to go down
-  public void elevatorDown(){
-    elevatorMotor.set(Constants.ElevatorPositions.elevatorSpeed);
+  public void intakeDown(){
+    intakeMotor.set(Constants.IntakePositions.intakeSpeed);
   }
-   public void elevatorStop(){
-     elevatorMotor.set(0);
+   public void intakeStop(){
+     intakeMotor.set(0);
 }
-//     elevatorLeftPIDController.setReference(elevatorLeftEncoder.getPosition(), SparkMax.ControlType.kPosition);
-//     elevatorRightPIDController.setReference(elevatorRightEncoder.getPosition(), SparkMax.ControlType.kPosition);
+//     intakeLeftPIDController.setReference(intakeLeftEncoder.getPosition(), SparkMax.ControlType.kPosition);
+//     intakeRightPIDController.setReference(intakeRightEncoder.getPosition(), SparkMax.ControlType.kPosition);
   
 
 //   public void setElevatorPositionUp(){
@@ -65,16 +65,16 @@ public class Elevator extends SubsystemBase {
 
   /*Create manually controlled commands here */
 
-   public Command elevatorUpCommand(){
-      return run(() -> elevatorUp()).withTimeout(0.1);
+   public Command intakeUpCommand(){
+      return run(() -> intakeUp()).withTimeout(0.1);
     }
 
-    public Command elevatorDownCommand(){
-      return run(() -> elevatorDown()).withTimeout(0.1);
+    public Command intakeDownCommand(){
+      return run(() -> intakeDown()).withTimeout(0.1);
     }
 
-    public Command elevatorStopCommand(){
-      return run(() -> elevatorStop());
+    public Command intakeStopCommand(){
+      return run(() -> intakeStop());
     }
 
     /*Create set position commands here */
@@ -87,7 +87,6 @@ public class Elevator extends SubsystemBase {
 //   }
   @Override
     public void periodic(){
-      SmartDashboard.putNumber("elevatorPosition",elevatorEncoder.getPosition());
+      SmartDashboard.putNumber("intakePosition",intakeEncoder.getPosition());
     }
   }
-

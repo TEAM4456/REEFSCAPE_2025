@@ -1,5 +1,7 @@
+/*
+Below is copied exactly from elevator.java
+*/
 package frc.robot.Subsystems;
-
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
@@ -12,20 +14,27 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.Constants.ElevatorPositions;
 
+public class IntakePivot extends SubsystemBase {
+    private SparkMax intakePivotMotor;
+    private RelativeEncoder intakePivotEncoder; 
+    private SparkClosedLoopController intakePivotPIDController;
+    private SparkMaxConfig intakePivotConfig;
 
-public class Elevator extends SubsystemBase {
-    private SparkMax elevatorMotor;
-    private RelativeEncoder elevatorEncoder; 
-    private SparkClosedLoopController elevatorPIDController;
-    private SparkMaxConfig elevatorConfig;
+    public IntakePivot() {
+        intakePivotMotor = new SparkMax(19, MotorType.kBrushless);
+        intakePivotEncoder = intakePivotMotor.getEncoder();
+        intakePivotConfig = new SparkMaxConfig();
+        intakePivotConfig.idleMode(IdleMode.kBrake);
+        intakePivotConfig.closedLoop.pid(1,0,0);
+}
 
-  public Elevator() {
-    elevatorMotor = new SparkMax(18, MotorType.kBrushless);
-    elevatorEncoder = elevatorMotor.getEncoder();
-    elevatorConfig = new SparkMaxConfig();
-    elevatorConfig.idleMode(IdleMode.kBrake);
-    elevatorConfig.closedLoop.pid(1,0,0);
+public class intakePivot extends SubsystemBase {
+    private SparkMax intakePivotMotor;
+    private RelativeEncoder intakePivotEncoder; 
+    private SparkClosedLoopController intakePivotPIDController;
+    private SparkMaxConfig intakePivotConfig;
 
     /*  // look into getting rid of this? Not sure if needed? Sat 1/25
    //elevatorMotor.setOpenLoopRampRate(.5);
@@ -39,15 +48,15 @@ public class Elevator extends SubsystemBase {
   /* Create your elevator Methods (? correct terminology) here */
 
   //When called, this moves the motor at negative elevatorSpeed to go up
-  public void elevatorUp(){
-    elevatorMotor.set(-Constants.ElevatorPositions.elevatorSpeed);
+  public void intakePivotUp(){
+    intakePivotMotor.set(-Constants.ElevatorPositions.elevatorSpeed);
   }
   //When called, this moves the moter at positive elevatorSpeed to go down
-  public void elevatorDown(){
-    elevatorMotor.set(Constants.ElevatorPositions.elevatorSpeed);
+  public void intakePivotDown(){
+    intakePivotMotor.set(Constants.ElevatorPositions.elevatorSpeed);
   }
-   public void elevatorStop(){
-     elevatorMotor.set(0);
+   public void intakePivotStop(){
+    intakePivotMotor.set(0);
 }
 //     elevatorLeftPIDController.setReference(elevatorLeftEncoder.getPosition(), SparkMax.ControlType.kPosition);
 //     elevatorRightPIDController.setReference(elevatorRightEncoder.getPosition(), SparkMax.ControlType.kPosition);
@@ -65,16 +74,16 @@ public class Elevator extends SubsystemBase {
 
   /*Create manually controlled commands here */
 
-   public Command elevatorUpCommand(){
-      return run(() -> elevatorUp()).withTimeout(0.1);
+   public Command intakePivotUpCommand(){
+      return run(() -> intakePivotUp()).withTimeout(0.1);
     }
 
-    public Command elevatorDownCommand(){
-      return run(() -> elevatorDown()).withTimeout(0.1);
+    public Command intakePivotDownCommand(){
+      return run(() -> intakePivotDown()).withTimeout(0.1);
     }
 
-    public Command elevatorStopCommand(){
-      return run(() -> elevatorStop());
+    public Command intakePivotStopCommand(){
+      return run(() -> intakePivotStop());
     }
 
     /*Create set position commands here */
@@ -87,7 +96,7 @@ public class Elevator extends SubsystemBase {
 //   }
   @Override
     public void periodic(){
-      SmartDashboard.putNumber("elevatorPosition",elevatorEncoder.getPosition());
+      SmartDashboard.putNumber("intakePivotPosition",intakePivotEncoder.getPosition());
     }
   }
 
