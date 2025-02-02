@@ -5,6 +5,7 @@ import java.util.HashMap;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 
 import edu.wpi.first.math.VecBuilder;
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Rotation3d;
@@ -14,6 +15,8 @@ import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.lib.configs.SwerveModuleConstants;
 
@@ -175,5 +178,26 @@ public final class Constants {
       new Pose3d(new Translation3d(0,0,0), new Rotation3d(0, 0, 0)));
     public static final Transform3d ROBOT_TO_LIMELIGHT2 = new Transform3d(
         new Translation3d(.04, 0, 1.10), new Rotation3d(0, Math.toRadians(180), 0));
+  }
+
+  public static final class FieldConstants{
+    public static final double FIELD_LENGTH = 17.55; //field length in meters
+    public static final double FIELD_WIDTH = 8.05; //field width in meters
+    //while not technically a constant, the alliance color is used so frequently, we put it in constants so it can be easily accessed from anywhere in the code
+    public static boolean isRedAlliance(){
+      return DriverStation.getAlliance().isPresent() && DriverStation.getAlliance().get() == Alliance.Red;
+    }
+    //these functions allow us to mirror a pose2d / translation2d to the correct side of the field to match our alliance color
+    public static Translation2d flipTranslationForAlliance(Translation2d translation){
+      return isRedAlliance()? new Translation2d( FIELD_LENGTH - translation.getX(), translation.getY()): translation;
+    }
+    public static Pose2d flipPoseForAlliance(Pose2d pose){
+      return isRedAlliance()? new Pose2d( FIELD_LENGTH - pose.getX(), pose.getY(), Rotation2d.fromDegrees(180).minus(pose.getRotation())): pose;
+    }
+    //pose for scoring in processor
+
+    //poses for scoring coral
+
+  
   }
 }

@@ -2,8 +2,7 @@ package frc.robot;
 
 import java.time.Instant;
 
-import com.pathplanner.lib.auto.AutoBuilder;
-import com.pathplanner.lib.auto.NamedCommands;
+import com.pathplanner.lib.commands.PathPlannerAuto;
 //import com.pathplanner.lib.commands.FollowPathHolonomic;
 import com.pathplanner.lib.path.PathPlannerPath;
 
@@ -121,9 +120,8 @@ public class RobotContainer {
   //https://docs.wpilib.org/en/stable/docs/software/dashboards/smartdashboard/choosing-an-autonomous-program-from-smartdashboard.html 
   private void configureButtonBindings() {
     chooser.setDefaultOption("nothing", null);
-
+    chooser.addOption("Test Auto", new PathPlannerAuto("TestAuto"));
     //chooser.addOption("Center 1-2",autoCenter12());
-    
     
     
     /* Driver Buttons */
@@ -168,4 +166,6 @@ public class RobotContainer {
     return chooser.getSelected();
     //return null;
   }
+
+
 }

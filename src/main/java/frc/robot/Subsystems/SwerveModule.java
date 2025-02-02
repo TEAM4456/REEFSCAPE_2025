@@ -120,13 +120,17 @@ public class SwerveModule {
     turnConfig = new SparkMaxConfig();
     turnConfig
       .inverted(Constants.Swerve.angleInvert)
-      .idleMode(Constants.Swerve.angleNeutralMode);
+      .idleMode(Constants.Swerve.angleNeutralMode)
+      .smartCurrentLimit(20) //limits current to 20 amps
+      .voltageCompensation(12.0); //provides consistent power even if voltage drops
     turnConfig.encoder
       .positionConversionFactor(360/(12.8)); //changed from (360/(150/7)) to (360/12.8) to reflect steering gear ratio of MK4c
       //.velocityConversionFactor(1000);
     turnConfig.closedLoop
       .feedbackSensor(FeedbackSensor.kPrimaryEncoder)
-      .pid(Constants.Swerve.angleKP, Constants.Swerve.angleKI, Constants.Swerve.angleKD);
+      .pid(Constants.Swerve.angleKP, Constants.Swerve.angleKI, Constants.Swerve.angleKD)
+      .positionWrappingEnabled(true) // TODO test if this turns to nearest angle
+      .positionWrappingInputRange(0, 2 * Math.PI); //should allow motor to move in direction of nearest angle
     
     turnMotor.configure(turnConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
   }
