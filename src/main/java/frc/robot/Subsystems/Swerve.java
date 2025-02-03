@@ -109,6 +109,7 @@ public class Swerve extends SubsystemBase {
     }
 
     // Configure AutoBuilder last
+    //Need to setup in FRC PathPlanner App (GUI) before you can deploy code to robot.  Navigate to Settings in app once you open Robot Project
     AutoBuilder.configure(
       this::getPose, // Robot pose supplier
       this::resetPose, // Method to reset odometry (will be called if your auto has a starting pose)
