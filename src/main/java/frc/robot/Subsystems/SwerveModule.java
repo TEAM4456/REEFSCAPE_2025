@@ -130,7 +130,7 @@ public class SwerveModule {
       .feedbackSensor(FeedbackSensor.kPrimaryEncoder)
       .pid(Constants.Swerve.angleKP, Constants.Swerve.angleKI, Constants.Swerve.angleKD)
       .positionWrappingEnabled(true) // TODO test if this turns to nearest angle
-      .positionWrappingInputRange(0, 2 * 360); //should allow motor to move in direction of nearest angle (changed to 0-360 by CB)
+      .positionWrappingInputRange(0, 360); //should allow motor to move in direction of nearest angle (changed to 0-360 by CB)
     
     turnMotor.configure(turnConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
   }
