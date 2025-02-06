@@ -191,6 +191,7 @@ public final class Constants {
     public static final double elevatorPivotSpeed = .2;
 
     public static final double elevatorPivotCoralPickupPosition = 0.0;
+    public static final double elevatorPivotIntakePosition = 0.0;
     public static final double elevatorPivotClimbPosition = 0.0;
 
     public static final double elevatorPivotScoreL1 = 0.0;
@@ -198,6 +199,23 @@ public final class Constants {
     public static final double elevatorPivotScoreL3 = 0.0;
     public static final double elevatorPivotScoreL4 = 0.0;
   }
+public static final class IntakePivotPositions
+{
+    public static final double intakePivotUp = -150;
+    public static final double intakePivotDown = 0;
+    public static final double intakePivotSpeed = .2;
+
+    public static final double intakePivotIntakePosition = 0.0;
+    public static final double intakePivotScoringPosition = 0.0;
+    public static final double intakePivotClimbPosition = 0.0;
+  
+/* REEFSCAPE 2025 CORAL LEVELS (right now it's in inches off ground/arbitrary number so number is lowkey wrong :/ )*/
+  public static final double intakePivotScorel1 = 18;
+  public static final double intakePivotScorel2 = 31.875;
+  public static final double intakePivotScorel3 = 47.625;
+  public static final double intakePivotScorel4 = 72;
+  public static final double intakePivotCoralPickup = 50;
+}
 
   public static final class ClimberPositions{
     public static final double climberSpeed = .2;

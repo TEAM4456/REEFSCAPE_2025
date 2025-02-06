@@ -96,16 +96,16 @@ public class ElevatorPivot extends SubsystemBase {
   }
 
   public Command elevatorPivotScoreL1Command() {
-    return run(() -> elevatorPivotScoreL1().until(() -> (Math.abs(pivotElvMotorEncoder.getPosition() - Constants.ElevatorPivotPositions.elevatorPivotScoreL1) < 1)));
+    return run(() -> elevatorPivotScoreL1()).until(() -> (Math.abs(pivotElvMotorEncoder.getPosition() - Constants.ElevatorPivotPositions.elevatorPivotScoreL1) < 1));
   }
   public Command elevatorPivotScoreL2Command() {
-    return run(() -> elevatorPivotScoreL2().until(() -> (Math.abs(pivotElvMotorEncoder.getPosition() - Constants.ElevatorPivotPositions.elevatorPivotScoreL2) < 1)));
+    return run(() -> elevatorPivotScoreL2()).until(() -> (Math.abs(pivotElvMotorEncoder.getPosition() - Constants.ElevatorPivotPositions.elevatorPivotScoreL2) < 1));
   }
   public Command elevatorPivotScoreL3Command() {
-    return run(() -> elevatorPivotScoreL3().until(() -> (Math.abs(pivotElvMotorEncoder.getPosition() - Constants.ElevatorPivotPositions.elevatorPivotScoreL3) < 1)));
+    return run(() -> elevatorPivotScoreL3()).until(() -> (Math.abs(pivotElvMotorEncoder.getPosition() - Constants.ElevatorPivotPositions.elevatorPivotScoreL3) < 1));
   }
   public Command elevatorPivotScoreL4Command() {
-    return run(() -> elevatorPivotScoreL4().until(() -> (Math.abs(pivotElvMotorEncoder.getPosition() - Constants.ElevatorPivotPositions.elevatorPivotScoreL4) < 1)));
+    return run(() -> elevatorPivotScoreL4()).until(() -> (Math.abs(pivotElvMotorEncoder.getPosition() - Constants.ElevatorPivotPositions.elevatorPivotScoreL4) < 1));
   }
 
   @Override
