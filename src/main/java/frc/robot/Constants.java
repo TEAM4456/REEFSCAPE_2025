@@ -190,9 +190,13 @@ public final class Constants {
     public static final double elevatorPivotDown = 0;
     public static final double elevatorPivotSpeed = .2;
 
-    public static final double elevatorPivotIntakePosition = 0.0;
-    public static final double elevatorPivotScoringPosition = 0.0;
+    public static final double elevatorPivotCoralPickupPosition = 0.0;
     public static final double elevatorPivotClimbPosition = 0.0;
+
+    public static final double elevatorPivotScoreL1 = 0.0;
+    public static final double elevatorPivotScoreL2 = 0.0;
+    public static final double elevatorPivotScoreL3 = 0.0;
+    public static final double elevatorPivotScoreL4 = 0.0;
   }
 
   public static final class ClimberPositions{
