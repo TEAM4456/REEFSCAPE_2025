@@ -48,21 +48,27 @@ public class Elevator extends SubsystemBase {
   }
    public void elevatorStop(){
      elevatorMotor.set(0);
-}
+
 //     elevatorLeftPIDController.setReference(elevatorLeftEncoder.getPosition(), SparkMax.ControlType.kPosition);
 //     elevatorRightPIDController.setReference(elevatorRightEncoder.getPosition(), SparkMax.ControlType.kPosition);
   
 
-//   public void setElevatorPositionUp(){
-//     elevatorLeftPIDController.setReference(Constants.ElevatorPositions.leftElevatorUp, SparkMax.ControlType.kPosition);
-//     elevatorRightPIDController.setReference(Constants.ElevatorPositions.rightElevatorUp, SparkMax.ControlType.kPosition);
-//   }
-//   public void setElevatorPositionDown(){
-//     elevatorLeftPIDController.setReference(Constants.ElevatorPositions.leftElevatorDown, SparkMax.ControlType.kPosition);
-//     elevatorRightPIDController.setReference(Constants.ElevatorPositions.rightElevatorDown, SparkMax.ControlType.kPosition);
-//   }
-//   
+   public void elevatorScoreL1(){
+     elevatorPIDController.setReference(Constants.ElevatorPositions.ScoreL1, SparkMax.ControlType.kPosition);
+   }
 
+   public void elevatorScoreL2(){
+     elevatorPIDController.setReference(Constants.ElevatorPositions.ScoreL2, SparkMax.ControlType.kPosition);
+   }
+
+    public void elevatorScoreL3(){
+      elevatorPIDController.setReference(Constants.ElevatorPositions.ScoreL3, SparkMax.ControlType.kPosition);
+    }
+
+    public void elevatorScoreL4(){
+      elevatorPIDController.setReference(Constants.ElevatorPositions.ScoreL4, SparkMax.ControlType.kPosition);
+    }
+    
   /*Create manually controlled commands here */
 
    public Command elevatorUpCommand(){
