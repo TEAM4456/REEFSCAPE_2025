@@ -2,6 +2,7 @@ package frc.robot;
 
 import java.time.Instant;
 
+import com.ctre.phoenix6.controls.PositionVoltage;
 import com.pathplanner.lib.commands.PathPlannerAuto;
 //import com.pathplanner.lib.commands.FollowPathHolonomic;
 import com.pathplanner.lib.path.PathPlannerPath;
@@ -31,8 +32,10 @@ import frc.robot.Subsystems.Elevator;
 import frc.robot.Subsystems.Swerve;
 import frc.robot.Subsystems.Vision;
 import frc.robot.Commands.toggleSpeed;
-// import frc.robot.Commands.ElevatorDown;
-// import frc.robot.Commands.ElevatorUp;
+import frc.robot.Subsystems.ElevatorPivot;
+import frc.robot.Subsystems.Intake;
+import frc.robot.Subsystems.IntakePivot;
+
 
 
 /**
@@ -63,7 +66,9 @@ public class RobotContainer {
   private final Vision vision = new Vision();
   private final Swerve s_Swerve = new Swerve(vision);
   private final Elevator elevator = new Elevator();
-
+  private final ElevatorPivot elevatorPivot = new ElevatorPivot();
+  private final IntakePivot intakePivot = new IntakePivot();
+  private final Intake intake = new Intake();
   private final SendableChooser<Command> chooser;
 
 
@@ -89,7 +94,14 @@ public class RobotContainer {
     
     //Create othe commands that require multiple subsystems here
 
-
+      public Command stopMotorsAll(){
+        return new SequentialCommandGroup(
+          elevator.elevatorStopCommand(),
+          elevatorPivot.elevatorPivotStopCommand(),
+          intakePivot.intakePivotStopCommand(),
+          intake.intakeStopCommand()
+        );
+      }
 
 
     //Create Autonomous Routines here (sequences for first 15s of match)

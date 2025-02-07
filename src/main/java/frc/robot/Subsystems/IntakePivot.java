@@ -58,6 +58,31 @@ public class intakePivot extends SubsystemBase {
    public void intakePivotStop(){
     intakePivotMotor.set(0);
 }
+
+//format: subsystemScoreL1
+  public void intakePivotScoreL1()
+  {
+    intakePivotPIDController.setReference(Constants.IntakePivotPositions.intakePivotScorel1, SparkMax.ControlType.kPosition);
+  }
+  public void intakePivotScoreL2()
+  {
+    intakePivotPIDController.setReference(Constants.IntakePivotPositions.intakePivotScorel2, SparkMax.ControlType.kPosition);
+  }
+  public void intakePivotScoreL3()
+  {
+    intakePivotPIDController.setReference(Constants.IntakePivotPositions.intakePivotScorel3, SparkMax.ControlType.kPosition);
+  }
+  public void intakePivotScoreL4()
+  {
+    intakePivotPIDController.setReference(Constants.IntakePivotPositions.intakePivotScorel4, SparkMax.ControlType.kPosition);
+  }
+  public void intakePivotCoralPickup()
+  {
+    intakePivotPIDController.setReference(Constants.IntakePivotPositions.intakePivotCoralPickup, SparkMax.ControlType.kPosition);
+  }
+  
+
+
 //     elevatorLeftPIDController.setReference(elevatorLeftEncoder.getPosition(), SparkMax.ControlType.kPosition);
 //     elevatorRightPIDController.setReference(elevatorRightEncoder.getPosition(), SparkMax.ControlType.kPosition);
   
@@ -84,6 +109,27 @@ public class intakePivot extends SubsystemBase {
 
     public Command intakePivotStopCommand(){
       return run(() -> intakePivotStop());
+    }
+
+    public Command setIntakePivotScoreL1()
+    {
+      return run(() -> intakePivotScoreL1()).until(() -> (Math.abs(intakePivotEncoder.getPosition() - Constants.IntakePivotPositions.intakePivotScorel1) < 1));
+    }
+    public Command setIntakePivotScoreL2()
+    {
+      return run(() -> intakePivotScoreL2()).until(() -> (Math.abs(intakePivotEncoder.getPosition() - Constants.IntakePivotPositions.intakePivotScorel2) < 1));
+    }
+    public Command setIntakePivotScoreL3()
+    {
+      return run(() -> intakePivotScoreL3()).until(() -> (Math.abs(intakePivotEncoder.getPosition() - Constants.IntakePivotPositions.intakePivotScorel3) < 1));
+    }
+    public Command setIntakePivotScoreL4()
+    {
+      return run(() -> intakePivotScoreL4()).until(() -> (Math.abs(intakePivotEncoder.getPosition() - Constants.IntakePivotPositions.intakePivotScorel4) < 1));
+    }
+    public Command setIntakePivotCoralPickup()
+    {
+      return run(() -> intakePivotCoralPickup()).until(() -> (Math.abs(intakePivotEncoder.getPosition() - Constants.IntakePivotPositions.intakePivotCoralPickup) < 1));
     }
 
     /*Create set position commands here */
