@@ -35,6 +35,7 @@ import frc.robot.Commands.toggleSpeed;
 import frc.robot.Subsystems.ElevatorPivot;
 import frc.robot.Subsystems.Intake;
 import frc.robot.Subsystems.IntakePivot;
+import frc.robot.Subsystems.Climber;
 
 
 
@@ -69,6 +70,8 @@ public class RobotContainer {
   private final ElevatorPivot elevatorPivot = new ElevatorPivot();
   private final IntakePivot intakePivot = new IntakePivot();
   private final Intake intake = new Intake();
+  private final Climber climber = new Climber();
+
   private final SendableChooser<Command> chooser;
 
 
@@ -83,42 +86,36 @@ public class RobotContainer {
             () -> -driver.getRawAxis(strafeAxis),
             () -> driver.getRawAxis(rotationAxis)));
 
-
-    //Create Automated Commands here that make use of multiple subsystems [can be used in autonomous or teleop]
-    //(ex. auto coral station pickup: moves elevator and elevator pivot)
-    //See Crescendo's code for examples
-
-    //stop Feed and Shoot Motors
-    //See Crescendo's code for "stop Feed and Shoot Motors" at this location in code
-    //Placed here in RobotContainer because makes use of commands from multiple different subsystems? (Fact check this)
-    
-    //Create othe commands that require multiple subsystems here
-
-      public Command stopMotorsAll(){
-        return new SequentialCommandGroup(
-          elevator.elevatorStopCommand(),
-          elevatorPivot.elevatorPivotStopCommand(),
-          intakePivot.intakePivotStopCommand(),
-          intake.intakeStopCommand()
-        );
-      }
-
-
-    //Create Autonomous Routines here (sequences for first 15s of match)
-    //See Crescendo's code for examples
-
-
-
-
     //Puts Sendable Chooser on SmartDashboard
     chooser = new SendableChooser<Command>();
     SmartDashboard.putData("Auto:", chooser);
 
 
-
     // Configure the button bindings
     configureButtonBindings();  
   }
+
+  //Create Automated Commands here that make use of multiple subsystems [can be used in autonomous or teleop]
+    //(ex. auto coral station pickup: moves elevator and elevator pivot)
+    //See Crescendo's code for examples
+
+    
+    //Create othe commands that require multiple subsystems here
+
+    public Command stopMotorsAll(){
+      return new ParallelCommandGroup(
+        elevator.elevatorStopCommand(),
+        elevatorPivot.elevatorPivotStopCommand(),
+        intakePivot.intakePivotStopCommand(),
+        intake.intakeStopCommand(),
+        climber.climberStopCommand()
+      );
+    }
+
+
+  //Create Autonomous Routines here (sequences for first 15s of match)
+  //See Crescendo's code for examples
+
   /**
    * Use this method to define your button->command mappings. Buttons can be created by
    * instantiating a {@link GenericHID} or one of its subclasses ({@link
@@ -132,8 +129,10 @@ public class RobotContainer {
   //https://docs.wpilib.org/en/stable/docs/software/dashboards/smartdashboard/choosing-an-autonomous-program-from-smartdashboard.html 
   private void configureButtonBindings() {
     chooser.setDefaultOption("nothing", null);
+    
     chooser.addOption("Test Auto", new PathPlannerAuto("TestAuto"));
     //chooser.addOption("Center 1-2",autoCenter12());
+    //add rest of autonomous routines here
     
     
     /* Driver Buttons */

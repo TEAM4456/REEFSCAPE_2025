@@ -27,24 +27,21 @@ public class ElevatorPivot extends SubsystemBase {
   //Object declarations
   private SparkMax pivotElvMotor;
   private SparkMaxConfig pivotElvConfig;
-  private RelativeEncoder pivotElvMotorEncoder;
-  private final ClosedLoopConfig pivotElvPIDController;
-  private SparkClosedLoopController pivotElvSet;
+  private RelativeEncoder pivotElvEncoder;
+  private SparkClosedLoopController pivotElvPIDController;
 
   public ElevatorPivot() {
     //Setting the object's values
     pivotElvMotor = new SparkMax(15, MotorType.kBrushless);
-    pivotElvMotorEncoder = pivotElvMotor.getEncoder();
-    pivotElvPIDController = new ClosedLoopConfig();
-    pivotElvSet = pivotElvMotor.getClosedLoopController();
+    pivotElvEncoder = pivotElvMotor.getEncoder();
 
     //CONFIGURATIONS FOR Pivot Elevator MOTOR BELOW
     pivotElvConfig = new SparkMaxConfig();
     pivotElvConfig.idleMode(IdleMode.kBrake);
-    pivotElvConfig.closedLoop.pid(1,0,0);
+    pivotElvConfig.closedLoop.pidf(1,0,0,0);
   }
 
-
+  /*Manual Methods*/
   // Set's up the command for the elevator pivot movement
   public void elevatorPivotUp() {
     pivotElvMotor.set(-Constants.ElevatorPivotPositions.elevatorPivotSpeed);
@@ -56,27 +53,28 @@ public class ElevatorPivot extends SubsystemBase {
     pivotElvMotor.set(0);
   }
 
+  /*Set Position Methods*/
   public void elevatorPivotCoralPickupPosition() {
-    pivotElvSet.setReference(Constants.ElevatorPivotPositions.elevatorPivotIntakePosition, SparkBase.ControlType.kPosition);
+    pivotElvPIDController.setReference(Constants.ElevatorPivotPositions.elevatorPivotCoralPickupPosition, SparkBase.ControlType.kPosition);
   }
   public void elevatorPivotClimbPosition() {
-    pivotElvSet.setReference(Constants.ElevatorPivotPositions.elevatorPivotClimbPosition, SparkBase.ControlType.kPosition);
+    pivotElvPIDController.setReference(Constants.ElevatorPivotPositions.elevatorPivotClimbPosition, SparkBase.ControlType.kPosition);
   }
 
   public void elevatorPivotScoreL1() {
-    pivotElvSet.setReference(Constants.ElevatorPivotPositions.elevatorPivotScoreL1, SparkBase.ControlType.kPosition);
+    pivotElvPIDController.setReference(Constants.ElevatorPivotPositions.elevatorPivotScoreL1, SparkBase.ControlType.kPosition);
   }
   public void elevatorPivotScoreL2() {
-    pivotElvSet.setReference(Constants.ElevatorPivotPositions.elevatorPivotScoreL2, SparkBase.ControlType.kPosition);
+    pivotElvPIDController.setReference(Constants.ElevatorPivotPositions.elevatorPivotScoreL2, SparkBase.ControlType.kPosition);
   }
   public void elevatorPivotScoreL3() {
-    pivotElvSet.setReference(Constants.ElevatorPivotPositions.elevatorPivotScoreL3, SparkBase.ControlType.kPosition);
+    pivotElvPIDController.setReference(Constants.ElevatorPivotPositions.elevatorPivotScoreL3, SparkBase.ControlType.kPosition);
   }
   public void elevatorPivotScoreL4() {
-    pivotElvSet.setReference(Constants.ElevatorPivotPositions.elevatorPivotScoreL4, SparkBase.ControlType.kPosition);
+    pivotElvPIDController.setReference(Constants.ElevatorPivotPositions.elevatorPivotScoreL4, SparkBase.ControlType.kPosition);
   }
 
-
+  /*Create manually controlled commands here */
   // Run's the commands for elevator pivot movement
   public Command elevatorPivotUpCommand() {
     return run(() -> elevatorPivotUp()).withTimeout(0.1);
@@ -88,6 +86,7 @@ public class ElevatorPivot extends SubsystemBase {
     return run(() -> elevatorPivotStop());
   }
 
+  /*Create set position commands here */
   public Command elevatorPivotCoralPickupPositionCommand() {
     return run(() -> elevatorPivotCoralPickupPosition());
   }
@@ -96,20 +95,20 @@ public class ElevatorPivot extends SubsystemBase {
   }
 
   public Command elevatorPivotScoreL1Command() {
-    return run(() -> elevatorPivotScoreL1()).until(() -> (Math.abs(pivotElvMotorEncoder.getPosition() - Constants.ElevatorPivotPositions.elevatorPivotScoreL1) < 1));
+    return run(() -> elevatorPivotScoreL1()).until(() -> (Math.abs(pivotElvEncoder.getPosition() - Constants.ElevatorPivotPositions.elevatorPivotScoreL1) < 1));
   }
   public Command elevatorPivotScoreL2Command() {
-    return run(() -> elevatorPivotScoreL2()).until(() -> (Math.abs(pivotElvMotorEncoder.getPosition() - Constants.ElevatorPivotPositions.elevatorPivotScoreL2) < 1));
+    return run(() -> elevatorPivotScoreL2()).until(() -> (Math.abs(pivotElvEncoder.getPosition() - Constants.ElevatorPivotPositions.elevatorPivotScoreL2) < 1));
   }
   public Command elevatorPivotScoreL3Command() {
-    return run(() -> elevatorPivotScoreL3()).until(() -> (Math.abs(pivotElvMotorEncoder.getPosition() - Constants.ElevatorPivotPositions.elevatorPivotScoreL3) < 1));
+    return run(() -> elevatorPivotScoreL3()).until(() -> (Math.abs(pivotElvEncoder.getPosition() - Constants.ElevatorPivotPositions.elevatorPivotScoreL3) < 1));
   }
   public Command elevatorPivotScoreL4Command() {
-    return run(() -> elevatorPivotScoreL4()).until(() -> (Math.abs(pivotElvMotorEncoder.getPosition() - Constants.ElevatorPivotPositions.elevatorPivotScoreL4) < 1));
+    return run(() -> elevatorPivotScoreL4()).until(() -> (Math.abs(pivotElvEncoder.getPosition() - Constants.ElevatorPivotPositions.elevatorPivotScoreL4) < 1));
   }
 
   @Override
     public void periodic(){
-      SmartDashboard.putNumber("elevatorPivotPosition",pivotElvMotorEncoder.getPosition());
+      SmartDashboard.putNumber("elevatorPivotPosition",pivotElvEncoder.getPosition());
     }
 }

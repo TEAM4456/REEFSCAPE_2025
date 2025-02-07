@@ -11,6 +11,7 @@ import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkMaxConfig;
 
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -31,15 +32,17 @@ public class Climber extends SubsystemBase {
         leftClimberEncoder =  leftClimberMotor.getEncoder(); // sets up left climber motor encoder 
         leftClimberConfig = new SparkMaxConfig();  // CONFIGURATIONS FOR LEFT CLIMBER MOTOR BELOW
         leftClimberConfig.idleMode(IdleMode.kBrake);
-        leftClimberConfig.closedLoop.pid(1,0,0);
+        leftClimberConfig.closedLoop.pidf(1,0,0,0);
 
         rightClimberMotor = new SparkMax(17, MotorType.kBrushless); // sets up right climber motor
         rightClimberEncoder =  rightClimberMotor.getEncoder(); // sets up right climber motor encoder
         rightClimberConfig = new SparkMaxConfig(); // CONFIGURATIONS FOR RIGHT CLIMBER MOTOR BELOW
         rightClimberConfig.idleMode(IdleMode.kBrake);
-        rightClimberConfig.closedLoop.pid(1,0,0);
+        rightClimberConfig.closedLoop.pidf(1,0,0,0);
     }
+    //Create your climber Methods here
 
+    /*Manual Methods */
         
         public void climberUp() {
             leftClimberMotor.set(-Constants.ClimberPositions.climberSpeed);
@@ -49,5 +52,22 @@ public class Climber extends SubsystemBase {
             leftClimberMotor.set(Constants.ClimberPositions.climberSpeed);
             rightClimberMotor.set(-Constants.ClimberPositions.climberSpeed);
         }
+
+        public void climberStop() {
+            leftClimberMotor.set(0);
+            rightClimberMotor.set(0);
+        }
+
+    /*Set Position Methods */
+
+    /*Create manually controlled commands here */
+    
+    
+    public Command climberStopCommand(){
+      return run(() -> climberStop());
+    }
+
+
+    /*Create set position commands here */
         
     }

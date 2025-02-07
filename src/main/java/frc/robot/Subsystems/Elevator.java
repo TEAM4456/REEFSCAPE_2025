@@ -25,19 +25,14 @@ public class Elevator extends SubsystemBase {
     elevatorEncoder = elevatorMotor.getEncoder();
     elevatorConfig = new SparkMaxConfig();
     elevatorConfig.idleMode(IdleMode.kBrake);
-    elevatorConfig.closedLoop.pid(1,0,0);
-
-    /*  // look into getting rid of this? Not sure if needed? Sat 1/25
-   //elevatorMotor.setOpenLoopRampRate(.5);
-    elevatorEncoder = elevatorMotor.getEncoder();
-    elevatorPIDController = elevatorMotor.getClosedLoopController();
-
-     //elevatorPIDController.pid(1, 0, 0);
-     elevatorPIDController.setFF(0); */
+    elevatorConfig.closedLoop.pidf(1,0,0,0);
+    elevatorConfig.openLoopRampRate(0.5);
+    elevatorConfig.smartCurrentLimit(40);
    }
   
-  /* Create your elevator Methods (? correct terminology) here */
+  /* Create your elevator Methods here */
 
+  /*Manual Methods*/
   //When called, this moves the motor at negative elevatorSpeed to go up
   public void elevatorUp(){
     elevatorMotor.set(-Constants.ElevatorPositions.elevatorSpeed);
@@ -48,27 +43,25 @@ public class Elevator extends SubsystemBase {
   }
    public void elevatorStop(){
      elevatorMotor.set(0);
-
-//     elevatorLeftPIDController.setReference(elevatorLeftEncoder.getPosition(), SparkMax.ControlType.kPosition);
-//     elevatorRightPIDController.setReference(elevatorRightEncoder.getPosition(), SparkMax.ControlType.kPosition);
+  }
   
-
+  /*Set Position Methods*/
    public void elevatorScoreL1(){
-     elevatorPIDController.setReference(Constants.ElevatorPositions.ScoreL1, SparkMax.ControlType.kPosition);
+     elevatorPIDController.setReference(Constants.ElevatorPositions.ElevatorScoreL1, SparkMax.ControlType.kPosition);
    }
 
    public void elevatorScoreL2(){
-     elevatorPIDController.setReference(Constants.ElevatorPositions.ScoreL2, SparkMax.ControlType.kPosition);
+     elevatorPIDController.setReference(Constants.ElevatorPositions.ElevatorScoreL2, SparkMax.ControlType.kPosition);
    }
 
     public void elevatorScoreL3(){
-      elevatorPIDController.setReference(Constants.ElevatorPositions.ScoreL3, SparkMax.ControlType.kPosition);
+      elevatorPIDController.setReference(Constants.ElevatorPositions.ElevatorScoreL3, SparkMax.ControlType.kPosition);
     }
 
     public void elevatorScoreL4(){
-      elevatorPIDController.setReference(Constants.ElevatorPositions.ScoreL4, SparkMax.ControlType.kPosition);
+      elevatorPIDController.setReference(Constants.ElevatorPositions.ElevatorScoreL4, SparkMax.ControlType.kPosition);
     }
-    
+
   /*Create manually controlled commands here */
 
    public Command elevatorUpCommand(){
@@ -85,12 +78,13 @@ public class Elevator extends SubsystemBase {
 
     /*Create set position commands here */
 
-//  public Command setElevatorPositionUpCommand(){
-//     return run(() -> setElevatorPositionUp()).until(() -> (Math.abs(elevatorRightEncoder.getPosition() - Constants.ElevatorPositions.rightElevatorUp) < 1) && (Math.abs(elevatorLeftEncoder.getPosition() - Constants.ElevatorPositions.leftElevatorUp) < 1));
-//   }
-//   public Command setElevatorPositionDownCommand(){
-//     return run(() -> setElevatorPositionDown()).until(() -> (Math.abs(elevatorRightEncoder.getPosition() - Constants.ElevatorPositions.rightElevatorDown) < 1) && (Math.abs(elevatorLeftEncoder.getPosition() - Constants.ElevatorPositions.leftElevatorDown) < 1));
-//   }
+    public Command elevatorScoreL1Command(){
+      return run(() -> elevatorScoreL1()).until(() -> (Math.abs(elevatorEncoder.getPosition() - Constants.ElevatorPositions.ElevatorScoreL1) < 1));
+    }
+
+
+
+
   @Override
     public void periodic(){
       SmartDashboard.putNumber("elevatorPosition",elevatorEncoder.getPosition());

@@ -47,12 +47,6 @@ public final class Constants {
           new Translation2d(-wheelBase / 2.0, trackWidth / 2.0),
           new Translation2d(-wheelBase / 2.0, -trackWidth / 2.0));
 
-    /* REEFSCAPE 2025 CORAL LEVELS (right now it's in inches off ground so number is lowkey wrong :/ )*/
-    public static final double l1 = 18;
-    public static final double l2 = 31.875;
-    public static final double l3 = 47.625;
-    public static final double l4 = 72;
-
     /* Swerve Voltage Compensation */
     public static final double voltageComp = 12.0;
 
@@ -167,31 +161,35 @@ public final class Constants {
   }
 
   public static final class ElevatorPositions{
-    public static final double rightElevatorUp = -150;
-    public static final double rightElevatorDown = 0;
+    public static final double ElevatorScoreL1 = 0;
+    public static final double ElevatorScoreL2 = 0;
+    public static final double ElevatorScoreL3 = 0;
+    public static final double ElevatorScoreL4 = 0;
 
-    public static final double leftElevatorUp = 150;
-    public static final double leftElevatorDown = 0;
+    public static final double ElevatorCoralPickupPosition = 0.0;
+    public static final double ElevatorClimbPosition = 0.0;
+    
+    public static final double ElevatorMax = 0;
+    public static final double ElevatorMin = 0;
 
     public static final double elevatorSpeed = .2;
   }
 
-  public static final class IntakePositions{
-    public static final double intakeUp = -150;
-    public static final double intakeDown = 0;
-
-    public static final double intakeSpeed = .2;
+  public static final class IntakeSpeeds{
+    public static final double intakePickupCoral = -150;
+    public static final double intakeScoreCoral = 0;
   }
 
   //All of these values aren't correct, they are just placeholders
   //Variables have been set up though to be referenced within other classes
   public static final class ElevatorPivotPositions{
-    public static final double elevatorPivotUp = -150;
-    public static final double elevatorPivotDown = 0;
+  
     public static final double elevatorPivotSpeed = .2;
 
+    public static final double elevatorPivotMax = 0;
+    public static final double elevatorPivotMin = 0;
+
     public static final double elevatorPivotCoralPickupPosition = 0.0;
-    public static final double elevatorPivotIntakePosition = 0.0;
     public static final double elevatorPivotClimbPosition = 0.0;
 
     public static final double elevatorPivotScoreL1 = 0.0;
@@ -199,26 +197,27 @@ public final class Constants {
     public static final double elevatorPivotScoreL3 = 0.0;
     public static final double elevatorPivotScoreL4 = 0.0;
   }
-public static final class IntakePivotPositions
-{
-    public static final double intakePivotUp = -150;
-    public static final double intakePivotDown = 0;
+public static final class IntakePivotPositions{
+   
     public static final double intakePivotSpeed = .2;
 
-    public static final double intakePivotIntakePosition = 0.0;
-    public static final double intakePivotScoringPosition = 0.0;
+    public static final double intakePivotMax = 0;
+    public static final double intakePivotMin = 0;
+
+    public static final double intakePivotCoralPickupPosition = 0.0;
     public static final double intakePivotClimbPosition = 0.0;
   
 /* REEFSCAPE 2025 CORAL LEVELS (right now it's in inches off ground/arbitrary number so number is lowkey wrong :/ )*/
-  public static final double intakePivotScorel1 = 18;
-  public static final double intakePivotScorel2 = 31.875;
-  public static final double intakePivotScorel3 = 47.625;
-  public static final double intakePivotScorel4 = 72;
-  public static final double intakePivotCoralPickup = 50;
+  public static final double intakePivotScoreL1 = 18;
+  public static final double intakePivotScoreL2 = 31.875;
+  public static final double intakePivotScoreL3 = 47.625;
+  public static final double intakePivotScoreL4 = 72;
+  
 }
 
   public static final class ClimberPositions{
     public static final double climberSpeed = .2;
+    public static final double climbPosition = .2;
   }
  
 
