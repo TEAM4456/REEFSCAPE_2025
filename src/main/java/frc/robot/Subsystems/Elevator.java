@@ -32,20 +32,22 @@ public class Elevator extends SubsystemBase {
   
   /* Create your elevator Methods here */
 
-  /*Manual Methods*/
-  //When called, this moves the motor at negative elevatorSpeed to go up
+  /*Manual Methods, button needs to be held for movement*/
+
+  //Moves the motor at negative elevatorSpeed to go up
   public void elevatorUp(){
     elevatorMotor.set(-Constants.ElevatorPositions.elevatorSpeed);
   }
-  //When called, this moves the moter at positive elevatorSpeed to go down
+  //Moves the moter at positive elevatorSpeed to go down
   public void elevatorDown(){
     elevatorMotor.set(Constants.ElevatorPositions.elevatorSpeed);
   }
+  //Stops the motor movment
    public void elevatorStop(){
      elevatorMotor.set(0);
   }
   
-  /*Set Position Methods*/
+  /*Set Position Methods, button is pressed once for movement*/
    public void elevatorScoreL1(){
      elevatorPIDController.setReference(Constants.ElevatorPositions.ElevatorScoreL1, SparkMax.ControlType.kPosition);
    }
@@ -62,7 +64,9 @@ public class Elevator extends SubsystemBase {
       elevatorPIDController.setReference(Constants.ElevatorPositions.ElevatorScoreL4, SparkMax.ControlType.kPosition);
     }
 
-  /*Create manually controlled commands here */
+  /*Create manually controlled commands here
+   Refrence these in the robot run file
+  */
 
    public Command elevatorUpCommand(){
       return run(() -> elevatorUp()).withTimeout(0.1);
@@ -81,8 +85,15 @@ public class Elevator extends SubsystemBase {
     public Command elevatorScoreL1Command(){
       return run(() -> elevatorScoreL1()).until(() -> (Math.abs(elevatorEncoder.getPosition() - Constants.ElevatorPositions.ElevatorScoreL1) < 1));
     }
-
-
+    public Command elevatorScoreL2Command(){
+      return run(() -> elevatorScoreL2()).until(() -> (Math.abs(elevatorEncoder.getPosition() - Constants.ElevatorPositions.ElevatorScoreL2) < 1));
+    }
+    public Command elevatorScoreL3Command(){
+      return run(() -> elevatorScoreL3()).until(() -> (Math.abs(elevatorEncoder.getPosition() - Constants.ElevatorPositions.ElevatorScoreL3) < 1));
+    }
+    public Command elevatorScoreL4Command(){
+      return run(() -> elevatorScoreL4()).until(() -> (Math.abs(elevatorEncoder.getPosition() - Constants.ElevatorPositions.ElevatorScoreL4) < 1));
+    }
 
 
   @Override
