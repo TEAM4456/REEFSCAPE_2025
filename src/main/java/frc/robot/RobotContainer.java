@@ -84,7 +84,7 @@ public class RobotContainer {
             s_Swerve,
             () -> -driver.getRawAxis(translationAxis),
             () -> -driver.getRawAxis(strafeAxis),
-            () -> driver.getRawAxis(rotationAxis)));
+            () -> -driver.getRawAxis(rotationAxis)));
 
     //Puts Sendable Chooser on SmartDashboard
     chooser = new SendableChooser<Command>();
@@ -107,7 +107,8 @@ public class RobotContainer {
         elevator.elevatorStopCommand(),
         elevatorPivot.elevatorPivotStopCommand(),
         intakePivot.intakePivotStopCommand(),
-        intake.intakeStopCommand(),
+        intake.leftIntakeStopCommand(),
+        intake.rightIntakeStopCommand(),
         climber.climberStopCommand()
       );
     }
@@ -142,15 +143,17 @@ public class RobotContainer {
         s_Swerve,
         () -> -driver.getRawAxis(translationAxis),
         () -> -driver.getRawAxis(strafeAxis),
-        () -> driver.getRawAxis(rotationAxis)));
-
+        () -> -driver.getRawAxis(rotationAxis)));
+    
+    driver.start().whileTrue(stopMotorsAll());
     //XBOX CODE FOR ELEVATOR UP AND ELEVATOR DOWN, RIGHT TRIGGER RAISES
     //THE ELEVATOR AND LEFT TRIGGER LOWERS THE ELEVATOR, a BUTTON STOPS THE ELEVATOR 
     //CHANGE MADE SATURDAY 1-25
 
     driver.rightTrigger().whileTrue(elevator.elevatorUpCommand());
+    //driver.rightTrigger().whileFalse(elevator.elevatorStopCommand());
     driver.leftTrigger().whileTrue(elevator.elevatorDownCommand());
-    driver.a().whileTrue(elevator.elevatorStopCommand());
+    
 
     //Driver #2
     second.back().toggleOnTrue(
@@ -158,7 +161,9 @@ public class RobotContainer {
         s_Swerve,
         () -> -second.getRawAxis(translationAxis),
         () -> -second.getRawAxis(strafeAxis),
-        () -> second.getRawAxis(rotationAxis)));
+        () -> -second.getRawAxis(rotationAxis)));
+
+    second.start().whileTrue(stopMotorsAll());
   }
   public Swerve getSwerve(){
     return s_Swerve;

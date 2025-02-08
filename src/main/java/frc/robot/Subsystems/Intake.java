@@ -1,13 +1,12 @@
 package frc.robot.Subsystems;
 
-import com.revrobotics.spark.SparkMax;
-import com.revrobotics.spark.config.SparkMaxConfig;
-import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkClosedLoopController;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
+import com.revrobotics.spark.SparkMax;
+import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
+import com.revrobotics.spark.config.SparkMaxConfig;
 
-import edu.wpi.first.wpilibj.motorcontrol.Spark;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -34,7 +33,7 @@ public class Intake extends SubsystemBase {
     rightIntakeConfig.idleMode(IdleMode.kBrake);
     rightIntakeConfig.closedLoop.pidf(1,0,0,0);
 
-    leftIntakeMotor = new SparkMax(19, MotorType.kBrushless);
+    leftIntakeMotor = new SparkMax(20, MotorType.kBrushless);
     leftIntakeEncoder = rightIntakeMotor.getEncoder();
     leftIntakeConfig = new SparkMaxConfig();
     leftIntakeConfig.idleMode(IdleMode.kBrake);

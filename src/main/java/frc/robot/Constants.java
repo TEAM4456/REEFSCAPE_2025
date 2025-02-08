@@ -41,6 +41,7 @@ public final class Constants {
     public static final double angleGearRatio = (12.8 / 1.0); //For MK4c swerve drive
 
     public static final SwerveDriveKinematics swerveKinematics =
+    //XY plane is robot relative with +x is forward (front of robot) and +y is left
       new SwerveDriveKinematics(
           new Translation2d(-wheelBase / 2.0, -trackWidth / 2.0), // Mod 0
           new Translation2d(-wheelBase / 2.0, trackWidth / 2.0), // Mod 1
@@ -86,7 +87,7 @@ public final class Constants {
     public static final IdleMode driveNeutralMode = IdleMode.kBrake;
 
     /* Motor Inverts */
-    public static final boolean driveInvert = false;
+    public static final boolean driveInvert = false; //not inverted when motors are mounted from above on SDS modules (ex. MK4c)
     public static final boolean angleInvert = false;
 
     /* Angle Encoder Invert */
