@@ -359,7 +359,7 @@ public class Swerve extends SubsystemBase {
     SmartDashboard.putBoolean("Front Estimate Present", visionEstimate.isPresent());
     SmartDashboard.putBoolean("Front AprilTag Present", visionEstimate.isPresent());
 
-    keepOdometryOnField();
+    //keepOdometryOnField();
     field.setRobotPose(getPose());
 
     for (SwerveModule mod : mSwerveMods) {

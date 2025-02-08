@@ -42,10 +42,10 @@ public final class Constants {
 
     public static final SwerveDriveKinematics swerveKinematics =
       new SwerveDriveKinematics(
-          new Translation2d(wheelBase / 2.0, trackWidth / 2.0),
-          new Translation2d(wheelBase / 2.0, -trackWidth / 2.0),
-          new Translation2d(-wheelBase / 2.0, trackWidth / 2.0),
-          new Translation2d(-wheelBase / 2.0, -trackWidth / 2.0));
+          new Translation2d(-wheelBase / 2.0, -trackWidth / 2.0), // Mod 0
+          new Translation2d(-wheelBase / 2.0, trackWidth / 2.0), // Mod 1
+          new Translation2d(wheelBase / 2.0, -trackWidth / 2.0), // Mod 2
+          new Translation2d(wheelBase / 2.0, trackWidth / 2.0)); // Mod 3
 
     /* Swerve Voltage Compensation */
     public static final double voltageComp = 12.0;
@@ -86,8 +86,8 @@ public final class Constants {
     public static final IdleMode driveNeutralMode = IdleMode.kBrake;
 
     /* Motor Inverts */
-    public static final boolean driveInvert = true;
-    public static final boolean angleInvert = true;
+    public static final boolean driveInvert = false;
+    public static final boolean angleInvert = false;
 
     /* Angle Encoder Invert */
     public static final boolean canCoderInvert = false;
