@@ -65,6 +65,9 @@ public class IntakePivot extends SubsystemBase {
   public void intakePivotCoralPickupPosition(){
     intakePivotPIDController.setReference(Constants.IntakePivotPositions.intakePivotCoralPickupPosition, SparkMax.ControlType.kPosition);
   }
+  public void intakePivotClimbPosition(){
+    intakePivotPIDController.setReference(Constants.IntakePivotPositions.intakePivotClimbPosition, SparkMax.ControlType.kPosition);
+  }
   
 
 
@@ -101,6 +104,9 @@ public class IntakePivot extends SubsystemBase {
    
     public Command setIntakePivotCoralPickup(){
       return run(() -> intakePivotCoralPickupPosition()).until(() -> (Math.abs(intakePivotEncoder.getPosition() - Constants.IntakePivotPositions.intakePivotCoralPickupPosition) < 1));
+    }
+    public Command setIntakePivotClimbPosition(){
+      return run(() -> intakePivotClimbPosition()).until(() -> (Math.abs(intakePivotEncoder.getPosition() - Constants.IntakePivotPositions.intakePivotClimbPosition) < 1));
     }
 
     ;
