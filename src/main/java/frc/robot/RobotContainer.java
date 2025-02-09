@@ -1,6 +1,7 @@
 package frc.robot;
 
 import java.time.Instant;
+import java.util.function.BooleanSupplier;
 
 import com.ctre.phoenix6.controls.PositionVoltage;
 import com.pathplanner.lib.commands.PathPlannerAuto;
