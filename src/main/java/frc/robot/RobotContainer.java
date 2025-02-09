@@ -1,12 +1,19 @@
 package frc.robot;
 
+import java.io.IOException;
 import java.time.Instant;
 import java.util.function.BooleanSupplier;
 
+import org.json.simple.parser.ParseException;
+
 import com.ctre.phoenix6.controls.PositionVoltage;
+import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.commands.PathPlannerAuto;
+import com.pathplanner.lib.commands.FollowPathCommand;
 //import com.pathplanner.lib.commands.FollowPathHolonomic;
 import com.pathplanner.lib.path.PathPlannerPath;
+import com.pathplanner.lib.util.FileVersionException;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -88,7 +95,7 @@ public class RobotContainer {
             () -> -driver.getRawAxis(rotationAxis)));
 
     //Puts Sendable Chooser on SmartDashboard
-    chooser = new SendableChooser<Command>();
+    chooser = AutoBuilder.buildAutoChooser();
     SmartDashboard.putData("Auto:", chooser);
 
 
@@ -118,6 +125,29 @@ public class RobotContainer {
   //Create Autonomous Routines here (sequences for first 15s of match)
   //See Crescendo's code for examples
 
+    public Command testAutotoAprilTag13(){
+      try {
+        return new SequentialCommandGroup(
+          AutoBuilder.followPath(PathPlannerPath.fromPathFile("Move Towards April Tag 13")),
+          new WaitCommand(1)
+        );
+      } catch (FileVersionException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+      } catch (IOException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+      } catch (ParseException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+      }
+      return null;
+    }
+
+    public Command aprilTag13Auto (){
+      return new PathPlannerAuto("April Tag 13 Auto");
+    }
+
   /**
    * Use this method to define your button->command mappings. Buttons can be created by
    * instantiating a {@link GenericHID} or one of its subclasses ({@link
@@ -133,6 +163,7 @@ public class RobotContainer {
     chooser.setDefaultOption("nothing", null);
     
     chooser.addOption("Test Auto", new PathPlannerAuto("TestAuto"));
+    chooser.addOption("Move Towards April Tag 13", testAutotoAprilTag13());
     //chooser.addOption("Center 1-2",autoCenter12());
     //add rest of autonomous routines here
     
