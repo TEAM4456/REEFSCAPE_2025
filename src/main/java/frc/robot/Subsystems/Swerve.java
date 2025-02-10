@@ -47,7 +47,7 @@ public class Swerve extends SubsystemBase {
 
   public Swerve(Vision v) {
     this.photonVision = v;
-    m_gyro = new AHRS(NavXComType.kMXP_SPI); // FROM PUBLIC CLASS AHRS DAN_F *Changed to updated studica syntax By B.Mcc
+    m_gyro = new AHRS(NavXComType.kMXP_SPI); // Check to make sure SPI switch is flicked "ON" on the NavX 
     // .configFactoryDefault();
     zeroHeading();
     mSwerveMods = new SwerveModule[] {
