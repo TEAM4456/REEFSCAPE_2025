@@ -64,6 +64,7 @@ public class Swerve extends SubsystemBase {
 
     var stateStdDevs = VecBuilder.fill(0.1, 0.1, Units.degreesToRadians(5));
     var visionStdDevs = VecBuilder.fill(0.01, 0.01, Units.degreesToRadians(10));
+    // info on how to set up the SwerveDrivePoseEstimator can be found here: file:///C:/Users/Public/wpilib/2025/documentation/java/edu/wpi/first/math/estimator/SwerveDrivePoseEstimator.html
 
     swerveOdometry = new SwerveDrivePoseEstimator(// FROM CLASS SwerveDrivePoseEstimator DAN_F
         Constants.Swerve.swerveKinematics,
