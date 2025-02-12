@@ -8,6 +8,7 @@ import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkClosedLoopController;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.SparkMax;
+import com.revrobotics.spark.SparkBase;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkMaxConfig;
 
@@ -33,12 +34,16 @@ public class Climber extends SubsystemBase {
         leftClimberConfig = new SparkMaxConfig();  // CONFIGURATIONS FOR LEFT CLIMBER MOTOR BELOW
         leftClimberConfig.idleMode(IdleMode.kBrake);
         leftClimberConfig.closedLoop.pidf(1,0,0,0);
+        leftClimberConfig.openLoopRampRate(0.5);
+        leftClimberConfig.smartCurrentLimit(40);
 
         rightClimberMotor = new SparkMax(17, MotorType.kBrushless); // sets up right climber motor
         rightClimberEncoder =  rightClimberMotor.getEncoder(); // sets up right climber motor encoder
         rightClimberConfig = new SparkMaxConfig(); // CONFIGURATIONS FOR RIGHT CLIMBER MOTOR BELOW
         rightClimberConfig.idleMode(IdleMode.kBrake);
         rightClimberConfig.closedLoop.pidf(1,0,0,0);
+        rightClimberConfig.openLoopRampRate(0.5);
+        rightClimberConfig.smartCurrentLimit(40);
     }
     //Create your climber Methods here
 
@@ -60,8 +65,11 @@ public class Climber extends SubsystemBase {
 
     /*Set Position Methods */
 
+    //TODO: Create method for climber to go to a set position called ClimbDeepCage
+
     /*Create manually controlled commands here */
     
+    //TODO: Create climberUpCommand and climberDownCommand
     
     public Command climberStopCommand(){
       return run(() -> climberStop());
@@ -69,5 +77,6 @@ public class Climber extends SubsystemBase {
 
 
     /*Create set position commands here */
-        
+    //TODO: Create command for climber to go to a set position called ClimbDeepCageCommand
+
     }

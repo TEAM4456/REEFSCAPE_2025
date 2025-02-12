@@ -32,20 +32,15 @@ public class Intake extends SubsystemBase {
     rightIntakeConfig = new SparkMaxConfig();
     rightIntakeConfig.idleMode(IdleMode.kBrake);
     rightIntakeConfig.closedLoop.pidf(1,0,0,0);
+    rightIntakeConfig.smartCurrentLimit(40);
 
     leftIntakeMotor = new SparkMax(20, MotorType.kBrushless);
     leftIntakeEncoder = rightIntakeMotor.getEncoder();
     leftIntakeConfig = new SparkMaxConfig();
     leftIntakeConfig.idleMode(IdleMode.kBrake);
     leftIntakeConfig.closedLoop.pidf(1,0,0,0);
+    leftIntakeConfig.smartCurrentLimit(40);
 
-    /*  // look into getting rid of this? Not sure if needed? Sat 1/25
-   //intakeMotor.setOpenLoopRampRate(.5);
-    intakeEncoder = intakeMotor.getEncoder();
-    intakePIDController = intakeMotor.getClosedLoopController();
-
-     //intakePIDController.pid(1, 0, 0);
-     intakePIDController.setFF(0); */
    }
   
   /* Create your intake Methods here */
@@ -67,7 +62,7 @@ public class Intake extends SubsystemBase {
 }
 //When called, this moves left motor at positive elevatorSpeed to go down
 public void leftIntakeScoreCoral(){
-  leftIntakeMotor.set(Constants.IntakeSpeeds.intakeScoreCoral);
+  leftIntakeMotor.set(-Constants.IntakeSpeeds.intakeScoreCoral);
 }
  public void leftIntakeStop(){
    leftIntakeMotor.set(0);

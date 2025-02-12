@@ -39,6 +39,8 @@ public class ElevatorPivot extends SubsystemBase {
     pivotElvConfig = new SparkMaxConfig();
     pivotElvConfig.idleMode(IdleMode.kBrake);
     pivotElvConfig.closedLoop.pidf(1,0,0,0);
+    pivotElvConfig.openLoopRampRate(0.5);
+    pivotElvConfig.smartCurrentLimit(40);
   }
 
   /*Manual Methods*/
@@ -87,6 +89,8 @@ public class ElevatorPivot extends SubsystemBase {
   }
 
   /*Create set position commands here */
+
+  //TODO: Add .until coral pickup and climb position commands
   public Command elevatorPivotCoralPickupPositionCommand() {
     return run(() -> elevatorPivotCoralPickupPosition());
   }

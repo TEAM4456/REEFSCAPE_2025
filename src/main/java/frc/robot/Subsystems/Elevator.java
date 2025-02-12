@@ -1,7 +1,9 @@
 package frc.robot.Subsystems;
 
 import com.revrobotics.spark.SparkMax;
+import com.revrobotics.spark.SparkBase;
 import com.revrobotics.spark.config.SparkMaxConfig;
+import com.revrobotics.spark.config.SparkBaseConfig;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkClosedLoopController;
@@ -49,20 +51,22 @@ public class Elevator extends SubsystemBase {
   
   /*Set Position Methods, button is pressed once for movement*/
    public void elevatorScoreL1(){
-     elevatorPIDController.setReference(Constants.ElevatorPositions.ElevatorScoreL1, SparkMax.ControlType.kPosition);
+     elevatorPIDController.setReference(Constants.ElevatorPositions.ElevatorScoreL1, SparkBase.ControlType.kPosition);
    }
 
    public void elevatorScoreL2(){
-     elevatorPIDController.setReference(Constants.ElevatorPositions.ElevatorScoreL2, SparkMax.ControlType.kPosition);
+     elevatorPIDController.setReference(Constants.ElevatorPositions.ElevatorScoreL2, SparkBase.ControlType.kPosition);
    }
 
     public void elevatorScoreL3(){
-      elevatorPIDController.setReference(Constants.ElevatorPositions.ElevatorScoreL3, SparkMax.ControlType.kPosition);
+      elevatorPIDController.setReference(Constants.ElevatorPositions.ElevatorScoreL3, SparkBase.ControlType.kPosition);
     }
 
     public void elevatorScoreL4(){
-      elevatorPIDController.setReference(Constants.ElevatorPositions.ElevatorScoreL4, SparkMax.ControlType.kPosition);
+      elevatorPIDController.setReference(Constants.ElevatorPositions.ElevatorScoreL4, SparkBase.ControlType.kPosition);
     }
+
+    // TODO: Add methods for ElevatorCoralPickupPosition and ElevatorClimbPosition (see IntakePivot as an example)
 
   /*Create manually controlled commands here
    Refrence these in the robot run file
@@ -95,6 +99,7 @@ public class Elevator extends SubsystemBase {
       return run(() -> elevatorScoreL4()).until(() -> (Math.abs(elevatorEncoder.getPosition() - Constants.ElevatorPositions.ElevatorScoreL4) < 1));
     }
 
+     // TODO: Add commands for ElevatorCoralPickupPositionCommand and ElevatorClimbPositionCommand (see IntakePivot as an example)
 
   @Override
     public void periodic(){
