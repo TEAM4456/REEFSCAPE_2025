@@ -102,7 +102,7 @@ public class RobotContainer {
 
     
     //Create othe commands that require multiple subsystems here
-
+/* Commented out stopMotorsAll() to test PathPlanner
     public Command stopMotorsAll(){
       return new ParallelCommandGroup(
         elevator.elevatorStopCommand(),
@@ -112,7 +112,7 @@ public class RobotContainer {
         intake.rightIntakeStopCommand(),
         climber.climberStopCommand()
       );
-    }
+    } */
 
 
   //Create Autonomous Routines here (sequences for first 15s of match)
@@ -146,13 +146,12 @@ public class RobotContainer {
         () -> -driver.getRawAxis(strafeAxis),
         () -> -driver.getRawAxis(rotationAxis)));
     
-    driver.start().whileTrue(stopMotorsAll());
+   // driver.start().whileTrue(stopMotorsAll());
     //XBOX CODE FOR ELEVATOR UP AND ELEVATOR DOWN, RIGHT TRIGGER RAISES
     //THE ELEVATOR AND LEFT TRIGGER LOWERS THE ELEVATOR, a BUTTON STOPS THE ELEVATOR 
     //CHANGE MADE SATURDAY 1-25
 
     driver.rightTrigger().whileTrue(elevator.elevatorUpCommand());
-    //driver.rightTrigger().whileFalse(elevator.elevatorStopCommand());
     driver.leftTrigger().whileTrue(elevator.elevatorDownCommand());
     
 
@@ -164,8 +163,9 @@ public class RobotContainer {
         () -> -second.getRawAxis(strafeAxis),
         () -> -second.getRawAxis(rotationAxis)));
 
-    second.start().whileTrue(stopMotorsAll());
+    //second.start().whileTrue(stopMotorsAll());
   }
+  
   public Swerve getSwerve(){
     return s_Swerve;
   }
