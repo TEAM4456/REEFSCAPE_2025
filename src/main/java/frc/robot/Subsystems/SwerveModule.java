@@ -156,7 +156,8 @@ public class SwerveModule {
     driveConfig
       .inverted(Constants.Swerve.driveInvert)
       .idleMode(Constants.Swerve.driveNeutralMode)
-      .smartCurrentLimit(40); //limits current to 40 amps
+      .smartCurrentLimit(40) //limits current to 40 amps
+      .voltageCompensation(12.0); //provides consistent power even if voltage drops
     driveConfig.encoder
       .positionConversionFactor(Constants.Swerve.driveConversionPositionFactor)
       .velocityConversionFactor(Constants.Swerve.driveConversionVelocityFactor);
