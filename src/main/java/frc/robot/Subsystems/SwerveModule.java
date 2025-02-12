@@ -155,14 +155,15 @@ public class SwerveModule {
     driveConfig = new SparkMaxConfig();
     driveConfig
       .inverted(Constants.Swerve.driveInvert)
-      .idleMode(Constants.Swerve.driveNeutralMode);
+      .idleMode(Constants.Swerve.driveNeutralMode)
+      .smartCurrentLimit(40); //limits current to 40 amps
     driveConfig.encoder
       .positionConversionFactor(Constants.Swerve.driveConversionPositionFactor)
       .velocityConversionFactor(Constants.Swerve.driveConversionVelocityFactor);
     driveConfig.closedLoop
       .feedbackSensor(FeedbackSensor.kPrimaryEncoder)
       .pid(Constants.Swerve.driveKP, Constants.Swerve.driveKI, Constants.Swerve.driveKD);    
-    driveMotor.configure(turnConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+    driveMotor.configure(driveConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
   }
 
   private void setSpeed(SwerveModuleState desiredState, boolean isOpenLoop) {
