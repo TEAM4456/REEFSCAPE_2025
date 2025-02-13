@@ -66,7 +66,14 @@ public class Elevator extends SubsystemBase {
       elevatorPIDController.setReference(Constants.ElevatorPositions.ElevatorScoreL4, SparkBase.ControlType.kPosition);
     }
 
-    // TODO: Add methods for ElevatorCoralPickupPosition and ElevatorClimbPosition (see IntakePivot as an example)
+    public void elevatorCoralPickupPosition(){
+      elevatorPIDController.setReference(Constants.ElevatorPositions.ElevatorCoralPickupPosition, SparkBase.ControlType.kPosition);
+    }
+
+    public void elevatorClimbPosition(){
+      elevatorPIDController.setReference(Constants.ElevatorPositions.ElevatorClimbPosition, SparkBase.ControlType.kPosition);
+    }
+
 
   /*Create manually controlled commands here
    Refrence these in the robot run file
@@ -98,8 +105,13 @@ public class Elevator extends SubsystemBase {
     public Command elevatorScoreL4Command(){
       return run(() -> elevatorScoreL4()).until(() -> (Math.abs(elevatorEncoder.getPosition() - Constants.ElevatorPositions.ElevatorScoreL4) < 1));
     }
+    public Command elevatorCoralPickupPositionCommand(){
+      return run(() -> elevatorCoralPickupPosition()).until(() -> (Math.abs(elevatorEncoder.getPosition() - Constants.ElevatorPositions.ElevatorCoralPickupPosition) < 1));
+    }
+    public Command elevatorClimbPositionCommand(){
+      return run(() -> elevatorClimbPosition()).until(() -> (Math.abs(elevatorEncoder.getPosition() - Constants.ElevatorPositions.ElevatorClimbPosition) < 1));
+    }
 
-     // TODO: Add commands for ElevatorCoralPickupPositionCommand and ElevatorClimbPositionCommand (see IntakePivot as an example)
 
   @Override
     public void periodic(){
