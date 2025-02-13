@@ -113,8 +113,38 @@ public class RobotContainer {
         climber.climberStopCommand()
       );
     } */
-
-
+public Command scoreL1(){
+  return new ParallelCommandGroup(
+    elevator.elevatorScoreL1(),
+    elevatorPivot.elevatorPivotScoreL1(),
+    intake.intakeScoreL1(),
+    intakePivot.intakePivotScoreL1()
+  );
+}
+public Command scoreL2(){
+  return new ParallelCommandGroup(
+    elevator.elevatorScoreL2(),
+    elevatorPivot.elevatorPivotScoreL2(),
+    intake.intakeScoreL2(),
+    intakePivot.intakePivotScoreL2()
+  );
+}
+public Command scoreL3(){
+  return new ParallelCommandGroup(
+    elevator.elevatorScoreL3(),
+    elevatorPivot.elevatorPivotScoreL3(),
+    intake.intakeScoreL3(),
+    intakePivot.intakePivotScoreL3()
+  );
+}
+public Command scoreL4(){
+  return new ParallelCommandGroup(
+    elevator.elevatorScoreL3(),
+    elevatorPivot.elevatorPivotScoreL3(),
+    intake.intakeScoreL3(),
+    intakePivot.intakePivotScoreL3()
+  );
+}
   //Create Autonomous Routines here (sequences for first 15s of match)
   //See Crescendo's code for examples
 
