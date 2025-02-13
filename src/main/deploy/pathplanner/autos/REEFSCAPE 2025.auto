@@ -13,7 +13,7 @@
         {
           "type": "wait",
           "data": {
-            "waitTime": 1.0
+            "waitTime": 2.0
           }
         },
         {
@@ -31,25 +31,7 @@
         {
           "type": "wait",
           "data": {
-            "waitTime": 1.0
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "place coral"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "get coral part 2"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 1.0
+            "waitTime": 2.0
           }
         },
         {

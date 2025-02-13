@@ -113,6 +113,8 @@ public class RobotContainer {
         climber.climberStopCommand()
       );
     } */
+
+  /* 
 public Command scoreL1(){
   return new ParallelCommandGroup(
     elevator.elevatorScoreL1(),
@@ -145,6 +147,8 @@ public Command scoreL4(){
     intakePivot.intakePivotScoreL3()
   );
 }
+
+*/
   //Create Autonomous Routines here (sequences for first 15s of match)
   //See Crescendo's code for examples
 
