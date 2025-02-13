@@ -219,6 +219,8 @@ public static final class IntakePivotPositions{
   public static final class ClimberPositions{
     public static final double climberSpeed = .2;
     public static final double climbPosition = .2;
+    public static final double ClimbDeepCageLeft = .2;
+    public static final double ClimbDeepCageRight = .2;
   }
  
 

@@ -66,6 +66,10 @@ public class Climber extends SubsystemBase {
     /*Set Position Methods */
 
     //TODO: Create method for climber to go to a set position called ClimbDeepCage
+        public void ClimbDeepCage() {
+            leftClimberPIDController.setReference(Constants.ClimberPositions.ClimbDeepCageLeft, SparkBase.ControlType.kPosition);
+            rightClimberPIDController.setReference(Constants.ClimberPositions.ClimbDeepCageRight, SparkBase.ControlType.kPosition);
+        }
 
     /*Create manually controlled commands here */
     
