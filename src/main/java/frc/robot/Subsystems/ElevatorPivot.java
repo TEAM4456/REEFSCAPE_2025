@@ -92,10 +92,10 @@ public class ElevatorPivot extends SubsystemBase {
 
   //TODO: Add .until coral pickup and climb position commands
   public Command elevatorPivotCoralPickupPositionCommand() {
-    return run(() -> elevatorPivotCoralPickupPosition());
+    return run(() -> elevatorPivotCoralPickupPosition()).until(() -> (Math.abs(pivotElvEncoder.getPosition() - Constants.ElevatorPivotPositions.elevatorPivotCoralPickupPosition) < 1));
   }
   public Command elevatorPivotClimbPositionCommand() {
-    return run(() -> elevatorPivotClimbPosition());
+    return run(() -> elevatorPivotClimbPosition()).until(() -> (Math.abs(pivotElvEncoder.getPosition() - Constants.ElevatorPivotPositions.elevatorPivotClimbPosition) < 1));
   }
 
   public Command elevatorPivotScoreL1Command() {
