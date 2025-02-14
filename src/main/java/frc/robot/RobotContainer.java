@@ -186,7 +186,10 @@ public Command scoreL4(){
     //CHANGE MADE SATURDAY 1-25
 
     driver.rightTrigger().whileTrue(elevator.elevatorUpCommand());
+    driver.rightTrigger().whileFalse(elevator.elevatorStopCommand());
     driver.leftTrigger().whileTrue(elevator.elevatorDownCommand());
+    driver.leftTrigger().whileFalse(elevator.elevatorStopCommand());
+
     
 
     //Driver #2
