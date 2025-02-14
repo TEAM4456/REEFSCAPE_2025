@@ -4,9 +4,12 @@ import java.time.Instant;
 import java.util.function.BooleanSupplier;
 
 import com.ctre.phoenix6.controls.PositionVoltage;
+import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.commands.PathPlannerAuto;
-//import com.pathplanner.lib.commands.FollowPathHolonomic;
+import com.pathplanner.lib.commands.FollowPathCommand;
 import com.pathplanner.lib.path.PathPlannerPath;
+import com.pathplanner.lib.util.FileVersionException;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -88,7 +91,7 @@ public class RobotContainer {
             () -> -driver.getRawAxis(rotationAxis)));
 
     //Puts Sendable Chooser on SmartDashboard
-    chooser = new SendableChooser<Command>();
+    chooser = AutoBuilder.buildAutoChooser();
     SmartDashboard.putData("Auto:", chooser);
 
 
@@ -119,7 +122,6 @@ public Command scoreL1(){
   return new ParallelCommandGroup(
     elevator.elevatorScoreL1(),
     elevatorPivot.elevatorPivotScoreL1(),
-    intake.intakeScoreL1(),
     intakePivot.intakePivotScoreL1()
   );
 }
@@ -127,7 +129,6 @@ public Command scoreL2(){
   return new ParallelCommandGroup(
     elevator.elevatorScoreL2(),
     elevatorPivot.elevatorPivotScoreL2(),
-    intake.intakeScoreL2(),
     intakePivot.intakePivotScoreL2()
   );
 }
@@ -135,7 +136,6 @@ public Command scoreL3(){
   return new ParallelCommandGroup(
     elevator.elevatorScoreL3(),
     elevatorPivot.elevatorPivotScoreL3(),
-    intake.intakeScoreL3(),
     intakePivot.intakePivotScoreL3()
   );
 }
@@ -143,7 +143,6 @@ public Command scoreL4(){
   return new ParallelCommandGroup(
     elevator.elevatorScoreL3(),
     elevatorPivot.elevatorPivotScoreL3(),
-    intake.intakeScoreL3(),
     intakePivot.intakePivotScoreL3()
   );
 }
@@ -167,6 +166,7 @@ public Command scoreL4(){
     chooser.setDefaultOption("nothing", null);
     
     chooser.addOption("Test Auto", new PathPlannerAuto("TestAuto"));
+    chooser.addOption("Practice Score", new PathPlannerAuto("Practice Score"));
     //chooser.addOption("Center 1-2",autoCenter12());
     //add rest of autonomous routines here
     

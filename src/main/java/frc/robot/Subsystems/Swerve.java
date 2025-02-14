@@ -102,6 +102,7 @@ public class Swerve extends SubsystemBase {
     // // THE ORIGIN WILL REMAIN ON THE BLUE SIDE
    
     // Load the RobotConfig from the GUI settings. You should probably store this in your Constants file
+
     try{
       config = RobotConfig.fromGUISettings();
     } catch (Exception e) {
@@ -115,7 +116,7 @@ public class Swerve extends SubsystemBase {
       this::getPose, // Robot pose supplier
       this::resetPose, // Method to reset odometry (will be called if your auto has a starting pose)
       this::getRobotRelativeSpeeds, // ChassisSpeeds supplier. MUST BE ROBOT RELATIVE
-      this::driveRobotRelative, // Method that will drive the robot given ROBOT RELATIVE ChassisSpeeds. Also optionally outputs individual module feedforwards
+      (speeds, feedforwards) -> driveRobotRelative(speeds), // Method that will drive the robot given ROBOT RELATIVE ChassisSpeeds. Also optionally outputs individual module feedforwards
       new PPHolonomicDriveController( // PPHolonomicController is the built in path following controller for holonomic drive trains
               new PIDConstants(Constants.Swerve.driveKP, Constants.Swerve.driveKI,Constants.Swerve.driveKD), // Translation PID constants
               new PIDConstants(Constants.Swerve.angleKP, Constants.Swerve.angleKI,Constants.Swerve.angleKD) // Rotation PID constants
