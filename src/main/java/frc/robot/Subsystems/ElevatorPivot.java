@@ -1,8 +1,6 @@
 package frc.robot.Subsystems;
 
-
 // Imports for the linear actuator
-
 
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.RelativeEncoder;
@@ -17,6 +15,8 @@ import com.revrobotics.spark.config.SparkMaxConfig;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import com.revrobotics.spark.SparkBase;
+import com.revrobotics.spark.SparkClosedLoopController;
 
 // Imports for the constants
 import frc.robot.Constants;
@@ -24,26 +24,95 @@ import frc.robot.Constants;
 public class ElevatorPivot extends SubsystemBase {
 
 
-    //Object declarations
-    private SparkMax pivotElvMotor;
-    private SparkMaxConfig pivotElvConfig;
-    private RelativeEncoder pivotElvMotorEncoder;
-    private final ClosedLoopConfig pivotElvPIDController;
+  //Object declarations
+  private SparkMax pivotElvMotor;
+  private SparkMaxConfig pivotElvConfig;
+  private RelativeEncoder pivotElvEncoder;
+  private SparkClosedLoopController pivotElvPIDController;
 
-    public ElevatorPivot() {
-        //Setting the object's values
-        pivotElvMotor = new SparkMax(15, MotorType.kBrushless);
-        pivotElvMotorEncoder = pivotElvMotor.getEncoder();
-        pivotElvPIDController = new ClosedLoopConfig();
+  public ElevatorPivot() {
+    //Setting the object's values
+    pivotElvMotor = new SparkMax(15, MotorType.kBrushless);
+    pivotElvEncoder = pivotElvMotor.getEncoder();
 
-        pivotElvConfig = new SparkMaxConfig();  //CONFIGURATIONS FOR Pivot Elevator MOTOR BELOW
-        pivotElvConfig.idleMode(IdleMode.kBrake);
-        pivotElvConfig.closedLoop.pid(1,0,0);
+    //CONFIGURATIONS FOR Pivot Elevator MOTOR BELOW
+    pivotElvConfig = new SparkMaxConfig();
+    pivotElvConfig.idleMode(IdleMode.kBrake);
+    pivotElvConfig.closedLoop.pidf(1,0,0,0);
+    pivotElvConfig.openLoopRampRate(0.5);
+    pivotElvConfig.smartCurrentLimit(40);
+  }
 
-        
+  /*Manual Methods*/
+  // Set's up the command for the elevator pivot movement
+  public void elevatorPivotUp() {
+    pivotElvMotor.set(-Constants.ElevatorPivotPositions.elevatorPivotSpeed);
+  }
+  public void elevatorPivotDown() {
+    pivotElvMotor.set(Constants.ElevatorPivotPositions.elevatorPivotSpeed);
+  }
+  public void elevatorPivotStop() {
+    pivotElvMotor.set(0);
+  }
+
+  /*Set Position Methods*/
+  public void elevatorPivotCoralPickupPosition() {
+    pivotElvPIDController.setReference(Constants.ElevatorPivotPositions.elevatorPivotCoralPickupPosition, SparkBase.ControlType.kPosition);
+  }
+  public void elevatorPivotClimbPosition() {
+    pivotElvPIDController.setReference(Constants.ElevatorPivotPositions.elevatorPivotClimbPosition, SparkBase.ControlType.kPosition);
+  }
+
+  public void elevatorPivotScoreL1() {
+    pivotElvPIDController.setReference(Constants.ElevatorPivotPositions.elevatorPivotScoreL1, SparkBase.ControlType.kPosition);
+  }
+  public void elevatorPivotScoreL2() {
+    pivotElvPIDController.setReference(Constants.ElevatorPivotPositions.elevatorPivotScoreL2, SparkBase.ControlType.kPosition);
+  }
+  public void elevatorPivotScoreL3() {
+    pivotElvPIDController.setReference(Constants.ElevatorPivotPositions.elevatorPivotScoreL3, SparkBase.ControlType.kPosition);
+  }
+  public void elevatorPivotScoreL4() {
+    pivotElvPIDController.setReference(Constants.ElevatorPivotPositions.elevatorPivotScoreL4, SparkBase.ControlType.kPosition);
+  }
+
+  /*Create manually controlled commands here */
+  // Run's the commands for elevator pivot movement
+  public Command elevatorPivotUpCommand() {
+    return run(() -> elevatorPivotUp()).withTimeout(0.1);
+  }
+  public Command elevatorPivotDownCommand() {
+    return run(() -> elevatorPivotDown()).withTimeout(0.1);
+  }
+  public Command elevatorPivotStopCommand() {
+    return run(() -> elevatorPivotStop());
+  }
+
+  /*Create set position commands here */
+
+  //TODO: Add .until coral pickup and climb position commands
+  public Command elevatorPivotCoralPickupPositionCommand() {
+    return run(() -> elevatorPivotCoralPickupPosition()).until(() -> (Math.abs(pivotElvEncoder.getPosition() - Constants.ElevatorPivotPositions.elevatorPivotCoralPickupPosition) < 1));
+  }
+  public Command elevatorPivotClimbPositionCommand() {
+    return run(() -> elevatorPivotClimbPosition()).until(() -> (Math.abs(pivotElvEncoder.getPosition() - Constants.ElevatorPivotPositions.elevatorPivotClimbPosition) < 1));
+  }
+
+  public Command elevatorPivotScoreL1Command() {
+    return run(() -> elevatorPivotScoreL1()).until(() -> (Math.abs(pivotElvEncoder.getPosition() - Constants.ElevatorPivotPositions.elevatorPivotScoreL1) < 1));
+  }
+  public Command elevatorPivotScoreL2Command() {
+    return run(() -> elevatorPivotScoreL2()).until(() -> (Math.abs(pivotElvEncoder.getPosition() - Constants.ElevatorPivotPositions.elevatorPivotScoreL2) < 1));
+  }
+  public Command elevatorPivotScoreL3Command() {
+    return run(() -> elevatorPivotScoreL3()).until(() -> (Math.abs(pivotElvEncoder.getPosition() - Constants.ElevatorPivotPositions.elevatorPivotScoreL3) < 1));
+  }
+  public Command elevatorPivotScoreL4Command() {
+    return run(() -> elevatorPivotScoreL4()).until(() -> (Math.abs(pivotElvEncoder.getPosition() - Constants.ElevatorPivotPositions.elevatorPivotScoreL4) < 1));
+  }
+
+  @Override
+    public void periodic(){
+      SmartDashboard.putNumber("elevatorPivotPosition",pivotElvEncoder.getPosition());
     }
-
-   
-
 }
-

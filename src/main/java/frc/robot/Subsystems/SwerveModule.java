@@ -120,13 +120,17 @@ public class SwerveModule {
     turnConfig = new SparkMaxConfig();
     turnConfig
       .inverted(Constants.Swerve.angleInvert)
-      .idleMode(Constants.Swerve.angleNeutralMode);
+      .idleMode(Constants.Swerve.angleNeutralMode)
+      .smartCurrentLimit(20) //limits current to 20 amps
+      .voltageCompensation(12.0); //provides consistent power even if voltage drops
     turnConfig.encoder
       .positionConversionFactor(360/(12.8)); //changed from (360/(150/7)) to (360/12.8) to reflect steering gear ratio of MK4c
       //.velocityConversionFactor(1000);
     turnConfig.closedLoop
       .feedbackSensor(FeedbackSensor.kPrimaryEncoder)
-      .pid(Constants.Swerve.angleKP, Constants.Swerve.angleKI, Constants.Swerve.angleKD);
+      .pid(Constants.Swerve.angleKP, Constants.Swerve.angleKI, Constants.Swerve.angleKD)
+      .positionWrappingEnabled(true) // TODO test if this turns to nearest angle
+      .positionWrappingInputRange(0, 360); //should allow motor to move in direction of nearest angle (changed to 0-360 by CB)
     
     turnMotor.configure(turnConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
   }
@@ -151,14 +155,16 @@ public class SwerveModule {
     driveConfig = new SparkMaxConfig();
     driveConfig
       .inverted(Constants.Swerve.driveInvert)
-      .idleMode(Constants.Swerve.driveNeutralMode);
+      .idleMode(Constants.Swerve.driveNeutralMode)
+      .smartCurrentLimit(40) //limits current to 40 amps
+      .voltageCompensation(12.0); //provides consistent power even if voltage drops
     driveConfig.encoder
       .positionConversionFactor(Constants.Swerve.driveConversionPositionFactor)
       .velocityConversionFactor(Constants.Swerve.driveConversionVelocityFactor);
     driveConfig.closedLoop
       .feedbackSensor(FeedbackSensor.kPrimaryEncoder)
       .pid(Constants.Swerve.driveKP, Constants.Swerve.driveKI, Constants.Swerve.driveKD);    
-    driveMotor.configure(turnConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+    driveMotor.configure(driveConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
   }
 
   private void setSpeed(SwerveModuleState desiredState, boolean isOpenLoop) {

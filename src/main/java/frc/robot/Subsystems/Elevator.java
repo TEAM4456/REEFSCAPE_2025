@@ -1,7 +1,9 @@
 package frc.robot.Subsystems;
 
 import com.revrobotics.spark.SparkMax;
+import com.revrobotics.spark.SparkBase;
 import com.revrobotics.spark.config.SparkMaxConfig;
+import com.revrobotics.spark.config.SparkBaseConfig;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkClosedLoopController;
@@ -25,53 +27,64 @@ public class Elevator extends SubsystemBase {
     elevatorEncoder = elevatorMotor.getEncoder();
     elevatorConfig = new SparkMaxConfig();
     elevatorConfig.idleMode(IdleMode.kBrake);
-    elevatorConfig.closedLoop.pid(1,0,0);
-
-   /* look into getting rid of this? Not sure if needed? Sat 1/25
-   elevatorMotor.setOpenLoopRampRate(.5);
-    elevatorEncoder = elevatorMotor.getEncoder();
-    elevatorPIDController = elevatorMotor.getClosedLoopController();
-    
-
-     elevatorPIDController.pid(1, 0, 0);
-     elevatorPIDController.setFF(0); */
+    elevatorConfig.closedLoop.pidf(1,0,0,0);
+    elevatorConfig.openLoopRampRate(0.5);
+    elevatorConfig.smartCurrentLimit(40);
    }
   
-  /* Create your elevator Methods (? correct terminology) here */
+  /* Create your elevator Methods here */
 
-  //When called, this moves the motor at negative elevatorSpeed to go up
+  /*Manual Methods, button needs to be held for movement*/
+
+  //Moves the motor at negative elevatorSpeed to go up
   public void elevatorUp(){
     elevatorMotor.set(-Constants.ElevatorPositions.elevatorSpeed);
   }
-  //When called, this moves the moter at positive elevatorSpeed to go down
+  //Moves the moter at positive elevatorSpeed to go down
   public void elevatorDown(){
     elevatorMotor.set(Constants.ElevatorPositions.elevatorSpeed);
   }
+  //Stops the motor movment
    public void elevatorStop(){
      elevatorMotor.set(0);
-}
-//     elevatorLeftPIDController.setReference(elevatorLeftEncoder.getPosition(), SparkMax.ControlType.kPosition);
-//     elevatorRightPIDController.setReference(elevatorRightEncoder.getPosition(), SparkMax.ControlType.kPosition);
+  }
   
+  /*Set Position Methods, button is pressed once for movement*/
+   public void elevatorScoreL1(){
+     elevatorPIDController.setReference(Constants.ElevatorPositions.ElevatorScoreL1, SparkBase.ControlType.kPosition);
+   }
 
-//   public void setElevatorPositionUp(){
-//     elevatorLeftPIDController.setReference(Constants.ElevatorPositions.leftElevatorUp, SparkMax.ControlType.kPosition);
-//     elevatorRightPIDController.setReference(Constants.ElevatorPositions.rightElevatorUp, SparkMax.ControlType.kPosition);
-//   }
-//   public void setElevatorPositionDown(){
-//     elevatorLeftPIDController.setReference(Constants.ElevatorPositions.leftElevatorDown, SparkMax.ControlType.kPosition);
-//     elevatorRightPIDController.setReference(Constants.ElevatorPositions.rightElevatorDown, SparkMax.ControlType.kPosition);
-//   }
-//   
+   public void elevatorScoreL2(){
+     elevatorPIDController.setReference(Constants.ElevatorPositions.ElevatorScoreL2, SparkBase.ControlType.kPosition);
+   }
 
-  /*Create manually controlled commands here */
+    public void elevatorScoreL3(){
+      elevatorPIDController.setReference(Constants.ElevatorPositions.ElevatorScoreL3, SparkBase.ControlType.kPosition);
+    }
+
+    public void elevatorScoreL4(){
+      elevatorPIDController.setReference(Constants.ElevatorPositions.ElevatorScoreL4, SparkBase.ControlType.kPosition);
+    }
+
+    public void elevatorCoralPickupPosition(){
+      elevatorPIDController.setReference(Constants.ElevatorPositions.ElevatorCoralPickupPosition, SparkBase.ControlType.kPosition);
+    }
+
+    public void elevatorClimbPosition(){
+      elevatorPIDController.setReference(Constants.ElevatorPositions.ElevatorClimbPosition, SparkBase.ControlType.kPosition);
+    }
+
+
+  /*Create manually controlled commands here
+   Refrence these in the robot run file
+  */
 
    public Command elevatorUpCommand(){
       return run(() -> elevatorUp()).withTimeout(0.1);
     }
 
     public Command elevatorDownCommand(){
-      return run(() -> elevatorDown());
+      return run(() -> elevatorDown()).withTimeout(0.1);
     }
 
     public Command elevatorStopCommand(){
@@ -80,12 +93,26 @@ public class Elevator extends SubsystemBase {
 
     /*Create set position commands here */
 
-//  public Command setElevatorPositionUpCommand(){
-//     return run(() -> setElevatorPositionUp()).until(() -> (Math.abs(elevatorRightEncoder.getPosition() - Constants.ElevatorPositions.rightElevatorUp) < 1) && (Math.abs(elevatorLeftEncoder.getPosition() - Constants.ElevatorPositions.leftElevatorUp) < 1));
-//   }
-//   public Command setElevatorPositionDownCommand(){
-//     return run(() -> setElevatorPositionDown()).until(() -> (Math.abs(elevatorRightEncoder.getPosition() - Constants.ElevatorPositions.rightElevatorDown) < 1) && (Math.abs(elevatorLeftEncoder.getPosition() - Constants.ElevatorPositions.leftElevatorDown) < 1));
-//   }
+    public Command elevatorScoreL1Command(){
+      return run(() -> elevatorScoreL1()).until(() -> (Math.abs(elevatorEncoder.getPosition() - Constants.ElevatorPositions.ElevatorScoreL1) < 1));
+    }
+    public Command elevatorScoreL2Command(){
+      return run(() -> elevatorScoreL2()).until(() -> (Math.abs(elevatorEncoder.getPosition() - Constants.ElevatorPositions.ElevatorScoreL2) < 1));
+    }
+    public Command elevatorScoreL3Command(){
+      return run(() -> elevatorScoreL3()).until(() -> (Math.abs(elevatorEncoder.getPosition() - Constants.ElevatorPositions.ElevatorScoreL3) < 1));
+    }
+    public Command elevatorScoreL4Command(){
+      return run(() -> elevatorScoreL4()).until(() -> (Math.abs(elevatorEncoder.getPosition() - Constants.ElevatorPositions.ElevatorScoreL4) < 1));
+    }
+    public Command elevatorCoralPickupPositionCommand(){
+      return run(() -> elevatorCoralPickupPosition()).until(() -> (Math.abs(elevatorEncoder.getPosition() - Constants.ElevatorPositions.ElevatorCoralPickupPosition) < 1));
+    }
+    public Command elevatorClimbPositionCommand(){
+      return run(() -> elevatorClimbPosition()).until(() -> (Math.abs(elevatorEncoder.getPosition() - Constants.ElevatorPositions.ElevatorClimbPosition) < 1));
+    }
+
+
   @Override
     public void periodic(){
       SmartDashboard.putNumber("elevatorPosition",elevatorEncoder.getPosition());

@@ -1,11 +1,15 @@
 package frc.robot;
 
 import java.time.Instant;
+import java.util.function.BooleanSupplier;
 
+import com.ctre.phoenix6.controls.PositionVoltage;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
-//import com.pathplanner.lib.commands.FollowPathHolonomic;
+import com.pathplanner.lib.commands.PathPlannerAuto;
+import com.pathplanner.lib.commands.FollowPathCommand;
 import com.pathplanner.lib.path.PathPlannerPath;
+import com.pathplanner.lib.util.FileVersionException;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -32,8 +36,11 @@ import frc.robot.Subsystems.Elevator;
 import frc.robot.Subsystems.Swerve;
 import frc.robot.Subsystems.Vision;
 import frc.robot.Commands.toggleSpeed;
-// import frc.robot.Commands.ElevatorDown;
-// import frc.robot.Commands.ElevatorUp;
+import frc.robot.Subsystems.ElevatorPivot;
+import frc.robot.Subsystems.Intake;
+import frc.robot.Subsystems.IntakePivot;
+import frc.robot.Subsystems.Climber;
+
 
 
 /**
@@ -64,6 +71,10 @@ public class RobotContainer {
   private final Vision vision = new Vision();
   private final Swerve s_Swerve = new Swerve(vision);
   private final Elevator elevator = new Elevator();
+  private final ElevatorPivot elevatorPivot = new ElevatorPivot();
+  private final IntakePivot intakePivot = new IntakePivot();
+  private final Intake intake = new Intake();
+  private final Climber climber = new Climber();
 
   private final SendableChooser<Command> chooser;
 
@@ -77,37 +88,69 @@ public class RobotContainer {
             s_Swerve,
             () -> -driver.getRawAxis(translationAxis),
             () -> -driver.getRawAxis(strafeAxis),
-            () -> driver.getRawAxis(rotationAxis)));
-
-
-    //Create Automated Commands here that make use of multiple subsystems [can be used in autonomous or teleop]
-    //(ex. auto coral station pickup: moves elevator and elevator pivot)
-    //See Crescendo's code for examples
-
-    //stop Feed and Shoot Motors
-    //See Crescendo's code for "stop Feed and Shoot Motors" at this location in code
-    //Placed here in RobotContainer because makes use of commands from multiple different subsystems? (Fact check this)
-    
-    //Create othe commands that require multiple subsystems here
-
-
-
-
-    //Create Autonomous Routines here (sequences for first 15s of match)
-    //See Crescendo's code for examples
-
-
-
+            () -> -driver.getRawAxis(rotationAxis)));
 
     //Puts Sendable Chooser on SmartDashboard
-    chooser = new SendableChooser<Command>();
+    chooser = AutoBuilder.buildAutoChooser();
     SmartDashboard.putData("Auto:", chooser);
-
 
 
     // Configure the button bindings
     configureButtonBindings();  
   }
+
+  //Create Automated Commands here that make use of multiple subsystems [can be used in autonomous or teleop]
+    //(ex. auto coral station pickup: moves elevator and elevator pivot)
+    //See Crescendo's code for examples
+
+    
+    //Create othe commands that require multiple subsystems here
+/* Commented out stopMotorsAll() to test PathPlanner
+    public Command stopMotorsAll(){
+      return new ParallelCommandGroup(
+        elevator.elevatorStopCommand(),
+        elevatorPivot.elevatorPivotStopCommand(),
+        intakePivot.intakePivotStopCommand(),
+        intake.leftIntakeStopCommand(),
+        intake.rightIntakeStopCommand(),
+        climber.climberStopCommand()
+      );
+    } */
+
+  /* 
+public Command scoreL1(){
+  return new ParallelCommandGroup(
+    elevator.elevatorScoreL1(),
+    elevatorPivot.elevatorPivotScoreL1(),
+    intakePivot.intakePivotScoreL1()
+  );
+}
+public Command scoreL2(){
+  return new ParallelCommandGroup(
+    elevator.elevatorScoreL2(),
+    elevatorPivot.elevatorPivotScoreL2(),
+    intakePivot.intakePivotScoreL2()
+  );
+}
+public Command scoreL3(){
+  return new ParallelCommandGroup(
+    elevator.elevatorScoreL3(),
+    elevatorPivot.elevatorPivotScoreL3(),
+    intakePivot.intakePivotScoreL3()
+  );
+}
+public Command scoreL4(){
+  return new ParallelCommandGroup(
+    elevator.elevatorScoreL3(),
+    elevatorPivot.elevatorPivotScoreL3(),
+    intakePivot.intakePivotScoreL3()
+  );
+}
+
+*/
+  //Create Autonomous Routines here (sequences for first 15s of match)
+  //See Crescendo's code for examples
+
   /**
    * Use this method to define your button->command mappings. Buttons can be created by
    * instantiating a {@link GenericHID} or one of its subclasses ({@link
@@ -121,9 +164,11 @@ public class RobotContainer {
   //https://docs.wpilib.org/en/stable/docs/software/dashboards/smartdashboard/choosing-an-autonomous-program-from-smartdashboard.html 
   private void configureButtonBindings() {
     chooser.setDefaultOption("nothing", null);
-
-    //chooser.addOption("Center 1-2",autoCenter12());
     
+    chooser.addOption("Test Auto", new PathPlannerAuto("TestAuto"));
+    chooser.addOption("Practice Score", new PathPlannerAuto("Practice Score"));
+    //chooser.addOption("Center 1-2",autoCenter12());
+    //add rest of autonomous routines here
     
     
     /* Driver Buttons */
@@ -133,15 +178,16 @@ public class RobotContainer {
         s_Swerve,
         () -> -driver.getRawAxis(translationAxis),
         () -> -driver.getRawAxis(strafeAxis),
-        () -> driver.getRawAxis(rotationAxis)));
-
+        () -> -driver.getRawAxis(rotationAxis)));
+    
+   // driver.start().whileTrue(stopMotorsAll());
     //XBOX CODE FOR ELEVATOR UP AND ELEVATOR DOWN, RIGHT TRIGGER RAISES
     //THE ELEVATOR AND LEFT TRIGGER LOWERS THE ELEVATOR, a BUTTON STOPS THE ELEVATOR 
     //CHANGE MADE SATURDAY 1-25
 
     driver.rightTrigger().whileTrue(elevator.elevatorUpCommand());
     driver.leftTrigger().whileTrue(elevator.elevatorDownCommand());
-    driver.a().whileTrue(elevator.elevatorStopCommand());
+    
 
     //Driver #2
     second.back().toggleOnTrue(
@@ -149,8 +195,11 @@ public class RobotContainer {
         s_Swerve,
         () -> -second.getRawAxis(translationAxis),
         () -> -second.getRawAxis(strafeAxis),
-        () -> second.getRawAxis(rotationAxis)));
+        () -> -second.getRawAxis(rotationAxis)));
+
+    //second.start().whileTrue(stopMotorsAll());
   }
+  
   public Swerve getSwerve(){
     return s_Swerve;
   }
@@ -168,4 +217,6 @@ public class RobotContainer {
     return chooser.getSelected();
     //return null;
   }
+
+
 }
