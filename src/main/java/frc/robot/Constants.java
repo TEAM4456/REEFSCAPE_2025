@@ -226,8 +226,7 @@ public static final class IntakePivotPositions{
 
   public static final class VisionConstants {
     public static final Transform3d ROBOT_TO_LIMELIGHT1 = new Transform3d(
-      new Pose3d(new Translation3d(-.35, -.15,.22),new Rotation3d(Math.toRadians(-43), Math.toRadians(180), 0)),
-      new Pose3d(new Translation3d(0,0,0), new Rotation3d(0, 0, 0)));
+      new Translation3d(-.35, -.15,.22),new Rotation3d(Math.toRadians(-43), Math.toRadians(180), 0));
     public static final Transform3d ROBOT_TO_LIMELIGHT2 = new Transform3d(
         new Translation3d(.42, 0, 0.4572), new Rotation3d(0, Math.toRadians(180), 0));
   }

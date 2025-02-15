@@ -185,10 +185,10 @@ public Command scoreL4(){
     //THE ELEVATOR AND LEFT TRIGGER LOWERS THE ELEVATOR, a BUTTON STOPS THE ELEVATOR 
     //CHANGE MADE SATURDAY 1-25
 
-    driver.rightTrigger().whileTrue(elevator.elevatorUpCommand());
-    driver.rightTrigger().whileFalse(elevator.elevatorStopCommand());
-    driver.leftTrigger().whileTrue(elevator.elevatorDownCommand());
-    driver.leftTrigger().whileFalse(elevator.elevatorStopCommand());
+   // driver.rightTrigger().whileTrue(elevator.elevatorUpCommand());
+   // driver.rightTrigger().whileFalse(elevator.elevatorStopCommand());
+    //driver.leftTrigger().whileTrue(elevator.elevatorDownCommand());
+   // driver.leftTrigger().whileFalse(elevator.elevatorStopCommand());
 
     
 
