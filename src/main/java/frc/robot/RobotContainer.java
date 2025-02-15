@@ -105,17 +105,16 @@ public class RobotContainer {
 
     
     //Create othe commands that require multiple subsystems here
-/* Commented out stopMotorsAll() to test PathPlanner
+ //Commented out stopMotorsAll() to test PathPlanner
     public Command stopMotorsAll(){
       return new ParallelCommandGroup(
         elevator.elevatorStopCommand(),
         elevatorPivot.elevatorPivotStopCommand(),
         intakePivot.intakePivotStopCommand(),
-        intake.leftIntakeStopCommand(),
-        intake.rightIntakeStopCommand(),
+        intake.intakeStopCommand(),
         climber.climberStopCommand()
       );
-    } */
+    } 
 
   /* 
 public Command scoreL1(){
@@ -148,6 +147,36 @@ public Command scoreL4(){
 }
 
 */
+public Command coralPickup()
+{
+  return new ParallelCommandGroup(
+    elevator.elevatorCoralPickupPositionCommand(),
+    elevatorPivot.elevatorPivotCoralPickupPositionCommand(),
+    intakePivot.IntakePivotCoralPickupPositionCommand(),
+    intake.intakePickupCoralCommand()
+  );
+}
+
+public Command driveCommand()
+{
+  return new ParallelCommandGroup(
+    elevator.elevatorCoralPickupPositionCommand(),
+    elevatorPivot.elevatorPivotCoralPickupPositionCommand(),
+    intakePivot.IntakePivotCoralPickupPositionCommand(),
+    intake.intakeStopCommand()
+  );
+}
+
+public Command climbCommand()
+{
+  return new ParallelCommandGroup(
+    elevator.elevatorClimbPositionCommand(),
+    elevatorPivot.elevatorPivotClimbPositionCommand(),
+    intakePivot.IntakePivotClimbPositionCommand(),
+    intake.intakeStopCommand(),
+    climber.ClimbDeepCageCommand()
+  );
+}
   //Create Autonomous Routines here (sequences for first 15s of match)
   //See Crescendo's code for examples
 
@@ -185,10 +214,14 @@ public Command scoreL4(){
     //THE ELEVATOR AND LEFT TRIGGER LOWERS THE ELEVATOR, a BUTTON STOPS THE ELEVATOR 
     //CHANGE MADE SATURDAY 1-25
 
-   // driver.rightTrigger().whileTrue(elevator.elevatorUpCommand());
-   // driver.rightTrigger().whileFalse(elevator.elevatorStopCommand());
-    //driver.leftTrigger().whileTrue(elevator.elevatorDownCommand());
-   // driver.leftTrigger().whileFalse(elevator.elevatorStopCommand());
+   driver.rightTrigger().whileTrue(elevator.elevatorUpCommand());
+   driver.rightTrigger().whileFalse(elevator.elevatorStopCommand());
+   driver.leftTrigger().whileTrue(elevator.elevatorDownCommand());
+   driver.leftTrigger().whileFalse(elevator.elevatorStopCommand());
+   driver.rightBumper().whileTrue(climber.climberUpCommand());
+   driver.rightBumper().whileFalse(climber.climberStopCommand());
+   //HERE IS WHERE I WAS WORKING
+   
 
     
 
