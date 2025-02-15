@@ -72,15 +72,22 @@ public class Climber extends SubsystemBase {
 
     /*Create manually controlled commands here */
     
-    //TODO: Create climberUpCommand and climberDownCommand
-    
     public Command climberStopCommand(){
       return run(() -> climberStop());
     }
 
-
+    public Command climberUpCommand(){
+        return run(() -> climberUp());
+    }
+    
+    public Command climberDownCommand(){
+        return run(() -> climberDown());
+    }
 
     /*Create set position commands here */
-    //TODO: Create command for climber to go to a set position called ClimbDeepCageCommand
+    
+    public Command ClimbDeepCageCommand(){
+        return run(() -> ClimbDeepCage()).until(() -> ((Math.abs(leftClimberEncoder.getPosition() - Constants.ClimberPositions.ClimbDeepCageLeft) < 1) && (Math.abs(rightClimberEncoder.getPosition() - Constants.ClimberPositions.ClimbDeepCageRight) < 1)));
+    }
 
     }

@@ -45,55 +45,34 @@ public class Intake extends SubsystemBase {
   
   /* Create your intake Methods here */
 
-  //When called, this moves right motor at negative intakeSpeed to go up
-  public void rightIntakePickupCoral(){
+  //When called, this moves both motors to pickup coral
+  public void intakePickupCoral(){
     rightIntakeMotor.set(-Constants.IntakeSpeeds.intakePickupCoral);
+    leftIntakeMotor.set(Constants.IntakeSpeeds.intakePickupCoral);
   }
-  //When called, this moves right motor at positive elevatorSpeed to go down
-  public void rightIntakeScoreCoral(){
+  //When called, this moves both motors to score coral
+  public void intakeScoreCoral(){
     rightIntakeMotor.set(Constants.IntakeSpeeds.intakeScoreCoral);
+    leftIntakeMotor.set(-Constants.IntakeSpeeds.intakeScoreCoral);
   }
-   public void rightIntakeStop(){
+   public void intakeStop(){
      rightIntakeMotor.set(0);
+     leftIntakeMotor.set(0);
 }
- //When called, this moves left motor at intakeSpeed to go up
- public void leftIntakePickupCoral(){
-  leftIntakeMotor.set(Constants.IntakeSpeeds.intakePickupCoral);
-}
-//When called, this moves left motor at positive elevatorSpeed to go down
-public void leftIntakeScoreCoral(){
-  leftIntakeMotor.set(-Constants.IntakeSpeeds.intakeScoreCoral);
-}
- public void leftIntakeStop(){
-   leftIntakeMotor.set(0);
-}
+
 
   /*Create manually controlled commands here */
 
-   public Command rightIntakePickupCoralCommand(){
-      return run(() -> rightIntakePickupCoral());
+   public Command intakePickupCoralCommand(){
+      return run(() -> intakePickupCoral());
     }
 
-    public Command rightIntakeScoreCoralCommand(){
-      return run(() -> rightIntakeScoreCoral());
+    public Command intakeScoreCoralCommand(){
+      return run(() -> intakeScoreCoral());
     }
 
-    public Command rightIntakeStopCommand(){
-      return run(() -> rightIntakeStop());
-    }
-
-
-
-    public Command leftIntakePickupCoralCommand(){
-      return run(() -> leftIntakePickupCoral());
-    }
-
-    public Command leftIntakeScoreCoralCommand(){
-      return run(() -> leftIntakeScoreCoral());
-    }
-
-    public Command leftIntakeStopCommand(){
-      return run(() -> leftIntakeStop());
+    public Command intakeStopCommand(){
+      return run(() -> intakeStop());
     }
 
     /*Create set position commands here */

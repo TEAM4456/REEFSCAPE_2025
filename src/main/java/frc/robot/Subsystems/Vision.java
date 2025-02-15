@@ -46,10 +46,19 @@ public class Vision extends SubsystemBase {
         PhotonPipelineResult result = camera.getLatestResult();
         if(result.hasTargets()){
          Optional<EstimatedRobotPose> robotPose = photonPoseEstimator.update(result);
+
+        /* TODO: Test the commented out code below
+         // Get the ambiguity value and display it on the SmartDashboard
+        double ambiguity = result.getBestTarget().getPoseAmbiguity();
+        SmartDashboard.putNumber("Pose Ambiguity", ambiguity); */
+
          return robotPose;
-                  
-            
         }
+
+        /* TODO: Test the commented out code below
+        // Display a default value when no targets are found
+        SmartDashboard.putNumber("Pose Ambiguity", -1.0); */
+
         Optional<EstimatedRobotPose> emptyPose = Optional.empty();
         return emptyPose;
     }
