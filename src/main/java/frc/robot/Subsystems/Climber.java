@@ -29,13 +29,13 @@ public class Climber extends SubsystemBase {
     private SparkMaxConfig rightClimberConfig;
 
     public Climber() {
-        leftClimberMotor  = new SparkMax(16, MotorType.kBrushless); // sets up left climber motor
+        /*leftClimberMotor  = new SparkMax(16, MotorType.kBrushless); // sets up left climber motor
         leftClimberEncoder =  leftClimberMotor.getEncoder(); // sets up left climber motor encoder 
         leftClimberConfig = new SparkMaxConfig();  // CONFIGURATIONS FOR LEFT CLIMBER MOTOR BELOW
         leftClimberConfig.idleMode(IdleMode.kBrake);
         leftClimberConfig.closedLoop.pidf(1,0,0,0);
         leftClimberConfig.openLoopRampRate(0.5);
-        leftClimberConfig.smartCurrentLimit(40);
+        leftClimberConfig.smartCurrentLimit(40); */
 
         rightClimberMotor = new SparkMax(17, MotorType.kBrushless); // sets up right climber motor
         rightClimberEncoder =  rightClimberMotor.getEncoder(); // sets up right climber motor encoder
@@ -50,23 +50,23 @@ public class Climber extends SubsystemBase {
     /*Manual Methods */
         
         public void climberUp() {
-            leftClimberMotor.set(-Constants.ClimberPositions.climberSpeed);
+            //leftClimberMotor.set(-Constants.ClimberPositions.climberSpeed);
             rightClimberMotor.set(Constants.ClimberPositions.climberSpeed);
         }
         public void climberDown() {
-            leftClimberMotor.set(Constants.ClimberPositions.climberSpeed);
+            //leftClimberMotor.set(Constants.ClimberPositions.climberSpeed);
             rightClimberMotor.set(-Constants.ClimberPositions.climberSpeed);
         }
 
         public void climberStop() {
-            leftClimberMotor.set(0);
+            //leftClimberMotor.set(0);
             rightClimberMotor.set(0);
         }
 
     /*Set Position Methods */
 
         public void ClimbDeepCage() {
-            leftClimberPIDController.setReference(Constants.ClimberPositions.ClimbDeepCageLeft, SparkBase.ControlType.kPosition);
+           // leftClimberPIDController.setReference(Constants.ClimberPositions.ClimbDeepCageLeft, SparkBase.ControlType.kPosition);
             rightClimberPIDController.setReference(Constants.ClimberPositions.ClimbDeepCageRight, SparkBase.ControlType.kPosition);
         }
 
@@ -87,7 +87,7 @@ public class Climber extends SubsystemBase {
     /*Create set position commands here */
     
     public Command ClimbDeepCageCommand(){
-        return run(() -> ClimbDeepCage()).until(() -> ((Math.abs(leftClimberEncoder.getPosition() - Constants.ClimberPositions.ClimbDeepCageLeft) < 1) && (Math.abs(rightClimberEncoder.getPosition() - Constants.ClimberPositions.ClimbDeepCageRight) < 1)));
+        return run(() -> ClimbDeepCage()).until(() -> (/*(Math.abs(leftClimberEncoder.getPosition() - Constants.ClimberPositions.ClimbDeepCageLeft) < 1) &&*/ (Math.abs(rightClimberEncoder.getPosition() - Constants.ClimberPositions.ClimbDeepCageRight) < 1)));
     }
 
     }

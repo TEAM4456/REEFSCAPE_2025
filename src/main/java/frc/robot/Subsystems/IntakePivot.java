@@ -77,11 +77,11 @@ public class IntakePivot extends SubsystemBase {
   /*Create manually controlled commands here */
 
    public Command intakePivotUpCommand(){
-      return run(() -> intakePivotUp()).withTimeout(0.1);
+      return run(() -> intakePivotUp());
     }
 
     public Command intakePivotDownCommand(){
-      return run(() -> intakePivotDown()).withTimeout(0.1);
+      return run(() -> intakePivotDown());
     }
 
     public Command intakePivotStopCommand(){

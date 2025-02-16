@@ -79,10 +79,10 @@ public class ElevatorPivot extends SubsystemBase {
   /*Create manually controlled commands here */
   // Run's the commands for elevator pivot movement
   public Command elevatorPivotUpCommand() {
-    return run(() -> elevatorPivotUp()).withTimeout(0.1);
+    return run(() -> elevatorPivotUp());
   }
   public Command elevatorPivotDownCommand() {
-    return run(() -> elevatorPivotDown()).withTimeout(0.1);
+    return run(() -> elevatorPivotDown());
   }
   public Command elevatorPivotStopCommand() {
     return run(() -> elevatorPivotStop());
@@ -90,7 +90,7 @@ public class ElevatorPivot extends SubsystemBase {
 
   /*Create set position commands here */
 
-  //TODO: Add .until coral pickup and climb position commands
+
   public Command elevatorPivotCoralPickupPositionCommand() {
     return run(() -> elevatorPivotCoralPickupPosition()).until(() -> (Math.abs(pivotElvEncoder.getPosition() - Constants.ElevatorPivotPositions.elevatorPivotCoralPickupPosition) < 1));
   }

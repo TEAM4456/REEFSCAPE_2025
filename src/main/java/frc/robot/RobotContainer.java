@@ -147,7 +147,7 @@ public Command scoreL4(){
 }
 
 */
-public Command coralPickup()
+/*public Command coralPickup()
 {
   return new ParallelCommandGroup(
     elevator.elevatorCoralPickupPositionCommand(),
@@ -155,9 +155,9 @@ public Command coralPickup()
     intakePivot.IntakePivotCoralPickupPositionCommand(),
     intake.intakePickupCoralCommand()
   );
-}
+}*/
 
-public Command driveCommand()
+/*public Command driveCommand()
 {
   return new ParallelCommandGroup(
     elevator.elevatorCoralPickupPositionCommand(),
@@ -165,9 +165,9 @@ public Command driveCommand()
     intakePivot.IntakePivotCoralPickupPositionCommand(),
     intake.intakeStopCommand()
   );
-}
+}*/
 
-public Command climbCommand()
+/*public Command climbCommand()
 {
   return new ParallelCommandGroup(
     elevator.elevatorClimbPositionCommand(),
@@ -176,7 +176,7 @@ public Command climbCommand()
     intake.intakeStopCommand(),
     climber.ClimbDeepCageCommand()
   );
-}
+} */
   //Create Autonomous Routines here (sequences for first 15s of match)
   //See Crescendo's code for examples
 
@@ -210,17 +210,26 @@ public Command climbCommand()
         () -> -driver.getRawAxis(rotationAxis)));
     
    // driver.start().whileTrue(stopMotorsAll());
-    //XBOX CODE FOR ELEVATOR UP AND ELEVATOR DOWN, RIGHT TRIGGER RAISES
-    //THE ELEVATOR AND LEFT TRIGGER LOWERS THE ELEVATOR, a BUTTON STOPS THE ELEVATOR 
-    //CHANGE MADE SATURDAY 1-25
 
-   driver.rightTrigger().whileTrue(elevator.elevatorUpCommand());
-   driver.rightTrigger().whileFalse(elevator.elevatorStopCommand());
-   driver.leftTrigger().whileTrue(elevator.elevatorDownCommand());
-   driver.leftTrigger().whileFalse(elevator.elevatorStopCommand());
-   driver.rightBumper().whileTrue(climber.climberUpCommand());
-   driver.rightBumper().whileFalse(climber.climberStopCommand());
-   //HERE IS WHERE I WAS WORKING
+   //driver.rightTrigger().whileTrue(elevator.elevatorUpCommand());
+   //driver.rightTrigger().whileFalse(elevator.elevatorStopCommand());
+   //driver.leftTrigger().whileTrue(elevator.elevatorDownCommand());
+   //driver.leftTrigger().whileFalse(elevator.elevatorStopCommand());
+   
+   //driver.rightBumper().whileTrue(elevatorPivot.elevatorPivotUpCommand());
+   //driver.rightBumper().whileFalse(elevatorPivot.elevatorPivotStopCommand());
+   //driver.leftBumper().whileTrue(elevatorPivot.elevatorPivotDownCommand());
+   //driver.leftBumper().whileFalse(elevatorPivot.elevatorPivotStopCommand());
+
+    //driver.y().whileTrue(intake.intakePickupCoralCommand());
+    //driver.y().whileFalse(intake.intakeStopCommand());
+    //driver.a().whileTrue(intake.intakeScoreCoralCommand());
+    //driver.a().whileFalse(intake.intakeStopCommand());
+
+    //driver.b().whileTrue(intakePivot.intakePivotUpCommand());
+    //driver.b().whileFalse(intakePivot.intakePivotStopCommand());
+    //driver.x().whileTrue(intakePivot.intakePivotDownCommand());
+    //driver.x().whileFalse(intakePivot.intakePivotStopCommand());
    
 
     
@@ -234,6 +243,11 @@ public Command climbCommand()
         () -> -second.getRawAxis(rotationAxis)));
 
     //second.start().whileTrue(stopMotorsAll());
+
+    //second.rightTrigger().whileTrue(climber.climberUpCommand());
+    //second.rightTrigger().whileFalse(climber.climberStopCommand());
+    //second.leftTrigger().whileTrue(climber.climberDownCommand());
+    //second.leftTrigger().whileFalse(climber.climberStopCommand());
   }
   
   public Swerve getSwerve(){
