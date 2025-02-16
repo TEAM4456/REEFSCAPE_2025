@@ -106,7 +106,7 @@ public class RobotContainer {
     
     //Create othe commands that require multiple subsystems here
  //Commented out stopMotorsAll() to test PathPlanner
-    public Command stopMotorsAll(){
+   /*  public Command stopMotorsAll(){
       return new ParallelCommandGroup(
         elevator.elevatorStopCommand(),
         elevatorPivot.elevatorPivotStopCommand(),
@@ -114,7 +114,7 @@ public class RobotContainer {
         intake.intakeStopCommand(),
         climber.climberStopCommand()
       );
-    } 
+    } */
 
   /* 
 public Command scoreL1(){
