@@ -1,5 +1,7 @@
 package frc.robot.Subsystems;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Optional;
 import java.util.function.Supplier;
 
@@ -30,40 +32,80 @@ public class Vision extends SubsystemBase {
     //public final PhotonPoseEstimator photonPoseEstimatorAngle;
     private AprilTagFieldLayout fieldLayout;
 
-    private final PhotonCamera camera = new PhotonCamera("limelight front");
-    public final PhotonPoseEstimator photonPoseEstimator;
+    //ARRAY OF PHOTONCAMERAS
+    public class PhotonGroup {
+        PhotonCamera camera; 
+        PhotonPoseEstimator estimator;
+        public PhotonGroup(PhotonCamera camera, PhotonPoseEstimator estimator){
+            this.camera=camera;
+            this.estimator=estimator;
+            // TODO maybe we could do here instead of explicit loop in Vision()
+            estimator.setMultiTagFallbackStrategy(PoseStrategy.LOWEST_AMBIGUITY);
+        }
+    };
+
     
+    //public final PhotonPoseEstimator photonPoseEstimator;
+    PhotonGroup[] cameras = 
+    {
+        new PhotonGroup (
+            new PhotonCamera("limelight front"), 
+            new PhotonPoseEstimator(fieldLayout,PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR, 
+                Constants.VisionConstants.ROBOT_TO_LIMELIGHT2)
+        ),
+        new PhotonGroup (
+            new PhotonCamera("limelight angle"), 
+            new PhotonPoseEstimator(fieldLayout,PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR, 
+                Constants.VisionConstants.ROBOT_TO_LIMELIGHT1)
+        )
+    };
     public Vision(){
-
-
-        fieldLayout = AprilTagFieldLayout.loadField(AprilTagFields.k2025ReefscapeAndyMark);
-
-        photonPoseEstimator = new PhotonPoseEstimator(fieldLayout, PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR, Constants.VisionConstants.ROBOT_TO_LIMELIGHT2);
-        photonPoseEstimator.setMultiTagFallbackStrategy(PoseStrategy.LOWEST_AMBIGUITY);
+       
+        // we hopefully cna do it in the constructor
+        //for (PhotonGroup cam: cameras){
+        //    cam.estimator.setMultiTagFallbackStrategy(PoseStrategy.LOWEST_AMBIGUITY);
+        //}
+        SmartDashboard.putString("Vision","Vision initialization");
     }
 
-    public Optional<EstimatedRobotPose> getEstimatedPose() {
-        PhotonPipelineResult result = camera.getLatestResult();
-        if(result.hasTargets()){
-         Optional<EstimatedRobotPose> robotPose = photonPoseEstimator.update(result);
+    public ArrayList<Optional<EstimatedRobotPose>> getEstimatedPose() {
+        SmartDashboard.putString("Vision","getEstimatePose");
+        SmartDashboard.putString("NULLS","checking for NULL");
 
-        /* TODO: Test the commented out code below
-         // Get the ambiguity value and display it on the SmartDashboard
-        double ambiguity = result.getBestTarget().getPoseAmbiguity();
-        SmartDashboard.putNumber("Pose Ambiguity", ambiguity); */
+        ArrayList<Optional<EstimatedRobotPose>> robotPoses = new ArrayList<>();
+        if (cameras == null){       
+             SmartDashboard.putString("NULLS","cameras are null");
+        }   
+        for (PhotonGroup cameraGroup: cameras)
+        {
+            if (cameraGroup == null){       
+                SmartDashboard.putString("NULLS","cameraGroup is null");
+            }   
+            PhotonPipelineResult result = cameraGroup.camera.getLatestResult();
+            if(result.hasTargets()){
+                Optional<EstimatedRobotPose> robotPose = cameraGroup.estimator.update(result);
+        
+                /* TODO: Test the commented out code below
+                // Get the ambiguity value and display it on the SmartDashboard
+                double ambiguity = result.getBestTarget().getPoseAmbiguity();
+                SmartDashboard.putNumber("Pose Ambiguity", ambiguity); */
 
-         return robotPose;
+                robotPoses.add(robotPose);
+            }
+
+            /* TODO: Test the commented out code below
+            // Display a default value when no targets are found
+            SmartDashboard.putNumber("Pose Ambiguity", -1.0); */
+            /* 
+            Optional<EstimatedRobotPose> emptyPose = Optional.empty();
+             return emptyPose;
+            */
         }
-
-        /* TODO: Test the commented out code below
-        // Display a default value when no targets are found
-        SmartDashboard.putNumber("Pose Ambiguity", -1.0); */
-
-        Optional<EstimatedRobotPose> emptyPose = Optional.empty();
-        return emptyPose;
+        return robotPoses;
     }
 
     public void periodic() {
+        SmartDashboard.putString("Vision","about to get EstimatePose");
         getEstimatedPose();
     }
     

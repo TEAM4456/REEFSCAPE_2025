@@ -4,6 +4,7 @@
 
 package frc.robot.Subsystems;
 
+import java.util.ArrayList;
 import java.util.Optional;
 
 import org.photonvision.EstimatedRobotPose;
@@ -340,6 +341,7 @@ public class Swerve extends SubsystemBase {
   }
 
   @Override
+  
   public void periodic() {
     swerveOdometry.update(getRotation2d(), getModulePositions());
 
@@ -347,20 +349,20 @@ public class Swerve extends SubsystemBase {
     SmartDashboard.putNumber("poseY", getPose().getY());
     SmartDashboard.putNumber("poseX", getPose().getX());
     SmartDashboard.putNumber("NAVX Heading", this.getRotation2d().getDegrees());
-
-    Optional<EstimatedRobotPose> visionEstimate = photonVision.getEstimatedPose();// FROM VISION.JAVA
-
-    if (visionEstimate.isPresent()) {
-      swerveOdometry.addVisionMeasurement(visionEstimate.get().estimatedPose.toPose2d(),
-          visionEstimate.get().timestampSeconds);
-
-      SmartDashboard.putNumber("Front Estimate X", visionEstimate.get().estimatedPose.toPose2d().getX());
-      SmartDashboard.putNumber("Front Estimate Y", visionEstimate.get().estimatedPose.toPose2d().getY());
-
+    SmartDashboard.putString("Vision","about to call getEstimatePose()");
+    ArrayList<Optional<EstimatedRobotPose>> visionEstimates = photonVision.getEstimatedPose();
+    for (Optional<EstimatedRobotPose> visionEstimate : visionEstimates) { // FROM VISION.JAVA
+      if (visionEstimate.isPresent()) {
+        swerveOdometry.addVisionMeasurement(visionEstimate.get().estimatedPose.toPose2d(),
+                                            visionEstimate.get().timestampSeconds);
+      }
+      SmartDashboard.putBoolean("Estimate 0 Present", visionEstimates.get(0).isPresent());
+      SmartDashboard.putBoolean("Estimate 1 Present", visionEstimates.get(1).isPresent());
+      SmartDashboard.putNumber("Estimate 0 X", visionEstimates.get(0).get().estimatedPose.toPose2d().getX());
+      SmartDashboard.putNumber("Estimate 1 X", visionEstimates.get(1).get().estimatedPose.toPose2d().getX());
+      SmartDashboard.putNumber("Estimate 0 Y", visionEstimates.get(0).get().estimatedPose.toPose2d().getY());
+      SmartDashboard.putNumber("Estimate 1 Y", visionEstimates.get(1).get().estimatedPose.toPose2d().getY());
     }
-    SmartDashboard.putBoolean("Front Estimate Present", visionEstimate.isPresent());
-    SmartDashboard.putBoolean("Front AprilTag Present", visionEstimate.isPresent());
-
     //keepOdometryOnField();
     field.setRobotPose(getPose());
 

@@ -226,9 +226,9 @@ public static final class IntakePivotPositions{
 
   public static final class VisionConstants {
     public static final Transform3d ROBOT_TO_LIMELIGHT1 = new Transform3d(
-      new Translation3d(-.35, -.15,.22),new Rotation3d(Math.toRadians(-43), Math.toRadians(180), 0));
+      new Translation3d(0, -0.295,0.345),new Rotation3d(Math.toRadians(90), Math.toRadians(180), 0));
     public static final Transform3d ROBOT_TO_LIMELIGHT2 = new Transform3d(
-        new Translation3d(.42, 0, 0.4572)/* relative to center of robot (+x value when camera is toward front, -x value when camera is toward back, 
+        new Translation3d(-0.405, 0, 0.59)/* relative to center of robot (+x value when camera is toward front, -x value when camera is toward back, 
         +y value camera is mounted to left of robot center, -y value when camera is mounted right of robot center, +z value when camera is mounted above ground level) */,
          new Rotation3d(0, Math.toRadians(0), 0)/*y rotation for pitch is 180 degrees when camera faces robot back */);
   }
