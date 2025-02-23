@@ -196,6 +196,7 @@ public Command scoreL4(){
     
     chooser.addOption("Test Auto", new PathPlannerAuto("TestAuto"));
     chooser.addOption("Practice Score", new PathPlannerAuto("Practice Score"));
+    chooser.addOption("Practice Score With Rotation", new PathPlannerAuto("practice score with rotation"));
     //chooser.addOption("Center 1-2",autoCenter12());
     //add rest of autonomous routines here
     
