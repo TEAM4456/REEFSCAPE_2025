@@ -14,32 +14,21 @@ import frc.robot.Constants;
 
 
 public class Intake extends SubsystemBase {
-    private SparkMax rightIntakeMotor;
-    private RelativeEncoder rightIntakeEncoder; 
-    private SparkClosedLoopController rightIntakePIDController;
-    private SparkMaxConfig rightIntakeConfig;
+    private SparkMax intakeMotor;
+    private RelativeEncoder intakeEncoder; 
+    private SparkClosedLoopController intakePIDController;
+    private SparkMaxConfig intakeConfig;
 
-    private SparkMax leftIntakeMotor;
-    private RelativeEncoder leftIntakeEncoder; 
-    private SparkClosedLoopController leftIntakePIDController;
-    private SparkMaxConfig leftIntakeConfig;
 
   public Intake() {
 
     //Make a right and left intake for this subsystem, CanID 19 and 20
-    rightIntakeMotor = new SparkMax(19, MotorType.kBrushless);
-    rightIntakeEncoder = rightIntakeMotor.getEncoder();
-    rightIntakeConfig = new SparkMaxConfig();
-    rightIntakeConfig.idleMode(IdleMode.kBrake);
-    rightIntakeConfig.closedLoop.pidf(1,0,0,0);
-    rightIntakeConfig.smartCurrentLimit(40);
-
-    leftIntakeMotor = new SparkMax(20, MotorType.kBrushless);
-    leftIntakeEncoder = rightIntakeMotor.getEncoder();
-    leftIntakeConfig = new SparkMaxConfig();
-    leftIntakeConfig.idleMode(IdleMode.kBrake);
-    leftIntakeConfig.closedLoop.pidf(1,0,0,0);
-    leftIntakeConfig.smartCurrentLimit(40);
+    intakeMotor = new SparkMax(19, MotorType.kBrushless);
+    intakeEncoder = intakeMotor.getEncoder();
+    intakeConfig = new SparkMaxConfig();
+    intakeConfig.idleMode(IdleMode.kBrake);
+    intakeConfig.closedLoop.pidf(1,0,0,0);
+    intakeConfig.smartCurrentLimit(40);
 
    }
   
@@ -47,17 +36,14 @@ public class Intake extends SubsystemBase {
 
   //When called, this moves both motors to pickup coral
   public void intakePickupCoral(){
-    rightIntakeMotor.set(-Constants.IntakeSpeeds.intakePickupCoral);
-    leftIntakeMotor.set(Constants.IntakeSpeeds.intakePickupCoral);
+    intakeMotor.set(-Constants.IntakeSpeeds.intakePickupCoral);
   }
   //When called, this moves both motors to score coral
   public void intakeScoreCoral(){
-    rightIntakeMotor.set(Constants.IntakeSpeeds.intakeScoreCoral);
-    leftIntakeMotor.set(-Constants.IntakeSpeeds.intakeScoreCoral);
+    intakeMotor.set(Constants.IntakeSpeeds.intakeScoreCoral);
   }
    public void intakeStop(){
-     rightIntakeMotor.set(0);
-     leftIntakeMotor.set(0);
+     intakeMotor.set(0);
 }
 
 
@@ -79,7 +65,6 @@ public class Intake extends SubsystemBase {
 
   @Override
     public void periodic(){
-      SmartDashboard.putNumber("intakePosition",rightIntakeEncoder.getPosition());
-      SmartDashboard.putNumber("intakePosition",leftIntakeEncoder.getPosition());
+      SmartDashboard.putNumber("intakePosition",intakeEncoder.getPosition());
     }
   }

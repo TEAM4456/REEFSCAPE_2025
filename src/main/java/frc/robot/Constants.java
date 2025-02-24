@@ -174,6 +174,9 @@ public final class Constants {
     public static final double ElevatorMin = 0;
 
     public static final double elevatorSpeed = .2;
+
+    public static final double ElevatorAlgaeLow = 0.0;
+    public static final double ElevatorAlgaeHigh = 0.0;
   }
 
   public static final class IntakeSpeeds{
@@ -197,6 +200,9 @@ public final class Constants {
     public static final double elevatorPivotScoreL2 = 0.0;
     public static final double elevatorPivotScoreL3 = 0.0;
     public static final double elevatorPivotScoreL4 = 0.0;
+
+    public static final double elevatorPivotAlgaeLow = 0.0;
+    public static final double elevatorPivotAlgaeHigh = 0.0;
   }
 public static final class IntakePivotPositions{
    
@@ -214,6 +220,8 @@ public static final class IntakePivotPositions{
   public static final double intakePivotScoreL3 = 47.625;
   public static final double intakePivotScoreL4 = 72;
   
+  public static final double intakePivotAlgaeLow = 0.0;
+  public static final double intakePivotAlgaeHigh = 0.0;
 }
 
   public static final class ClimberPositions{
