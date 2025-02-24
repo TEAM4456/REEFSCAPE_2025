@@ -219,6 +219,9 @@ public static final class IntakePivotPositions{
   public static final double intakePivotScoreL2 = 31.875;
   public static final double intakePivotScoreL3 = 47.625;
   public static final double intakePivotScoreL4 = 72;
+
+  public static final double intakePivotAlgaeHigh = 0.0;
+  public static final double intakePivotAlgaeLow = 0.0;
   
 }
   public static final class ClimberPositions{

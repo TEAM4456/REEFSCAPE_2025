@@ -69,6 +69,14 @@ public class Elevator extends SubsystemBase {
       elevatorPIDController.setReference(Constants.ElevatorPositions.ElevatorScoreL4, SparkBase.ControlType.kPosition);
     }
 
+    public void elevatorAlgaeHigh(){
+      elevatorPIDController.setReference(Constants.ElevatorPositions.ElevatorAlgaeHigh, SparkBase.ControlType.kPosition);
+    }
+
+    public void elevatorAlgaeLow(){
+      elevatorPIDController.setReference(Constants.ElevatorPositions.ElevatorAlgaeLow, SparkBase.ControlType.kPosition);
+    }
+
     public void elevatorCoralPickupPosition(){
       elevatorPIDController.setReference(Constants.ElevatorPositions.ElevatorCoralPickupPosition, SparkBase.ControlType.kPosition);
     }
@@ -114,7 +122,13 @@ public class Elevator extends SubsystemBase {
     public Command elevatorClimbPositionCommand(){
       return run(() -> elevatorClimbPosition()).until(() -> (Math.abs(elevatorEncoder.getPosition() - Constants.ElevatorPositions.ElevatorClimbPosition) < 1));
     }
+    public Command elevatorAlgaeHighCommand(){
+      return run(() -> elevatorAlgaeHigh()).until(() -> (Math.abs(elevatorEncoder.getPosition() - Constants.ElevatorPositions.ElevatorAlgaeHigh) < 1));
+    }
 
+    public Command elevatorAlgaeLowCommand(){
+      return run(() -> elevatorAlgaeLow()).until(() -> (Math.abs(elevatorEncoder.getPosition() - Constants.ElevatorPositions.ElevatorAlgaeLow) < 1));
+    }
 
   @Override
     public void periodic(){
