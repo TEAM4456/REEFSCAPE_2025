@@ -47,10 +47,10 @@ public class Vision extends SubsystemBase {
         if(result.hasTargets()){
          Optional<EstimatedRobotPose> robotPose = photonPoseEstimator.update(result);
 
-        /* TODO: Test the commented out code below
+        /* TODO: Test the commented out code below */
          // Get the ambiguity value and display it on the SmartDashboard
         double ambiguity = result.getBestTarget().getPoseAmbiguity();
-        SmartDashboard.putNumber("Pose Ambiguity", ambiguity); */
+        SmartDashboard.putNumber("Pose Ambiguity", ambiguity);
 
         // Reject poses with ambiguity greater than 0.2
        /*  if (ambiguity > 0.2) {
@@ -60,9 +60,9 @@ public class Vision extends SubsystemBase {
          return robotPose;
         }
 
-        /* TODO: Test the commented out code below
+        /* TODO: Test the commented out code below */
         // Display a default value when no targets are found
-        SmartDashboard.putNumber("Pose Ambiguity", -1.0); */
+        SmartDashboard.putNumber("Pose Ambiguity", -1.0);
 
         Optional<EstimatedRobotPose> emptyPose = Optional.empty();
         return emptyPose;
