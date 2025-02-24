@@ -44,6 +44,7 @@ public class Intake extends SubsystemBase {
   }
    public void intakeStop(){
      intakeMotor.set(0);
+    
 }
 
 
