@@ -1,6 +1,5 @@
-/*
-Below is copied exactly from elevator.java
-*/
+//Below is copied exactly from elevator.java
+
 package frc.robot.Subsystems;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.SparkBase;
@@ -32,15 +31,13 @@ public class IntakePivot extends SubsystemBase {
         intakePivotConfig.openLoopRampRate(0.5);
         intakePivotConfig.smartCurrentLimit(40);
 }
-  
+
   /* Create your intakePivot Methods here */
 
-  /*Manual Methods*/
-  //When called, this moves the motor at negative elevatorSpeed to go up
+  /*Manual Methods, these are the ones where you hold a button to make it go up or down*/
   public void intakePivotUp(){
     intakePivotMotor.set(-Constants.IntakePivotPositions.intakePivotSpeed);
   }
-  //When called, this moves the moter at positive elevatorSpeed to go down
   public void intakePivotDown(){
     intakePivotMotor.set(Constants.IntakePivotPositions.intakePivotSpeed);
   }
@@ -48,23 +45,25 @@ public class IntakePivot extends SubsystemBase {
     intakePivotMotor.set(0);
 }
 
-  /*Set Position Methods*/
+  /*Set Position Methods, these are the ones where you press a button once and it automatically goes to the wanted position*/
   public void intakePivotScoreL1(){
     intakePivotPIDController.setReference(Constants.IntakePivotPositions.intakePivotScoreL1, SparkBase.ControlType.kPosition);
   }
-  
   public void intakePivotScoreL2(){
     intakePivotPIDController.setReference(Constants.IntakePivotPositions.intakePivotScoreL2, SparkBase.ControlType.kPosition);
   }
-
   public void intakePivotScoreL3(){
     intakePivotPIDController.setReference(Constants.IntakePivotPositions.intakePivotScoreL3, SparkBase.ControlType.kPosition);
   }
-  
   public void intakePivotScoreL4(){
     intakePivotPIDController.setReference(Constants.IntakePivotPositions.intakePivotScoreL4, SparkBase.ControlType.kPosition);
   }
-
+  public void intakePivotAlgaeHigh(){
+    intakePivotPIDController.setReference(Constants.IntakePivotPositions.intakePivotAlgaeHigh, SparkBase.ControlType.kPosition);
+  }
+  public void intakePivotAlgaeLow(){
+    intakePivotPIDController.setReference(Constants.IntakePivotPositions.intakePivotAlgaeLow, SparkBase.ControlType.kPosition);
+  }
   public void intakePivotCoralPickupPosition(){
     intakePivotPIDController.setReference(Constants.IntakePivotPositions.intakePivotCoralPickupPosition, SparkBase.ControlType.kPosition);
   }
@@ -73,8 +72,8 @@ public class IntakePivot extends SubsystemBase {
   }
   
 
-
-  /*Create manually controlled commands here */
+  //Create manually controlled commands here, these are the commands 
+  //that are called from RobotContainer.java (or maybe just Robot.java) to move the motors 
 
    public Command intakePivotUpCommand(){
       return run(() -> intakePivotUp());
@@ -88,31 +87,37 @@ public class IntakePivot extends SubsystemBase {
       return run(() -> intakePivotStop());
     }
 
-    /*Create set position commands here */
-    public Command IntakePivotScoreL1Command(){
+    public Command intakePivotScoreL1Command(){
       return run(() -> intakePivotScoreL1()).until(() -> (Math.abs(intakePivotEncoder.getPosition() - Constants.IntakePivotPositions.intakePivotScoreL1) < 1));
     }
     
-    public Command IntakePivotScoreL2Command(){
+    public Command intakePivotScoreL2Command(){
       return run(() -> intakePivotScoreL2()).until(() -> (Math.abs(intakePivotEncoder.getPosition() - Constants.IntakePivotPositions.intakePivotScoreL2) < 1));
     }
     
-    public Command IntakePivotScoreL3Command(){
+    public Command intakePivotScoreL3Command(){
       return run(() -> intakePivotScoreL3()).until(() -> (Math.abs(intakePivotEncoder.getPosition() - Constants.IntakePivotPositions.intakePivotScoreL3) < 1));
     }
     
-    public Command IntakePivotScoreL4Command(){
+    public Command intakePivotScoreL4Command(){
       return run(() -> intakePivotScoreL4()).until(() -> (Math.abs(intakePivotEncoder.getPosition() - Constants.IntakePivotPositions.intakePivotScoreL4) < 1));
     }
+
+    public Command intakePivotAlgaeHighCommand(){
+      return run(() -> intakePivotAlgaeHigh()).until(() -> (Math.abs(intakePivotEncoder.getPosition() - Constants.IntakePivotPositions.intakePivotAlgaeHigh) < 1));
+    }
+
+    public Command intakePivotAlgaeLowCommand(){
+      return run(() -> intakePivotAlgaeLow()).until(() -> (Math.abs(intakePivotEncoder.getPosition() - Constants.IntakePivotPositions.intakePivotAlgaeLow) < 1));
+    }
    
-    public Command IntakePivotCoralPickupPositionCommand(){
+    public Command intakePivotCoralPickupPositionCommand(){
       return run(() -> intakePivotCoralPickupPosition()).until(() -> (Math.abs(intakePivotEncoder.getPosition() - Constants.IntakePivotPositions.intakePivotCoralPickupPosition) < 1));
     }
 
-    public Command IntakePivotClimbPositionCommand(){
+    public Command intakePivotClimbPositionCommand(){
       return run(() -> intakePivotClimbPosition()).until(() -> (Math.abs(intakePivotEncoder.getPosition() - Constants.IntakePivotPositions.intakePivotClimbPosition) < 1));
     }
-
     
   @Override
     public void periodic(){
