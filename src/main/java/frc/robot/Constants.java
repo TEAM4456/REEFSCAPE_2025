@@ -181,7 +181,10 @@ public final class Constants {
 
   public static final class IntakeSpeeds{
     public static final double intakePickupCoral = -150;
-    public static final double intakeScoreCoral = 0;
+    public static final double intakeScoreCoralL2toL4 = 0;
+    public static final double intakeScoreCoralL1 = 0;
+    public static final double intakeRemoveAlgae = 0;
+    public static final double intakePullBack = 0;
   }
 
   //All of these values aren't correct, they are just placeholders

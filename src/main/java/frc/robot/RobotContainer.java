@@ -177,6 +177,27 @@ public Command scoreL4(){
     climber.ClimbDeepCageCommand()
   );
 } */
+
+public Command algaeHighCommand()
+{
+  return new ParallelCommandGroup(
+    elevator.elevatorAlgaeHighCommand(),
+    elevatorPivot.elevatorPivotAlgaeHighCommand(),
+    intakePivot.intakePivotAlgaeHighCommand(),
+    intake.intakeStopCommand()
+  );
+}
+
+public Command algaeLowCommand()
+{
+  return new ParallelCommandGroup(
+    elevator.elevatorAlgaeLowCommand(),
+    elevatorPivot.elevatorPivotAlgaeLowCommand(),
+    intakePivot.intakePivotAlgaeLowCommand(),
+    intake.intakeStopCommand()
+  );
+}
+
   //Create Autonomous Routines here (sequences for first 15s of match)
   //See Crescendo's code for examples
 

@@ -38,9 +38,18 @@ public class Intake extends SubsystemBase {
   public void intakePickupCoral(){
     intakeMotor.set(-Constants.IntakeSpeeds.intakePickupCoral);
   }
+  public void intakeAutoPullBack(){
+    intakePIDController.setReference(Constants.IntakeSpeeds.intakePullBack, SparkMax.ControlType.kPosition);
+  }
   //When called, this moves both motors to score coral
-  public void intakeScoreCoral(){
-    intakeMotor.set(Constants.IntakeSpeeds.intakeScoreCoral);
+  public void intakeScoreCoralL2toL4(){
+    intakeMotor.set(Constants.IntakeSpeeds.intakeScoreCoralL2toL4);
+  }
+  public void intakeScoreCoralL1(){
+    intakeMotor.set(Constants.IntakeSpeeds.intakeScoreCoralL1);
+  }
+  public void intakeRemoveAlgae(){
+    intakeMotor.set(-Constants.IntakeSpeeds.intakeRemoveAlgae);
   }
    public void intakeStop(){
      intakeMotor.set(0);
@@ -54,8 +63,15 @@ public class Intake extends SubsystemBase {
       return run(() -> intakePickupCoral());
     }
 
-    public Command intakeScoreCoralCommand(){
-      return run(() -> intakeScoreCoral());
+    public Command intakeScoreCoralL2toL4Command(){
+      return run(() -> intakeScoreCoralL2toL4());
+    }
+
+    public Command intakeScoreCoralL1Command(){
+      return run(() -> intakeScoreCoralL1());
+    }
+    public Command intakeRemoveAlgaeCommand(){
+      return run(() -> intakeRemoveAlgae());
     }
 
     public Command intakeStopCommand(){
