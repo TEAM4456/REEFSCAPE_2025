@@ -55,6 +55,20 @@ public class RobotContainer {
   private final CommandXboxController second = new CommandXboxController(1);
 
 
+  //Heres how to do named commands
+  /*
+    swerve = new Swerve();
+        exampleSubsystem = new ExampleSubsystem();
+
+        // Register Named Commands
+        NamedCommands.registerCommand("autoBalance", swerve.autoBalanceCommand());
+        NamedCommands.registerCommand("exampleCommand", exampleSubsystem.exampleCommand());
+        NamedCommands.registerCommand("someOtherCommand", new SomeOtherCommand());
+
+        // Do all other initialization
+        configureButtonBindings();
+   */
+
 
   /* Drive Controls */
   private final int translationAxis = XboxController.Axis.kLeftY.value;
