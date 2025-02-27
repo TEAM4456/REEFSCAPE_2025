@@ -26,7 +26,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class Vision extends SubsystemBase {
-    //private final PhotonCamera camera = new PhotonCamera("limelight angle");
+    //private final PhotonCamera camera = new PhotonCamera("limelight3g");
     //public final PhotonPoseEstimator photonPoseEstimatorAngle;
     private AprilTagFieldLayout fieldLayout;
 
