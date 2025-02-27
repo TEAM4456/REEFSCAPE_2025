@@ -30,7 +30,7 @@ public class Vision extends SubsystemBase {
     //public final PhotonPoseEstimator photonPoseEstimatorAngle;
     private AprilTagFieldLayout fieldLayout;
 
-    private final PhotonCamera camera = new PhotonCamera("limelight front");
+    private final PhotonCamera camera = new PhotonCamera("limelight3");
     public final PhotonPoseEstimator photonPoseEstimator;
     
     public Vision(){
