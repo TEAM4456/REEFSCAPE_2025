@@ -32,6 +32,7 @@ public class AlgaePickup extends SubsystemBase {
     rightAlgaePickupConfig = new SparkMaxConfig();
     rightAlgaePickupConfig.idleMode(IdleMode.kBrake);
     rightAlgaePickupConfig.closedLoop.pidf(1,0,0,0);
+    rightAlgaePickupConfig.openLoopRampRate(0.5);
     rightAlgaePickupConfig.smartCurrentLimit(40);
     
 
@@ -40,6 +41,7 @@ public class AlgaePickup extends SubsystemBase {
     leftAlgaePickupConfig = new SparkMaxConfig();
     leftAlgaePickupConfig.idleMode(IdleMode.kBrake);
     leftAlgaePickupConfig.closedLoop.pidf(1,0,0,0);
+    leftAlgaePickupConfig.openLoopRampRate(0.5);
     leftAlgaePickupConfig.smartCurrentLimit(40);
    }
   

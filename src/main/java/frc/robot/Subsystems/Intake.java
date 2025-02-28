@@ -4,6 +4,7 @@ import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkClosedLoopController;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.SparkMax;
+import com.revrobotics.spark.SparkBase;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkMaxConfig;
 
@@ -39,7 +40,7 @@ public class Intake extends SubsystemBase {
     intakeMotor.set(-Constants.IntakeSpeeds.intakePickupCoral);
   }
   public void intakeAutoPullBack(){
-    intakePIDController.setReference(Constants.IntakeSpeeds.intakePullBack, SparkMax.ControlType.kPosition);
+    intakePIDController.setReference(Constants.IntakeSpeeds.intakePullBack, SparkBase.ControlType.kPosition);
   }
   //When called, this moves both motors to score coral
   public void intakeScoreCoralL2toL4(){
@@ -79,6 +80,10 @@ public class Intake extends SubsystemBase {
     }
 
     /*Create set position commands here */
+
+    public Command intakeAutoPullBackCommand(){
+      return run(() -> intakeAutoPullBack()).until(() -> (Math.abs(intakeEncoder.getPosition() - Constants.IntakeSpeeds.intakePullBack) < 1));
+    }
 
   @Override
     public void periodic(){
