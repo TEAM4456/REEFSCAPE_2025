@@ -233,6 +233,10 @@ public static final class IntakePivotPositions{
     public static final double ClimbDeepCageLeft = .2;
     public static final double ClimbDeepCageRight = .2;
   }
+  
+  public static final class AlgaePickupPositions{ 
+    public static final double algaePickupSpeed = 0.0;
+  }
  
 
   public static final class VisionConstants {
