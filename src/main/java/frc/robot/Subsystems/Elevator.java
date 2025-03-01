@@ -1,5 +1,7 @@
-package frc.robot.Subsystems;
+// This class is used to control the main elevator up and down funstions
 
+// Imports are declared here and allow new commands to be used
+package frc.robot.Subsystems;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.SparkBase;
 import com.revrobotics.spark.config.SparkMaxConfig;
@@ -8,7 +10,6 @@ import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkClosedLoopController;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
-
 import edu.wpi.first.units.measure.Time;
 import edu.wpi.first.wpilibj.motorcontrol.Spark;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -18,14 +19,18 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.WrapperCommand;
 import frc.robot.Constants;
 
-
+// Declares the main body of the class and the stuff that happens within
 public class Elevator extends SubsystemBase {
-    private SparkMax elevatorMotor;
-    private RelativeEncoder elevatorEncoder; 
-    private SparkClosedLoopController elevatorPIDController;
-    private SparkMaxConfig elevatorConfig;
+
+  // 1st constructor declaration area - 1st and 2nd are two parts for the same thing
+  private SparkMax elevatorMotor;
+  private RelativeEncoder elevatorEncoder; 
+  private SparkClosedLoopController elevatorPIDController;
+  private SparkMaxConfig elevatorConfig;
 
   public Elevator() {
+
+    // 2nd constructor declaration area
     elevatorMotor = new SparkMax(18, MotorType.kBrushless);
     elevatorEncoder = elevatorMotor.getEncoder();
     elevatorConfig = new SparkMaxConfig();
@@ -33,33 +38,36 @@ public class Elevator extends SubsystemBase {
     elevatorConfig.closedLoop.pidf(1,0,0,0);
     elevatorConfig.openLoopRampRate(0.5);
     elevatorConfig.smartCurrentLimit(40);
-   }
-  
-  /* Create your elevator Methods here */
-
-  /*Manual Methods, button needs to be held for movement*/
-
-  //Moves the motor at negative elevatorSpeed to go up
-  public void elevatorUp(){
-    elevatorMotor.set(-Constants.ElevatorPositions.elevatorSpeed);
-  }
-  //Moves the moter at positive elevatorSpeed to go down
-  public void elevatorDown(){
-    elevatorMotor.set(Constants.ElevatorPositions.elevatorSpeed);
-  }
-  //Stops the motor movment
-   public void elevatorStop(){
-     elevatorMotor.set(0);
   }
   
-  /*Set Position Methods, button is pressed once for movement*/
-   public void elevatorScoreL1(){
-     elevatorPIDController.setReference(Constants.ElevatorPositions.ElevatorScoreL1, SparkBase.ControlType.kPosition);
-   }
+  // Create your Manual and Set Position method below
 
-   public void elevatorScoreL2(){
-     elevatorPIDController.setReference(Constants.ElevatorPositions.ElevatorScoreL2, SparkBase.ControlType.kPosition);
-   }
+  // Manual Methods - button needs to be held for movement
+
+    //Moves the motor at negative elevatorSpeed to go up
+    public void elevatorUp(){
+      elevatorMotor.set(-Constants.ElevatorPositions.elevatorSpeed);
+    }
+
+    //Moves the moter at positive elevatorSpeed to go down
+    public void elevatorDown(){
+      elevatorMotor.set(Constants.ElevatorPositions.elevatorSpeed);
+    }
+
+    //Stops the motor movment
+    public void elevatorStop(){
+      elevatorMotor.set(0);
+    }
+  
+    //Set Position Methods - button is pressed once for movement to a set position
+
+    public void elevatorScoreL1(){
+      elevatorPIDController.setReference(Constants.ElevatorPositions.ElevatorScoreL1, SparkBase.ControlType.kPosition);
+    }
+
+    public void elevatorScoreL2(){
+      elevatorPIDController.setReference(Constants.ElevatorPositions.ElevatorScoreL2, SparkBase.ControlType.kPosition);
+    }
 
     public void elevatorScoreL3(){
       elevatorPIDController.setReference(Constants.ElevatorPositions.ElevatorScoreL3, SparkBase.ControlType.kPosition);
@@ -86,9 +94,7 @@ public class Elevator extends SubsystemBase {
     }
 
 
-  /*Create manually controlled commands here
-   Refrence these in the robot run file
-  */
+  // Create manually controlled commands here - Refrence these in the robot run file
 
    public Command elevatorUpCommand(){
       return run(() -> elevatorUp());
@@ -102,7 +108,7 @@ public class Elevator extends SubsystemBase {
       return run(() -> elevatorStop());
     }
 
-    /*Create set position commands here */
+    // Create set position commands here
 
     public Command elevatorScoreL1Command(){
       return run(() -> elevatorScoreL1()).until(() -> (Math.abs(elevatorEncoder.getPosition() - Constants.ElevatorPositions.ElevatorScoreL1) < 1));

@@ -1,7 +1,7 @@
 /* Was used last year for the climb onto chain
 Could potentially be used for the deep cage...Maybe */
 
-// Imports are declared here and allwo new commands to be used
+// Imports are declared here and allow new commands to be used
 package frc.robot.Subsystems;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkClosedLoopController;
