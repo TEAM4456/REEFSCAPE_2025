@@ -117,10 +117,10 @@ public class ElevatorPivot extends SubsystemBase {
     return run(() -> elevatorPivotScoreL4()).until(() -> (Math.abs(pivotElvEncoder.getPosition() - Constants.ElevatorPivotPositions.elevatorPivotScoreL4) < 1));
   }
   public Command elevatorPivotAlgaeHighCommand() {
-    return run(() -> elevatorPivotScoreL4()).until(() -> (Math.abs(pivotElvEncoder.getPosition() - Constants.ElevatorPivotPositions.elevatorPivotAlgaeHigh) < 1));
+    return run(() -> elevatorPivotAlgaeHigh()).until(() -> (Math.abs(pivotElvEncoder.getPosition() - Constants.ElevatorPivotPositions.elevatorPivotAlgaeHigh) < 1));
   }
   public Command elevatorPivotAlgaeLowCommand() {
-    return run(() -> elevatorPivotScoreL4()).until(() -> (Math.abs(pivotElvEncoder.getPosition() - Constants.ElevatorPivotPositions.elevatorPivotAlgaeLow) < 1));
+    return run(() -> elevatorPivotAlgaeLow()).until(() -> (Math.abs(pivotElvEncoder.getPosition() - Constants.ElevatorPivotPositions.elevatorPivotAlgaeLow) < 1));
   }
 
   @Override
