@@ -2,7 +2,6 @@ package frc.robot;
 
 import java.time.Instant;
 import java.util.function.BooleanSupplier;
-
 import com.ctre.phoenix6.controls.PositionVoltage;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
@@ -10,7 +9,6 @@ import com.pathplanner.lib.commands.PathPlannerAuto;
 import com.pathplanner.lib.commands.FollowPathCommand;
 import com.pathplanner.lib.path.PathPlannerPath;
 import com.pathplanner.lib.util.FileVersionException;
-
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
@@ -41,22 +39,20 @@ import frc.robot.Subsystems.Intake;
 import frc.robot.Subsystems.IntakePivot;
 import frc.robot.Subsystems.Climber;
 
+/*
+  This class is where the bulk of the robot should be declared. Since Command-based is a
+  "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
+  periodic methods (other than the scheduler calls). Instead, the structure of the robot (including
+  subsystems, Commands, and button mappings) should be declared here.
+*/
 
-
-/**
- * This class is where the bulk of the robot should be declared. Since Command-based is a
- * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
- * periodic methods (other than the scheduler calls). Instead, the structure of the robot (including
- * subsystems, Commands, and button mappings) should be declared here.
- */
 public class RobotContainer {
-  /* Controllers */
+  // Sets the xBox Controllers
   private final CommandXboxController driver = new CommandXboxController(0);
   private final CommandXboxController second = new CommandXboxController(1);
 
+  /* Here's an example of how to do named commands
 
-  //Heres how to do named commands
-  /*
     swerve = new Swerve();
         exampleSubsystem = new ExampleSubsystem();
 
@@ -66,22 +62,22 @@ public class RobotContainer {
         NamedCommands.registerCommand("someOtherCommand", new SomeOtherCommand());
 
         // Do all other initialization
+
         configureButtonBindings();
-   */
+  */
 
-
-  /* Drive Controls */
+  // Drive Control Declarations
   private final int translationAxis = XboxController.Axis.kLeftY.value;
   private final int strafeAxis = XboxController.Axis.kLeftX.value ;
   private final int rotationAxis = XboxController.Axis.kRightX.value;
 
-  /* Driver Buttons */
- // private final JoystickButton zeroGyro =
- //     new JoystickButton(driver, XboxController.Button.kY.value);
- //private final JoystickButton robotCentric =
- //     new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
+  // Driver Buttons
+  // private final JoystickButton zeroGyro =
+  //   new JoystickButton(driver, XboxController.Button.kY.value);
+  // private final JoystickButton robotCentric =
+  //   new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
 
-  /* Subsystems */
+  // Subsystems
   private final Vision vision = new Vision();
   private final Swerve s_Swerve = new Swerve(vision);
   private final Elevator elevator = new Elevator();
@@ -94,7 +90,7 @@ public class RobotContainer {
 
 
 
-  /** The container for the robot. Contains subsystems, OI devices, and Commands. */
+  // The container for the robot. Contains subsystems, OI devices, and Commands
   
   public RobotContainer() {
     s_Swerve.setDefaultCommand(
@@ -104,23 +100,22 @@ public class RobotContainer {
             () -> -driver.getRawAxis(strafeAxis),
             () -> -driver.getRawAxis(rotationAxis)));
 
-    //Puts Sendable Chooser on SmartDashboard
+    // Puts Sendable Chooser on SmartDashboard
     chooser = AutoBuilder.buildAutoChooser();
     SmartDashboard.putData("Auto:", chooser);
-
 
     // Configure the button bindings
     configureButtonBindings();  
   }
 
-  //Create Automated Commands here that make use of multiple subsystems [can be used in autonomous or teleop]
+    //Create Automated Commands here that make use of multiple subsystems [can be used in autonomous or teleop]
     //(ex. auto coral station pickup: moves elevator and elevator pivot)
     //See Crescendo's code for examples
 
     
     //Create othe commands that require multiple subsystems here
- //Commented out stopMotorsAll() to test PathPlanner
-   /*  public Command stopMotorsAll(){
+    //Commented out stopMotorsAll() to test PathPlanner
+    /*  public Command stopMotorsAll(){
       return new ParallelCommandGroup(
         elevator.elevatorStopCommand(),
         elevatorPivot.elevatorPivotStopCommand(),
