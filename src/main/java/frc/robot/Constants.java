@@ -227,6 +227,12 @@ public static final class IntakePivotPositions{
   public static final double intakePivotAlgaeLow = 0.0;
   
 }
+public static final class AlgaePivotPositions{
+  
+  public static final double algaePivotSpeed = .2;
+  public static final double algaePivotUp = 0.0;
+  public static final double algaePivotDown = 0.0;
+}
   public static final class ClimberPositions{
     public static final double climberSpeed = .2;
     public static final double climbPosition = .2;
