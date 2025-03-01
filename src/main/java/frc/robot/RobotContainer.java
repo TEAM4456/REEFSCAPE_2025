@@ -264,7 +264,7 @@ public class RobotContainer {
     driver.leftBumper().whileTrue(elevatorPivot.elevatorPivotDownCommand());
     driver.leftBumper().whileFalse(elevatorPivot.elevatorPivotStopCommand());
 
-    driver.a().onTrue(coralPickup());
+    driver.a().onTrue(intake.intakePickupCoralCommand());
 
     driver.b().whileTrue(intakePivot.intakePivotDownCommand());
     driver.b().whileFalse(intakePivot.intakePivotStopCommand());
