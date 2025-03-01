@@ -1,5 +1,9 @@
-package frc.robot;
+/* This class is where the bulk of the robot should be declared. Since Command-based is a
+"declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
+periodic methods (other than the scheduler calls). Instead, the structure of the robot (including
+subsystems, Commands, and button mappings) should be declared here */
 
+package frc.robot;
 import java.time.Instant;
 import java.util.function.BooleanSupplier;
 import com.ctre.phoenix6.controls.PositionVoltage;
@@ -30,21 +34,19 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Commands.TeleopSwerve;
-import frc.robot.Subsystems.Elevator;
-import frc.robot.Subsystems.Swerve;
-import frc.robot.Subsystems.Vision;
 import frc.robot.Commands.toggleSpeed;
+
+// Subsystem imports
+import frc.robot.Subsystems.AlgaePickup;
+import frc.robot.Subsystems.AlgaePivot;
+import frc.robot.Subsystems.Climber;
+import frc.robot.Subsystems.Elevator;
 import frc.robot.Subsystems.ElevatorPivot;
 import frc.robot.Subsystems.Intake;
 import frc.robot.Subsystems.IntakePivot;
-import frc.robot.Subsystems.Climber;
-
-/*
-  This class is where the bulk of the robot should be declared. Since Command-based is a
-  "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
-  periodic methods (other than the scheduler calls). Instead, the structure of the robot (including
-  subsystems, Commands, and button mappings) should be declared here.
-*/
+import frc.robot.Subsystems.Swerve;
+import frc.robot.Subsystems.SwerveModule; // Not sure if we need this but im declaring it anyway
+import frc.robot.Subsystems.Vision;
 
 public class RobotContainer {
   // Sets the xBox Controllers
@@ -77,17 +79,19 @@ public class RobotContainer {
   // private final JoystickButton robotCentric =
   //   new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
 
-  // Subsystems
-  private final Vision vision = new Vision();
-  private final Swerve s_Swerve = new Swerve(vision);
+  // Subsystems object declarations
+  private final AlgaePickup algaePickup = new AlgaePickup();
+  private final AlgaePivot algaePivot = new AlgaePivot();
+  private final Climber climber = new Climber();
   private final Elevator elevator = new Elevator();
   private final ElevatorPivot elevatorPivot = new ElevatorPivot();
-  private final IntakePivot intakePivot = new IntakePivot();
   private final Intake intake = new Intake();
-  private final Climber climber = new Climber();
+  private final IntakePivot intakePivot = new IntakePivot();
+  private final Vision vision = new Vision();
+  private final Swerve s_Swerve = new Swerve(vision);
+
 
   private final SendableChooser<Command> chooser;
-
 
 
   // The container for the robot. Contains subsystems, OI devices, and Commands
@@ -108,119 +112,123 @@ public class RobotContainer {
     configureButtonBindings();  
   }
 
-    //Create Automated Commands here that make use of multiple subsystems [can be used in autonomous or teleop]
-    //(ex. auto coral station pickup: moves elevator and elevator pivot)
-    //See Crescendo's code for examples
+  //Create Automated Commands here that make use of multiple subsystems [can be used in autonomous or teleop]
+  //(ex. auto coral station pickup: moves elevator and elevator pivot)
+  //See Crescendo's code for examples
 
-    
-    //Create othe commands that require multiple subsystems here
-    //Commented out stopMotorsAll() to test PathPlanner
-    /*  public Command stopMotorsAll(){
-      return new ParallelCommandGroup(
-        elevator.elevatorStopCommand(),
-        elevatorPivot.elevatorPivotStopCommand(),
-        intakePivot.intakePivotStopCommand(),
-        intake.intakeStopCommand(),
-        climber.climberStopCommand()
-      );
-    } */
+  // Stops all moters except the drive system
+  public Command stopMotorsAll() {
+    return new ParallelCommandGroup(
+      algaePickup.algaePickupStopCommand(),
+      algaePivot.algaePivotStopCommand(),
+      climber.climberStopCommand(),
+      elevator.elevatorStopCommand(),
+      elevatorPivot.elevatorPivotStopCommand(),
+      intake.intakeStopCommand(),
+      intakePivot.intakePivotStopCommand()
+    );
+  }
+  
+  // Sets all the moving parts on the elevator into position to score on L1
+  public Command scoreL1() {
+    return new ParallelCommandGroup(
+      elevator.elevatorScoreL1Command(),
+      elevatorPivot.elevatorPivotScoreL1Command(),
+      intakePivot.intakePivotScoreL1Command()
+    );
+  }
 
-  /* 
-public Command scoreL1(){
-  return new ParallelCommandGroup(
-    elevator.elevatorScoreL1(),
-    elevatorPivot.elevatorPivotScoreL1(),
-    intakePivot.intakePivotScoreL1()
-  );
-}
-public Command scoreL2(){
-  return new ParallelCommandGroup(
-    elevator.elevatorScoreL2(),
-    elevatorPivot.elevatorPivotScoreL2(),
-    intakePivot.intakePivotScoreL2()
-  );
-}
-public Command scoreL3(){
-  return new ParallelCommandGroup(
-    elevator.elevatorScoreL3(),
-    elevatorPivot.elevatorPivotScoreL3(),
-    intakePivot.intakePivotScoreL3()
-  );
-}
-public Command scoreL4(){
-  return new ParallelCommandGroup(
-    elevator.elevatorScoreL3(),
-    elevatorPivot.elevatorPivotScoreL3(),
-    intakePivot.intakePivotScoreL3()
-  );
-}
+  // Sets all the moving parts on the elevator into position to score on L2
+  public Command scoreL2() {
+    return new ParallelCommandGroup(
+      elevator.elevatorScoreL2Command(),
+      elevatorPivot.elevatorPivotScoreL2Command(),
+      intakePivot.intakePivotScoreL2Command()
+    );
+  }
 
-*/
-/*public Command coralPickup()
-{
-  return new ParallelCommandGroup(
-    elevator.elevatorCoralPickupPositionCommand(),
-    elevatorPivot.elevatorPivotCoralPickupPositionCommand(),
-    intakePivot.IntakePivotCoralPickupPositionCommand(),
-    intake.intakePickupCoralCommand()
-  );
-}*/
+  // Sets all the moving parts on the elevator into position to score on L3
+  public Command scoreL3() {
+    return new ParallelCommandGroup(
+      elevator.elevatorScoreL3Command(),
+      elevatorPivot.elevatorPivotScoreL3Command(),
+      intakePivot.intakePivotScoreL3Command()
+    );
+  }
 
-/*public Command driveCommand()
-{
-  return new ParallelCommandGroup(
-    elevator.elevatorCoralPickupPositionCommand(),
-    elevatorPivot.elevatorPivotCoralPickupPositionCommand(),
-    intakePivot.IntakePivotCoralPickupPositionCommand(),
-    intake.intakeStopCommand()
-  );
-}*/
+  // Sets all the moving parts on the elevator into position to score on L4
+  public Command scoreL4() {
+    return new ParallelCommandGroup(
+      elevator.elevatorScoreL4Command(),
+      elevatorPivot.elevatorPivotScoreL4Command(),
+      intakePivot.intakePivotScoreL4Command()
+    );
+  }
 
-/*public Command climbCommand()
-{
-  return new ParallelCommandGroup(
-    elevator.elevatorClimbPositionCommand(),
-    elevatorPivot.elevatorPivotClimbPositionCommand(),
-    intakePivot.IntakePivotClimbPositionCommand(),
-    intake.intakeStopCommand(),
-    climber.ClimbDeepCageCommand()
-  );
-} */
+  // Sets all the moving parts on the elevator into position to intake coral
+  public Command coralPickup() {
+    return new ParallelCommandGroup(
+      elevator.elevatorCoralPickupPositionCommand(),
+      elevatorPivot.elevatorPivotCoralPickupPositionCommand(),
+      intakePivot.intakePivotCoralPickupPositionCommand(),
+      intake.intakePickupCoralCommand()
+    );
+  }
 
-public Command algaeHighCommand()
-{
-  return new ParallelCommandGroup(
-    elevator.elevatorAlgaeHighCommand(),
-    elevatorPivot.elevatorPivotAlgaeHighCommand(),
-    intakePivot.intakePivotAlgaeHighCommand(),
-    intake.intakeStopCommand()
-  );
-}
+  // Not sure what this does so it is not mapped to anything on the controller
+  public Command driveCommand() {
+    return new ParallelCommandGroup(
+      elevator.elevatorCoralPickupPositionCommand(),
+      elevatorPivot.elevatorPivotCoralPickupPositionCommand(),
+      intakePivot.intakePivotCoralPickupPositionCommand(),
+      intake.intakeStopCommand()
+    );
+  }
 
-public Command algaeLowCommand()
-{
-  return new ParallelCommandGroup(
-    elevator.elevatorAlgaeLowCommand(),
-    elevatorPivot.elevatorPivotAlgaeLowCommand(),
-    intakePivot.intakePivotAlgaeLowCommand(),
-    intake.intakeStopCommand()
-  );
-}
+  // Gets the robot into clibing position and begins to climb
+  public Command climbCommand() {
+    return new ParallelCommandGroup(
+      elevator.elevatorClimbPositionCommand(),
+      elevatorPivot.elevatorPivotClimbPositionCommand(),
+      intakePivot.intakePivotClimbPositionCommand(),
+      intake.intakeStopCommand(),
+      climber.ClimbDeepCageCommand()
+    );
+  }
+
+  // Goes to algae high
+  public Command algaeHighCommand() {
+    return new ParallelCommandGroup(
+      elevator.elevatorAlgaeHighCommand(),
+      elevatorPivot.elevatorPivotAlgaeHighCommand(),
+      intakePivot.intakePivotAlgaeHighCommand(),
+      intake.intakeStopCommand()
+    );
+  }
+
+  // Goes to algae low
+  public Command algaeLowCommand() {
+    return new ParallelCommandGroup(
+      elevator.elevatorAlgaeLowCommand(),
+      elevatorPivot.elevatorPivotAlgaeLowCommand(),
+      intakePivot.intakePivotAlgaeLowCommand(),
+      intake.intakeStopCommand()
+    );
+  }
+
+
 
   //Create Autonomous Routines here (sequences for first 15s of match)
   //See Crescendo's code for examples
-
   /**
    * Use this method to define your button->command mappings. Buttons can be created by
    * instantiating a {@link GenericHID} or one of its subclasses ({@link
    * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
-
-
-
   //Add options for autonomous routines so that they appear in sendable chooser on SmartDashboard
   //https://docs.wpilib.org/en/stable/docs/software/dashboards/smartdashboard/choosing-an-autonomous-program-from-smartdashboard.html 
+  
   private void configureButtonBindings() {
     chooser.setDefaultOption("nothing", null);
     
@@ -229,9 +237,11 @@ public Command algaeLowCommand()
     chooser.addOption("Practice Score With Rotation", new PathPlannerAuto("practice score with rotation"));
     //chooser.addOption("Center 1-2",autoCenter12());
     //add rest of autonomous routines here
-    
-    
-    /* Driver Buttons */
+  
+  
+  
+    //Create Driver Button mapping here
+
     //Driver #1
     driver.back().toggleOnTrue(
       new toggleSpeed(
@@ -240,30 +250,29 @@ public Command algaeLowCommand()
         () -> -driver.getRawAxis(strafeAxis),
         () -> -driver.getRawAxis(rotationAxis)));
     
-   // driver.start().whileTrue(stopMotorsAll());
+    driver.start().whileTrue(stopMotorsAll());
 
-   //driver.rightTrigger().whileTrue(elevator.elevatorUpCommand());
-   //driver.rightTrigger().whileFalse(elevator.elevatorStopCommand());
-   //driver.leftTrigger().whileTrue(elevator.elevatorDownCommand());
-   //driver.leftTrigger().whileFalse(elevator.elevatorStopCommand());
-   
-   //driver.rightBumper().whileTrue(elevatorPivot.elevatorPivotUpCommand());
-   //driver.rightBumper().whileFalse(elevatorPivot.elevatorPivotStopCommand());
-   //driver.leftBumper().whileTrue(elevatorPivot.elevatorPivotDownCommand());
-   //driver.leftBumper().whileFalse(elevatorPivot.elevatorPivotStopCommand());
+    driver.rightTrigger().whileTrue(elevator.elevatorUpCommand());
+    driver.rightTrigger().whileFalse(elevator.elevatorStopCommand());
 
-    //driver.y().whileTrue(intake.intakePickupCoralCommand());
-    //driver.y().whileFalse(intake.intakeStopCommand());
-    //driver.a().whileTrue(intake.intakeScoreCoralCommand());
-    //driver.a().whileFalse(intake.intakeStopCommand());
-
-    //driver.b().whileTrue(intakePivot.intakePivotUpCommand());
-    //driver.b().whileFalse(intakePivot.intakePivotStopCommand());
-    //driver.x().whileTrue(intakePivot.intakePivotDownCommand());
-    //driver.x().whileFalse(intakePivot.intakePivotStopCommand());
-   
-
+    driver.leftTrigger().whileTrue(elevator.elevatorDownCommand());
+    driver.leftTrigger().whileFalse(elevator.elevatorStopCommand());
     
+    driver.rightBumper().whileTrue(elevatorPivot.elevatorPivotUpCommand());
+    driver.rightBumper().whileFalse(elevatorPivot.elevatorPivotStopCommand());
+
+    driver.leftBumper().whileTrue(elevatorPivot.elevatorPivotDownCommand());
+    driver.leftBumper().whileFalse(elevatorPivot.elevatorPivotStopCommand());
+
+    driver.a().onTrue(coralPickup());
+
+    driver.b().whileTrue(intakePivot.intakePivotDownCommand());
+    driver.b().whileFalse(intakePivot.intakePivotStopCommand());
+
+    driver.x().onTrue(scoreL2());
+
+    driver.y().whileTrue(intakePivot.intakePivotUpCommand());
+    driver.y().whileFalse(intake.intakeStopCommand());
 
     //Driver #2
     second.back().toggleOnTrue(
@@ -273,12 +282,12 @@ public Command algaeLowCommand()
         () -> -second.getRawAxis(strafeAxis),
         () -> -second.getRawAxis(rotationAxis)));
 
-    //second.start().whileTrue(stopMotorsAll());
+    second.start().whileTrue(stopMotorsAll());
 
-    //second.rightTrigger().whileTrue(climber.climberUpCommand());
-    //second.rightTrigger().whileFalse(climber.climberStopCommand());
-    //second.leftTrigger().whileTrue(climber.climberDownCommand());
-    //second.leftTrigger().whileFalse(climber.climberStopCommand());
+    second.rightTrigger().whileTrue(climber.climberUpCommand());
+    second.rightTrigger().whileFalse(climber.climberStopCommand());
+    second.leftTrigger().whileTrue(climber.climberDownCommand());
+    second.leftTrigger().whileFalse(climber.climberStopCommand());
   }
   
   public Swerve getSwerve(){
@@ -298,6 +307,4 @@ public Command algaeLowCommand()
     return chooser.getSelected();
     //return null;
   }
-
-
 }
