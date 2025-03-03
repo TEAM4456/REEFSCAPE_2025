@@ -62,6 +62,12 @@ public class AlgaePivot extends SubsystemBase {
   public void setAlgaePivotDown() {
     pivotAlgPIDController.setReference(Constants.AlgaePivotPositions.algaePivotDown, SparkBase.ControlType.kPosition);
     }
+  public void algaePivotScore(){
+    pivotAlgPIDController.setReference(Constants.AlgaePivotPositions.algaePivotScore, SparkBase.ControlType.kPosition);
+  }
+  public void algaePivotDriveSetting(){
+    pivotAlgPIDController.setReference(Constants.AlgaePivotPositions.algaePivotDriveSetting, SparkBase.ControlType.kPosition);
+  }
   
 
   /*Create manually controlled commands here */
@@ -83,6 +89,12 @@ public class AlgaePivot extends SubsystemBase {
   }
   public Command setAlgaePivotDownCommand() {
     return run(() -> setAlgaePivotDown()).until(() -> (Math.abs(pivotAlgEncoder.getPosition() - Constants.AlgaePivotPositions.algaePivotDown) < 1));
+  }
+  public Command algaePivotScoreCommand(){
+    return run(() -> algaePivotScore()).until(() -> (Math.abs(pivotAlgEncoder.getPosition() - Constants.AlgaePivotPositions.algaePivotScore) < 1));
+  }
+  public Command algaePivotDriveSettingCommand(){
+    return run(() -> algaePivotDriveSetting()).until(() -> (Math.abs(pivotAlgEncoder.getPosition() - Constants.AlgaePivotPositions.algaePivotDriveSetting) < 1));
   }
 
   @Override

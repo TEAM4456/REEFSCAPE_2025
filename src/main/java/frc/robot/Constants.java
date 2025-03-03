@@ -232,6 +232,8 @@ public static final class AlgaePivotPositions{
   public static final double algaePivotSpeed = .2;
   public static final double algaePivotUp = 0.0;
   public static final double algaePivotDown = 0.0;
+  public static final double algaePivotScore = 0.0;
+  public static final double algaePivotDriveSetting = 0.0;
 }
   public static final class ClimberPositions{
     public static final double climberSpeed = .2;
