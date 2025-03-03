@@ -131,68 +131,91 @@ public class RobotContainer {
   
   // Sets all the moving parts on the elevator into position to score on L1
   public Command scoreL1() {
-    return new ParallelCommandGroup(
-      elevator.elevatorScoreL1Command(),
-      elevatorPivot.elevatorPivotScoreL1Command(),
-      intakePivot.intakePivotScoreL1Command()
+    return new SequentialCommandGroup(
+      algaePivot.algaePivotScoreCommand(),
+      new ParallelCommandGroup(
+        elevator.elevatorScoreL1Command(),
+        elevatorPivot.elevatorPivotScoreL1Command(),
+        intakePivot.intakePivotScoreL1Command()
+      )
     );
   }
 
   // Sets all the moving parts on the elevator into position to score on L2
   public Command scoreL2() {
-    return new ParallelCommandGroup(
-      elevator.elevatorScoreL2Command(),
-      elevatorPivot.elevatorPivotScoreL2Command(),
-      intakePivot.intakePivotScoreL2Command()
+    return new SequentialCommandGroup(
+      algaePivot.algaePivotScoreCommand(),
+      new ParallelCommandGroup(
+        elevator.elevatorScoreL2Command(),
+        elevatorPivot.elevatorPivotScoreL2Command(),
+        intakePivot.intakePivotScoreL2Command()
+      )
     );
   }
 
   // Sets all the moving parts on the elevator into position to score on L3
   public Command scoreL3() {
-    return new ParallelCommandGroup(
-      elevator.elevatorScoreL3Command(),
-      elevatorPivot.elevatorPivotScoreL3Command(),
-      intakePivot.intakePivotScoreL3Command()
+    return new SequentialCommandGroup(
+      algaePivot.algaePivotScoreCommand(),
+      new ParallelCommandGroup(
+        elevator.elevatorScoreL3Command(),
+        elevatorPivot.elevatorPivotScoreL3Command(),
+        intakePivot.intakePivotScoreL3Command()
+      )
     );
   }
 
   // Sets all the moving parts on the elevator into position to score on L4
   public Command scoreL4() {
-    return new ParallelCommandGroup(
-      elevator.elevatorScoreL4Command(),
-      elevatorPivot.elevatorPivotScoreL4Command(),
-      intakePivot.intakePivotScoreL4Command()
+    return new SequentialCommandGroup(
+      algaePivot.algaePivotScoreCommand(),
+      new ParallelCommandGroup(
+        elevator.elevatorScoreL4Command(),
+        elevatorPivot.elevatorPivotScoreL4Command(),
+        intakePivot.intakePivotScoreL4Command()
+      )
     );
   }
 
   // Sets all the moving parts on the elevator into position to intake coral
   public Command coralPickup() {
-    return new ParallelCommandGroup(
-      elevator.elevatorCoralPickupPositionCommand(),
-      elevatorPivot.elevatorPivotCoralPickupPositionCommand(),
-      intakePivot.intakePivotCoralPickupPositionCommand(),
-      intake.intakePickupCoralCommand()
+    return new SequentialCommandGroup(
+      algaePivot.algaePivotScoreCommand(),
+      new ParallelCommandGroup(
+        elevator.elevatorCoralPickupPositionCommand(),
+        elevatorPivot.elevatorPivotCoralPickupPositionCommand(),
+        intakePivot.intakePivotCoralPickupPositionCommand(),
+        intake.intakePickupCoralCommand()
+      )
     );
   }
 
   // Not sure what this does so it is not mapped to anything on the controller
   public Command driveCommand() {
-    return new ParallelCommandGroup(
-      elevator.elevatorCoralPickupPositionCommand(),
-      elevatorPivot.elevatorPivotCoralPickupPositionCommand(),
-      intakePivot.intakePivotCoralPickupPositionCommand(),
-      intake.intakeStopCommand()
+    return new SequentialCommandGroup(
+      elevatorPivot.elevatorPivotDrivePositionCommand(),
+      new ParallelCommandGroup(
+        elevator.elevatorCoralPickupPositionCommand(),
+        intakePivot.intakePivotCoralPickupPositionCommand(),
+        intake.intakeStopCommand()
+      ), 
+       algaePivot.algaePivotDriveSettingCommand()
     );
+    
   }
 
   // Gets the robot into clibing position and begins to climb
-  public Command climbCommand() {
-    return new ParallelCommandGroup(
-      elevator.elevatorClimbPositionCommand(),
-      elevatorPivot.elevatorPivotClimbPositionCommand(),
-      intakePivot.intakePivotClimbPositionCommand(),
-      intake.intakeStopCommand(),
-      climber.ClimbDeepCageCommand()
+  public Command climbPositionCommand() {
+    return new SequentialCommandGroup( 
+    algaePivot.algaePivotScoreCommand(),
+      new ParallelCommandGroup(
+        elevator.elevatorClimbPositionCommand(),
+        elevatorPivot.elevatorPivotClimbPositionCommand(),
+        intakePivot.intakePivotClimbPositionCommand(),
+        intake.intakeStopCommand()
+      ),
+    algaePivot.algaePivotDriveSettingCommand()
+
     );
   }
 
@@ -264,15 +287,18 @@ public class RobotContainer {
     driver.leftBumper().whileTrue(elevatorPivot.elevatorPivotDownCommand());
     driver.leftBumper().whileFalse(elevatorPivot.elevatorPivotStopCommand());
 
-    driver.a().onTrue(intake.intakePickupCoralCommand());
+    driver.a().whileTrue(intake.intakePickupCoralCommand());
+    driver.a().whileFalse(intake.intakeStopCommand());
+
+    driver.x().whileTrue(intake.intakeScoreCoralL1Command());
+    driver.x().whileFalse(intake.intakeStopCommand());
 
     driver.b().whileTrue(intakePivot.intakePivotDownCommand());
     driver.b().whileFalse(intakePivot.intakePivotStopCommand());
 
-    driver.x().onTrue(scoreL2());
 
     driver.y().whileTrue(intakePivot.intakePivotUpCommand());
-    driver.y().whileFalse(intake.intakeStopCommand());
+    driver.y().whileFalse(intakePivot.intakePivotStopCommand());
 
     //Driver #2
     second.back().toggleOnTrue(
@@ -288,6 +314,16 @@ public class RobotContainer {
     second.rightTrigger().whileFalse(climber.climberStopCommand());
     second.leftTrigger().whileTrue(climber.climberDownCommand());
     second.leftTrigger().whileFalse(climber.climberStopCommand());
+
+    second.rightBumper().whileTrue(algaePivot.algaePivotUpCommand());
+    second.rightBumper().whileFalse(algaePivot.algaePivotStopCommand());
+    second.leftBumper().whileTrue(algaePivot.algaePivotDownCommand());
+    second.leftBumper().whileFalse(algaePivot.algaePivotStopCommand());
+
+    second.x().whileTrue(algaePivot.algaePivotDownCommand());
+    second.x().whileFalse(algaePivot.algaePivotStopCommand());
+    second.b().whileTrue(algaePivot.algaePivotDownCommand());
+    second.b().whileFalse(algaePivot.algaePivotStopCommand());
   }
   
   public Swerve getSwerve(){

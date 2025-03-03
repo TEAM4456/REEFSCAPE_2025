@@ -7,13 +7,25 @@
         {
           "type": "path",
           "data": {
-            "pathName": "front to 1"
+            "pathName": "left to 5"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "1 to leftcoralintake"
+            "pathName": "5 to leftcoralintake"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "leftcoralintake to 5"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "5 to leftcoralintake"
           }
         },
         {

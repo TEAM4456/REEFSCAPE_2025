@@ -70,6 +70,9 @@ public class IntakePivot extends SubsystemBase {
   public void intakePivotClimbPosition(){
     intakePivotPIDController.setReference(Constants.IntakePivotPositions.intakePivotClimbPosition, SparkBase.ControlType.kPosition);
   }
+  public void intakePivotDrivePosition(){
+    intakePivotPIDController.setReference(Constants.IntakePivotPositions.intakePivotDrivePosition, SparkBase.ControlType.kPosition);
+  }
   
 
   //Create manually controlled commands here, these are the commands 

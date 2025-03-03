@@ -16,12 +16,12 @@ import frc.robot.Constants;
 
 // Declares the main body of the class and the stuff that happens within
 public class Climber extends SubsystemBase {
-    /* All code refrencing left motor is commented out because we dont know if there will be one or two motors in use
+    
 
     private SparkMax leftClimberMotor;
     private RelativeEncoder leftClimberEncoder;
     private SparkClosedLoopController leftClimberPIDController;
-    private SparkMaxConfig leftClimberConfig; */
+    private SparkMaxConfig leftClimberConfig; 
 
     // 1st constructor declaration area - 1st and 2nd are two parts for the same thing
     private SparkMax rightClimberMotor;
@@ -32,13 +32,13 @@ public class Climber extends SubsystemBase {
     public Climber() {
         // 2nd constructor declaration area
 
-        /* leftClimberMotor  = new SparkMax(16, MotorType.kBrushless); // sets up left climber motor
+        leftClimberMotor  = new SparkMax(16, MotorType.kBrushless); // sets up left climber motor
         leftClimberEncoder =  leftClimberMotor.getEncoder(); // sets up left climber motor encoder 
         leftClimberConfig = new SparkMaxConfig();  // CONFIGURATIONS FOR LEFT CLIMBER MOTOR BELOW
         leftClimberConfig.idleMode(IdleMode.kBrake);
         leftClimberConfig.closedLoop.pidf(1,0,0,0);
         leftClimberConfig.openLoopRampRate(0.5);
-        leftClimberConfig.smartCurrentLimit(40); */
+        leftClimberConfig.smartCurrentLimit(40); 
 
         rightClimberMotor = new SparkMax(17, MotorType.kBrushless); // sets up right climber motor
         rightClimberEncoder =  rightClimberMotor.getEncoder(); // sets up right climber motor encoder
@@ -54,23 +54,23 @@ public class Climber extends SubsystemBase {
         // Manual Methods - buttons are held and realeased to create movement (ps, left is commented out until needed use)
 
         public void climberUp() {
-            //leftClimberMotor.set(-Constants.ClimberPositions.climberSpeed);
+            leftClimberMotor.set(-Constants.ClimberPositions.climberSpeed);
             rightClimberMotor.set(Constants.ClimberPositions.climberSpeed);
         }
         public void climberDown() {
-            //leftClimberMotor.set(Constants.ClimberPositions.climberSpeed);
+            leftClimberMotor.set(Constants.ClimberPositions.climberSpeed);
             rightClimberMotor.set(-Constants.ClimberPositions.climberSpeed);
         }
 
         public void climberStop() {
-            //leftClimberMotor.set(0);
+            leftClimberMotor.set(0);
             rightClimberMotor.set(0);
         }
     
         // Set Position Methods - buttons are presed once then automatically go to their positions
 
         public void ClimbDeepCage() {
-            // leftClimberPIDController.setReference(Constants.ClimberPositions.ClimbDeepCageLeft, SparkBase.ControlType.kPosition);
+            leftClimberPIDController.setReference(Constants.ClimberPositions.ClimbDeepCageLeft, SparkBase.ControlType.kPosition);
             rightClimberPIDController.setReference(Constants.ClimberPositions.ClimbDeepCageRight, SparkBase.ControlType.kPosition);
         }
 
@@ -94,6 +94,6 @@ public class Climber extends SubsystemBase {
         //Set Position Commands
     
         public Command ClimbDeepCageCommand(){
-            return run(() -> ClimbDeepCage()).until(() -> (/*(Math.abs(leftClimberEncoder.getPosition() - Constants.ClimberPositions.ClimbDeepCageLeft) < 1) &&*/ (Math.abs(rightClimberEncoder.getPosition() - Constants.ClimberPositions.ClimbDeepCageRight) < 1)));
+            return run(() -> ClimbDeepCage()).until(() -> ((Math.abs(leftClimberEncoder.getPosition() - Constants.ClimberPositions.ClimbDeepCageLeft) < 1) && (Math.abs(rightClimberEncoder.getPosition() - Constants.ClimberPositions.ClimbDeepCageRight) < 1)));
         }
     }

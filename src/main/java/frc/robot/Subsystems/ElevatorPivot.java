@@ -81,6 +81,9 @@ public class ElevatorPivot extends SubsystemBase {
   public void elevatorPivotAlgaeLow() {
     pivotElvPIDController.setReference(Constants.ElevatorPivotPositions.elevatorPivotAlgaeLow, SparkBase.ControlType.kPosition);
   }
+  public void elevatorPivotDrivePosition(){
+    pivotElvPIDController.setReference(Constants.ElevatorPivotPositions.elevatorPivotDrivePosition, SparkBase.ControlType.kPosition);
+  }
 
   /*Create manually controlled commands here */
   // Run's the commands for elevator pivot movement
@@ -102,6 +105,9 @@ public class ElevatorPivot extends SubsystemBase {
   }
   public Command elevatorPivotClimbPositionCommand() {
     return run(() -> elevatorPivotClimbPosition()).until(() -> (Math.abs(pivotElvEncoder.getPosition() - Constants.ElevatorPivotPositions.elevatorPivotClimbPosition) < 1));
+  }
+  public Command elevatorPivotDrivePositionCommand() {
+    return run(() -> elevatorPivotDrivePosition()).until(() -> (Math.abs(pivotElvEncoder.getPosition() - Constants.ElevatorPivotPositions.elevatorPivotDrivePosition) < 1));
   }
 
   public Command elevatorPivotScoreL1Command() {

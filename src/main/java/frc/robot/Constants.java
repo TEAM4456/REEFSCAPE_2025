@@ -206,6 +206,7 @@ public final class Constants {
 
     public static final double elevatorPivotAlgaeLow = 0.0;
     public static final double elevatorPivotAlgaeHigh = 0.0;
+    public static final double elevatorPivotDrivePosition = 0.0;
   }
 public static final class IntakePivotPositions{
    
@@ -216,6 +217,7 @@ public static final class IntakePivotPositions{
 
     public static final double intakePivotCoralPickupPosition = 0.0;
     public static final double intakePivotClimbPosition = 0.0;
+    public static final double intakePivotDrivePosition = 0.0;
   
 /* REEFSCAPE 2025 CORAL LEVELS (right now it's in inches off ground/arbitrary number so number is lowkey wrong :/ )*/
   public static final double intakePivotScoreL1 = 18;
