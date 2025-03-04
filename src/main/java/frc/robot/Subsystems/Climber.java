@@ -66,6 +66,10 @@ public class Climber extends SubsystemBase {
             leftClimberMotor.set(0);
             rightClimberMotor.set(0);
         }
+        public void climbDrivePosition(){
+            leftClimberPIDController.setReference(Constants.ClimberPositions.ClimbDriveLeft, SparkBase.ControlType.kPosition);
+            rightClimberPIDController.setReference(Constants.ClimberPositions.ClimbDriveRight, SparkBase.ControlType.kPosition);
+        }
     
         // Set Position Methods - buttons are presed once then automatically go to their positions
 
@@ -89,6 +93,10 @@ public class Climber extends SubsystemBase {
     
         public Command climberDownCommand(){
             return run(() -> climberDown());
+        }
+
+        public Command climbDrivePositionCommand(){
+            return run(() -> climbDrivePosition()).until(() -> ((Math.abs(leftClimberEncoder.getPosition() - Constants.ClimberPositions.ClimbDriveLeft) < 1) && (Math.abs(rightClimberEncoder.getPosition() - Constants.ClimberPositions.ClimbDriveRight) < 1)));
         }
 
         //Set Position Commands

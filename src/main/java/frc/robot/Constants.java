@@ -185,6 +185,7 @@ public final class Constants {
     public static final double intakeScoreCoralL1 = 0;
     public static final double intakeRemoveAlgae = 0;
     public static final double intakePullBack = 0;
+    public static final double intakeAutoScore = 0.0;
   }
 
   //All of these values aren't correct, they are just placeholders
@@ -242,6 +243,8 @@ public static final class AlgaePivotPositions{
     public static final double climbPosition = .2;
     public static final double ClimbDeepCageLeft = .2;
     public static final double ClimbDeepCageRight = .2;
+    public static final double ClimbDriveLeft = .2;
+    public static final double ClimbDriveRight = .2;
   }
   
   public static final class AlgaePickupPositions{ 

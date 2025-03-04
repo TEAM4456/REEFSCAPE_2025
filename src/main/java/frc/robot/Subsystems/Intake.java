@@ -42,6 +42,9 @@ public class Intake extends SubsystemBase {
   public void intakeAutoPullBack(){
     intakePIDController.setReference(Constants.IntakeSpeeds.intakePullBack, SparkBase.ControlType.kPosition);
   }
+  public void intakeAutoScore(){
+    intakePIDController.setReference(Constants.IntakeSpeeds.intakeAutoScore, SparkBase.ControlType.kPosition);
+  }
   //When called, this moves both motors to score coral
   public void intakeScoreCoralL2toL4(){
     intakeMotor.set(Constants.IntakeSpeeds.intakeScoreCoralL2toL4);
@@ -62,6 +65,10 @@ public class Intake extends SubsystemBase {
 
    public Command intakePickupCoralCommand(){
       return run(() -> intakePickupCoral());
+    }
+
+    public Command intakeAutoScoreCommand(){
+      return run(() -> intakeAutoScore()).until(() -> (Math.abs(intakeEncoder.getPosition() - Constants.IntakeSpeeds.intakeAutoScore) < 1));
     }
 
     public Command intakeScoreCoralL2toL4Command(){

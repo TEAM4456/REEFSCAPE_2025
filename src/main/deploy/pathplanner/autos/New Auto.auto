@@ -21,18 +21,6 @@
           "data": {
             "pathName": "leftcoralintake to 5"
           }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "5 to leftcoralintake"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "leftcoralintake to 5"
-          }
         }
       ]
     }

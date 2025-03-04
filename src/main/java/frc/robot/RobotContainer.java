@@ -6,6 +6,8 @@ subsystems, Commands, and button mappings) should be declared here */
 package frc.robot;
 import java.time.Instant;
 import java.util.function.BooleanSupplier;
+import java.util.jar.Attributes.Name;
+
 import com.ctre.phoenix6.controls.PositionVoltage;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
@@ -67,7 +69,7 @@ public class RobotContainer {
 
         configureButtonBindings();
   */
-
+ 
   // Drive Control Declarations
   private final int translationAxis = XboxController.Axis.kLeftY.value;
   private final int strafeAxis = XboxController.Axis.kLeftX.value ;
@@ -91,8 +93,9 @@ public class RobotContainer {
   private final Swerve s_Swerve = new Swerve(vision);
 
 
-  private final SendableChooser<Command> chooser;
 
+
+  private final SendableChooser<Command> chooser;
 
   // The container for the robot. Contains subsystems, OI devices, and Commands
   
@@ -110,6 +113,19 @@ public class RobotContainer {
 
     // Configure the button bindings
     configureButtonBindings();  
+
+    NamedCommands.registerCommand("elevator pivot score L1 command", elevatorPivot.elevatorPivotScoreL1Command());
+    NamedCommands.registerCommand("elevator pivot score L4 command", elevatorPivot.elevatorPivotScoreL4Command());
+    NamedCommands.registerCommand("elevator score L1 command", elevator.elevatorScoreL1Command());
+    NamedCommands.registerCommand("elevator score L4 command", elevator.elevatorScoreL4Command());
+    NamedCommands.registerCommand("Intake score L1 command", intake.intakeScoreCoralL1Command());
+    NamedCommands.registerCommand("Intake pivot score L1 command", intakePivot.intakePivotScoreL1Command());
+    NamedCommands.registerCommand("Intake pivot score L4 command", intakePivot.intakePivotScoreL4Command());
+    NamedCommands.registerCommand("Intake auto score", intake.intakeAutoScoreCommand());
+    NamedCommands.registerCommand("Intake auto pullback", intake.intakeAutoPullBackCommand());
+    NamedCommands.registerCommand("Climber drive position", climber.climbDrivePositionCommand());
+    NamedCommands.registerCommand("Algae pivot score", algaePivot.algaePivotScoreCommand());
+
   }
 
   //Create Automated Commands here that make use of multiple subsystems [can be used in autonomous or teleop]
