@@ -445,7 +445,12 @@ public class RobotContainer {
     second.x().onTrue(scoreL2());
     second.b().onTrue(scoreL3());
     second.y().onTrue(scoreL4());
+    second.leftBumper().onTrue(driveCommand());
+    second.rightBumper().onTrue(intake.intakeAutoPullBackCommand());
+    second.rightTrigger().whileTrue(intake.intakeScoreCoralL2toL4Command());
+    second.leftTrigger().whileTrue(intake.intakeScoreCoralL1Command());
     */
+    
 
 
 
