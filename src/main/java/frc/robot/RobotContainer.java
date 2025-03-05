@@ -217,7 +217,8 @@ public class RobotContainer {
         intakePivot.intakePivotClimbPositionCommand(),
         intake.intakeStopCommand()
       ),
-    algaePivot.algaePivotDriveSettingCommand()
+    algaePivot.algaePivotDriveSettingCommand(),
+    climber.climbDrivePositionCommand()
 
     );
   }
@@ -244,14 +245,53 @@ public class RobotContainer {
 
   // Pathplanner autos for TELEOP
 
-  public Command teleopTo2RightCommand() {
+  public Command teleopTo1rightCommand() {
+    return new PathPlannerAuto("teleop to 1 right");
+  }
+
+  public Command teleopTo1leftCommand() {
+    return new PathPlannerAuto("teleop to 1 left");
+  }
+
+  public Command teleopTo2rightCommand() {
     return new PathPlannerAuto("teleop to 2 right");
   }
 
-  public Command teleopTo2LeftCommand() {
+  public Command teleopTo2leftCommand() {
     return new PathPlannerAuto("teleop to 2 left");
   }
 
+  public Command teleopTo3rightCommand() {
+    return new PathPlannerAuto("teleop to 3 right");
+  }
+
+  public Command teleopTo3leftCommand() {
+    return new PathPlannerAuto("teleop to 3 left");
+  }
+
+  public Command teleopTo4rightCommand() {
+    return new PathPlannerAuto("teleop to 4 right");
+  }
+
+  public Command teleopTo4leftCommand() {
+    return new PathPlannerAuto("teleop to 4 left");
+  }
+
+  public Command teleopTo5rightCommand() {
+    return new PathPlannerAuto("teleop to 5 right");
+  }
+
+  public Command teleopTo5leftCommand() {
+    return new PathPlannerAuto("teleop to 5 left");
+  }
+  
+  public Command teleopTo6rightCommand() {
+    return new PathPlannerAuto("teleop to 6 right");
+  }
+
+  public Command teleopTo6leftCommand() {
+    return new PathPlannerAuto("teleop to 6 left");
+  }
 
 
   //Create Autonomous Routines here (sequences for first 15s of match)
@@ -278,16 +318,18 @@ public class RobotContainer {
     //Create Driver Button mapping here
 
     //Driver #1
+    /* DON'T PUT ON CONTROLLER WITH back AS SHIFTER BUTTON
     driver.back().toggleOnTrue(
       new toggleSpeed(
         s_Swerve,
         () -> -driver.getRawAxis(translationAxis),
         () -> -driver.getRawAxis(strafeAxis),
-        () -> -driver.getRawAxis(rotationAxis)));
+        () -> -driver.getRawAxis(rotationAxis)));*/
     
     driver.start().whileTrue(stopMotorsAll());
 
-    // Testing buttons for driver #1
+    
+    // Testing buttons for driver #1, manual commands
     driver.rightTrigger().whileTrue(elevator.elevatorUpCommand());
     driver.rightTrigger().whileFalse(elevator.elevatorStopCommand());
 
@@ -312,10 +354,64 @@ public class RobotContainer {
     driver.y().whileTrue(intakePivot.intakePivotUpCommand());
     driver.y().whileFalse(intakePivot.intakePivotStopCommand());
 
-   
+ //Testing buttons for driver #1, set position commands
+
+    //Elevator
+    /*driver.a().onTrue(elevator.elevatorScoreL1Command());
+    driver.b().onTrue(elevator.elevatorScoreL2Command());
+    driver.x().onTrue(elevator.elevatorScoreL3Command());
+    driver.y().onTrue(elevator.elevatorScoreL4Command());
+    driver.rightTrigger().onTrue(elevator.elevatorAlgaeHighCommand());
+    driver.leftTrigger().onTrue(elevator.elevatorAlgaeLowCommand());*/
+
+    //Elevator Pivot
+    /*driver.a().onTrue(elevatorPivot.elevatorPivotScoreL1Command());
+    driver.b().onTrue(elevatorPivot.elevatorPivotScoreL2Command());
+    driver.x().onTrue(elevatorPivot.elevatorPivotScoreL3Command());
+    driver.y().onTrue(elevatorPivot.elevatorPivotScoreL4Command());
+    driver.rightTrigger().onTrue(elevatorPivot.elevatorPivotAlgaeHighCommand());
+    driver.leftTrigger().onTrue(elevatorPivot.elevatorPivotAlgaeLowCommand());*/
+
+    //Intake Pivot
+   /*  driver.a().onTrue(intakePivot.intakePivotScoreL1Command());
+    driver.b().onTrue(intakePivot.intakePivotScoreL2Command());
+    driver.x().onTrue(intakePivot.intakePivotScoreL3Command());
+    driver.y().onTrue(intakePivot.intakePivotScoreL4Command());
+    driver.rightTrigger().onTrue(intakePivot.intakePivotAlgaeHighCommand());
+    driver.leftTrigger().onTrue(intakePivot.intakePivotAlgaeLowCommand());*/
+
+    //Algae Pivot
+    /*driver.a().onTrue(algaePivot.algaePivotDriveSettingCommand());
+    driver.b().onTrue(algaePivot.algaePivotScoreCommand());*/
+
+    //Testing negate buttons
+   /* driver.a().and(driver.rightBumper().negate()).whileTrue(intake.intakeScoreCoralL2toL4Command());
+    driver.a().and(driver.rightBumper()).whileTrue(algaePickup.algaePickupInCommand());
+    driver.start().whileTrue(stopMotorsAll());*/
+  
+    
    // Competition buttons for driver #1
-    //driver.x().and(driver.back().negate()).whileTrue(teleopTo2RightCommand());
-   //driver.x().and(driver.back()).whileTrue(teleopTo2LeftCommand());
+   /*  driver.y().and(driver.back().negate()).whileTrue(teleopTo1rightCommand());
+    driver.y().and(driver.back()).whileTrue(teleopTo1leftCommand());
+
+    driver.x().and(driver.back().negate()).whileTrue(teleopTo2rightCommand());
+    driver.x().and(driver.back()).whileTrue(teleopTo2leftCommand());
+
+    driver.b().and(driver.back().negate()).whileTrue(teleopTo3rightCommand());
+    driver.b().and(driver.back()).whileTrue(teleopTo3leftCommand());
+
+    driver.leftBumper().and(driver.back().negate()).whileTrue(teleopTo4rightCommand());
+    driver.leftBumper().and(driver.back()).whileTrue(teleopTo4leftCommand());
+
+    driver.rightBumper().and(driver.back().negate()).whileTrue(teleopTo5rightCommand());
+    driver.rightBumper().and(driver.back()).whileTrue(teleopTo5leftCommand());
+
+    driver.a().and(driver.back().negate()).whileTrue(teleopTo6rightCommand());
+    driver.a().and(driver.back()).whileTrue(teleopTo6leftCommand());
+
+    driver.rightTrigger().onTrue(climbPositionCommand());
+    driver.leftTrigger().onTrue(climber.ClimbDeepCageCommand());
+*/
 
     //Driver #2
     second.back().toggleOnTrue(
@@ -327,6 +423,7 @@ public class RobotContainer {
 
     second.start().whileTrue(stopMotorsAll());
 
+   // Testing buttons for driver #2, manual commands
     second.rightTrigger().whileTrue(climber.climberUpCommand());
     second.rightTrigger().whileFalse(climber.climberStopCommand());
     second.leftTrigger().whileTrue(climber.climberDownCommand());
@@ -341,6 +438,17 @@ public class RobotContainer {
     second.x().whileFalse(algaePivot.algaePivotStopCommand());
     second.b().whileTrue(algaePivot.algaePivotDownCommand());
     second.b().whileFalse(algaePivot.algaePivotStopCommand());
+
+    // Competition Buttons for Driver #2
+
+   /*  second.a().onTrue(scoreL1());
+    second.x().onTrue(scoreL2());
+    second.b().onTrue(scoreL3());
+    second.y().onTrue(scoreL4());
+    */
+
+
+
   }
   
   public Swerve getSwerve(){
