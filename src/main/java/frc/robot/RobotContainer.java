@@ -25,6 +25,7 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -54,21 +55,7 @@ public class RobotContainer {
   // Sets the xBox Controllers
   private final CommandXboxController driver = new CommandXboxController(0);
   private final CommandXboxController second = new CommandXboxController(1);
-
-  /* Here's an example of how to do named commands
-
-    swerve = new Swerve();
-        exampleSubsystem = new ExampleSubsystem();
-
-        // Register Named Commands
-        NamedCommands.registerCommand("autoBalance", swerve.autoBalanceCommand());
-        NamedCommands.registerCommand("exampleCommand", exampleSubsystem.exampleCommand());
-        NamedCommands.registerCommand("someOtherCommand", new SomeOtherCommand());
-
-        // Do all other initialization
-
-        configureButtonBindings();
-  */
+  private final CommandXboxController backup = new CommandXboxController(2);
  
   // Drive Control Declarations
   private final int translationAxis = XboxController.Axis.kLeftY.value;
@@ -255,6 +242,16 @@ public class RobotContainer {
     );
   }
 
+  // Pathplanner autos for TELEOP
+
+  public Command teleopTo2RightCommand() {
+    return new PathPlannerAuto("teleop to 2 right");
+  }
+
+  public Command teleopTo2LeftCommand() {
+    return new PathPlannerAuto("teleop to 2 left");
+  }
+
 
 
   //Create Autonomous Routines here (sequences for first 15s of match)
@@ -271,10 +268,9 @@ public class RobotContainer {
   private void configureButtonBindings() {
     chooser.setDefaultOption("nothing", null);
     
-    chooser.addOption("Test Auto", new PathPlannerAuto("TestAuto"));
-    chooser.addOption("Practice Score", new PathPlannerAuto("Practice Score"));
-    chooser.addOption("Practice Score With Rotation", new PathPlannerAuto("practice score with rotation"));
-    //chooser.addOption("Center 1-2",autoCenter12());
+    chooser.addOption("Center to 1 Right Auto", new PathPlannerAuto("Center to 1 right Auto"));
+    chooser.addOption("Center to 1 Left Auto", new PathPlannerAuto("Center to 1 left Auto"));
+   
     //add rest of autonomous routines here
   
   
@@ -291,6 +287,7 @@ public class RobotContainer {
     
     driver.start().whileTrue(stopMotorsAll());
 
+    // Testing buttons for driver #1
     driver.rightTrigger().whileTrue(elevator.elevatorUpCommand());
     driver.rightTrigger().whileFalse(elevator.elevatorStopCommand());
 
@@ -312,9 +309,13 @@ public class RobotContainer {
     driver.b().whileTrue(intakePivot.intakePivotDownCommand());
     driver.b().whileFalse(intakePivot.intakePivotStopCommand());
 
-
     driver.y().whileTrue(intakePivot.intakePivotUpCommand());
     driver.y().whileFalse(intakePivot.intakePivotStopCommand());
+
+   
+   // Competition buttons for driver #1
+    //driver.x().and(driver.back().negate()).whileTrue(teleopTo2RightCommand());
+   //driver.x().and(driver.back()).whileTrue(teleopTo2LeftCommand());
 
     //Driver #2
     second.back().toggleOnTrue(
