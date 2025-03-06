@@ -389,6 +389,8 @@ public class RobotContainer {
     driver.povLeft().whileFalse(algaePickup.algaePickupStopCommand());
 
 
+
+
  //Testing buttons for driver #1, set position commands
 
     //Elevator
@@ -497,6 +499,36 @@ public class RobotContainer {
     second.povRight().whileFalse(algaePickup.algaePickupStopCommand());
     */
     
+    
+  //CONTROLLER BINDINGS FOR BACKUP
+    backup.rightTrigger().whileTrue(elevator.elevatorUpCommand());
+    backup.rightTrigger().whileFalse(elevator.elevatorStopCommand());
+
+    backup.leftTrigger().whileTrue(elevator.elevatorDownCommand());
+    backup.leftTrigger().whileFalse(elevator.elevatorStopCommand());
+    
+    backup.rightBumper().whileTrue(elevatorPivot.elevatorPivotUpCommand());
+    backup.rightBumper().whileFalse(elevatorPivot.elevatorPivotStopCommand());
+
+    backup.leftBumper().whileTrue(elevatorPivot.elevatorPivotDownCommand());
+    backup.leftBumper().whileFalse(elevatorPivot.elevatorPivotStopCommand());
+
+    backup.b().whileTrue(intakePivot.intakePivotDownCommand());
+    backup.b().whileFalse(intakePivot.intakePivotStopCommand());
+
+    backup.y().whileTrue(intakePivot.intakePivotUpCommand());
+    backup.y().whileFalse(intakePivot.intakePivotStopCommand());
+
+    backup.povUp().whileTrue(algaePivot.algaePivotUpCommand());
+    backup.povUp().whileFalse(algaePivot.algaePivotStopCommand());
+    
+    backup.povDown().whileTrue(algaePivot.algaePivotDownCommand());
+    backup.povDown().whileFalse(algaePivot.algaePivotStopCommand());
+
+    backup.rightTrigger().whileTrue(climber.climberUpCommand());
+    backup.rightTrigger().whileFalse(climber.climberStopCommand());
+    backup.leftTrigger().whileTrue(climber.climberDownCommand());
+    backup.leftTrigger().whileFalse(climber.climberStopCommand());
 
 
 
