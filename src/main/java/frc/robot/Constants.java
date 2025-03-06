@@ -180,9 +180,9 @@ public final class Constants {
   }
 
   public static final class IntakeSpeeds{
-    public static final double intakePickupCoral = -150;
-    public static final double intakeScoreCoralL2toL4 = 0;
-    public static final double intakeScoreCoralL1 = 0;
+    public static final double intakePickupCoral = -0.2;
+    public static final double intakeScoreCoralL2toL4 = 0.2;
+    public static final double intakeScoreCoralL1 = 0.1;
     public static final double intakeRemoveAlgae = 0;
     public static final double intakePullBack = 0;
     public static final double intakeAutoScore = 0.0;
@@ -221,10 +221,10 @@ public static final class IntakePivotPositions{
     public static final double intakePivotDrivePosition = 0.0;
   
 /* REEFSCAPE 2025 CORAL LEVELS (right now it's in inches off ground/arbitrary number so number is lowkey wrong :/ )*/
-  public static final double intakePivotScoreL1 = 18;
-  public static final double intakePivotScoreL2 = 31.875;
-  public static final double intakePivotScoreL3 = 47.625;
-  public static final double intakePivotScoreL4 = 72;
+  public static final double intakePivotScoreL1 = 0;
+  public static final double intakePivotScoreL2 = 0;
+  public static final double intakePivotScoreL3 = 0;
+  public static final double intakePivotScoreL4 = 0;
 
   public static final double intakePivotAlgaeHigh = 0.0;
   public static final double intakePivotAlgaeLow = 0.0;
@@ -240,15 +240,15 @@ public static final class AlgaePivotPositions{
 }
   public static final class ClimberPositions{
     public static final double climberSpeed = .2;
-    public static final double climbPosition = .2;
-    public static final double ClimbDeepCageLeft = .2;
-    public static final double ClimbDeepCageRight = .2;
-    public static final double ClimbDriveLeft = .2;
-    public static final double ClimbDriveRight = .2;
+    public static final double climbPosition = 0;
+    public static final double ClimbDeepCageLeft = 0;
+    public static final double ClimbDeepCageRight = 0;
+    public static final double ClimbDriveLeft = 0;
+    public static final double ClimbDriveRight = 0;
   }
   
   public static final class AlgaePickupPositions{ 
-    public static final double algaePickupSpeed = 0.0;
+    public static final double algaePickupSpeed = 0.2;
   }
  
 
@@ -256,7 +256,7 @@ public static final class AlgaePivotPositions{
     public static final Transform3d ROBOT_TO_LIMELIGHT1 = new Transform3d(
       new Translation3d(0, -0.295,0.345),new Rotation3d(Math.toRadians(90), Math.toRadians(180), 0)); //Not sure if Rotation 3D is correct
     public static final Transform3d ROBOT_TO_LIMELIGHT2 = new Transform3d(
-        new Translation3d(-0.184, -0.19685, 0.59)/* relative to center of robot (+x value when camera is toward front, -x value when camera is toward back, 
+        new Translation3d(-0.184, -0.19685, 0.39)/* relative to center of robot (+x value when camera is toward front, -x value when camera is toward back, 
         +y value camera is mounted to left of robot center, -y value when camera is mounted right of robot center, +z value when camera is mounted above ground level) */,
          new Rotation3d(0, Math.toRadians(180), 0)/*y rotation for pitch is 180 degrees when camera faces robot back */);
   }

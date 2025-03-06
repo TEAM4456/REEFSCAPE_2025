@@ -196,6 +196,7 @@ public class RobotContainer {
   // Not sure what this does so it is not mapped to anything on the controller
   public Command driveCommand() {
     return new SequentialCommandGroup(
+      algaePivot.algaePivotScoreCommand(),
       elevatorPivot.elevatorPivotDrivePositionCommand(),
       new ParallelCommandGroup(
         elevator.elevatorCoralPickupPositionCommand(),
@@ -225,21 +226,42 @@ public class RobotContainer {
 
   // Goes to algae high
   public Command algaeHighCommand() {
-    return new ParallelCommandGroup(
-      elevator.elevatorAlgaeHighCommand(),
-      elevatorPivot.elevatorPivotAlgaeHighCommand(),
-      intakePivot.intakePivotAlgaeHighCommand(),
-      intake.intakeStopCommand()
+    return new SequentialCommandGroup(
+      algaePivot.algaePivotScoreCommand(),
+      new ParallelCommandGroup(
+        elevator.elevatorAlgaeHighCommand(),
+        elevatorPivot.elevatorPivotAlgaeHighCommand(),
+        intakePivot.intakePivotAlgaeHighCommand(),
+        intake.intakeStopCommand()
+      ),
+      algaePickup.algaePickupInCommand()
     );
   }
-
+  
   // Goes to algae low
   public Command algaeLowCommand() {
-    return new ParallelCommandGroup(
-      elevator.elevatorAlgaeLowCommand(),
-      elevatorPivot.elevatorPivotAlgaeLowCommand(),
-      intakePivot.intakePivotAlgaeLowCommand(),
-      intake.intakeStopCommand()
+    return new SequentialCommandGroup(
+      algaePivot.algaePivotScoreCommand(),
+      new ParallelCommandGroup(
+        elevator.elevatorAlgaeLowCommand(),
+        elevatorPivot.elevatorPivotAlgaeLowCommand(),
+        intakePivot.intakePivotAlgaeLowCommand(),
+        intake.intakeStopCommand()
+      ),
+      algaePickup.algaePickupInCommand()
+    );
+  }
+ 
+  // Sets subsystems in position to score algae in Proccessor
+  public Command algaeScoreProcessorPositionsCommand() {
+    return new SequentialCommandGroup(
+      algaePivot.algaePivotScoreCommand(),
+      new ParallelCommandGroup(
+        elevator.elevatorClimbPositionCommand(),
+        elevatorPivot.elevatorPivotClimbPositionCommand(),
+        intakePivot.intakePivotClimbPositionCommand(),
+        intake.intakeStopCommand()
+      )
     );
   }
 
@@ -354,6 +376,19 @@ public class RobotContainer {
     driver.y().whileTrue(intakePivot.intakePivotUpCommand());
     driver.y().whileFalse(intakePivot.intakePivotStopCommand());
 
+    driver.povUp().whileTrue(algaePivot.algaePivotUpCommand());
+    driver.povUp().whileFalse(algaePivot.algaePivotStopCommand());
+    
+    driver.povDown().whileTrue(algaePivot.algaePivotDownCommand());
+    driver.povDown().whileFalse(algaePivot.algaePivotStopCommand());
+
+    driver.povRight().whileTrue(algaePickup.algaePickupInCommand());
+    driver.povRight().whileFalse(algaePickup.algaePickupStopCommand());
+
+    driver.povLeft().whileTrue(algaePickup.algaePickupOutCommand());
+    driver.povLeft().whileFalse(algaePickup.algaePickupStopCommand());
+
+
  //Testing buttons for driver #1, set position commands
 
     //Elevator
@@ -429,6 +464,7 @@ public class RobotContainer {
     second.leftTrigger().whileTrue(climber.climberDownCommand());
     second.leftTrigger().whileFalse(climber.climberStopCommand());
 
+   /* only need if DPad buttons don't work on driver #1 controller  
     second.rightBumper().whileTrue(algaePivot.algaePivotUpCommand());
     second.rightBumper().whileFalse(algaePivot.algaePivotStopCommand());
     second.leftBumper().whileTrue(algaePivot.algaePivotDownCommand());
@@ -437,18 +473,28 @@ public class RobotContainer {
     second.x().whileTrue(algaePivot.algaePivotDownCommand());
     second.x().whileFalse(algaePivot.algaePivotStopCommand());
     second.b().whileTrue(algaePivot.algaePivotDownCommand());
-    second.b().whileFalse(algaePivot.algaePivotStopCommand());
+    second.b().whileFalse(algaePivot.algaePivotStopCommand()); */
 
     // Competition Buttons for Driver #2
-
-   /*  second.a().onTrue(scoreL1());
+/* 
+    second.a().onTrue(scoreL1());
     second.x().onTrue(scoreL2());
     second.b().onTrue(scoreL3());
     second.y().onTrue(scoreL4());
+
     second.leftBumper().onTrue(driveCommand());
     second.rightBumper().onTrue(intake.intakeAutoPullBackCommand());
+
     second.rightTrigger().whileTrue(intake.intakeScoreCoralL2toL4Command());
+    second.rightTrigger().whileFalse(intake.intakeStopCommand());
     second.leftTrigger().whileTrue(intake.intakeScoreCoralL1Command());
+    second.leftTrigger().whileFalse(intake.intakeStopCommand());
+
+    second.povDown().onTrue(algaeHighCommand());
+    second.povDown().onTrue(algaeLowCommand());
+    second.povLeft().onTrue(algaeScoreProcessorPositionsCommand());
+    second.povRight().whileTrue(algaePickup.algaePickupOutCommand());
+    second.povRight().whileFalse(algaePickup.algaePickupStopCommand());
     */
     
 
