@@ -69,6 +69,36 @@
           "data": {
             "name": "Algae pivot score"
           }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Elevator Pivot Drive Position Command"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Elevator Coral Pickup Position Command"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Intake Pivot Coral Pickup Position Command"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Intake Stop Command"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Algae Pivot Drive Setting Command"
+          }
         }
       ]
     }

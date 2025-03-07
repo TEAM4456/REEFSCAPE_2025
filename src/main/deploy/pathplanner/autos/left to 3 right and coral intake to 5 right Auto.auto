@@ -1,0 +1,174 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "Climber drive position"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Algae pivot score"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "elevator score L4 command"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Intake pivot score L4 command"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "elevator pivot score L4 command"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "auto to 3 right"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Intake auto score"
+          }
+        },
+        {
+          "type": "sequential",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "Elevator Pivot Drive Position Command"
+                }
+              },
+              {
+                "type": "parallel",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "Elevator Coral Pickup Position Command"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "Intake Pivot Coral Pickup Position Command"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "Intake Stop Command"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Algae Pivot Drive Setting Command"
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "3 to leftcoralintake"
+                }
+              },
+              {
+                "type": "wait",
+                "data": {
+                  "waitTime": 2.0
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Intake auto pullback"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Algae pivot score"
+                }
+              },
+              {
+                "type": "parallel",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "leftcoralintake to 5 right"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "elevator pivot score L4 command"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "elevator score L4 command"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "Intake pivot score L4 command"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Intake auto score"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": null,
+  "choreoAuto": false
+}
