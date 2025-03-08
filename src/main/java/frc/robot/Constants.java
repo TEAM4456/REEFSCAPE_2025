@@ -168,7 +168,7 @@ public final class Constants {
     public static final double ElevatorScoreL4 = 155.6146;
 
     public static final double ElevatorCoralPickupPosition = 11;
-    public static final double ElevatorClimbPosition = 1;
+    public static final double ElevatorClimbPosition = 3;
     
     public static final double ElevatorMax = 0;
     public static final double ElevatorMin = 0;
@@ -198,7 +198,7 @@ public final class Constants {
     public static final double elevatorPivotMin = 0;
 
     public static final double elevatorPivotCoralPickupPosition = 102.86;
-    public static final double elevatorPivotClimbPosition = 0.0;
+    public static final double elevatorPivotClimbPosition = 201.0;
 
     public static final double elevatorPivotScoreL1 = 102.86;
     public static final double elevatorPivotScoreL2 = 40.357;
