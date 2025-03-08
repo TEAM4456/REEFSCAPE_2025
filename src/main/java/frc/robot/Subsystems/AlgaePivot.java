@@ -9,6 +9,18 @@ import com.revrobotics.spark.config.ClosedLoopConfig;
 
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkMaxConfig;
+import com.revrobotics.spark.SparkMax;
+import com.revrobotics.spark.SparkBase;
+import com.revrobotics.spark.config.SparkMaxConfig;
+import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
+import com.revrobotics.RelativeEncoder;
+import com.revrobotics.spark.SparkClosedLoopController;
+import com.revrobotics.spark.SparkLowLevel.MotorType;
+import com.revrobotics.spark.SparkBase.ControlType;
+import com.revrobotics.spark.SparkBase.PersistMode;
+import com.revrobotics.spark.SparkBase.ResetMode;
+import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
+
 
 
 // Imports for the command system
@@ -33,14 +45,17 @@ public class AlgaePivot extends SubsystemBase {
   public AlgaePivot() {
     //Setting the motor's values
     pivotAlgMotor = new SparkMax(23, MotorType.kBrushless);
+    pivotAlgPIDController = pivotAlgMotor.getClosedLoopController();
     pivotAlgEncoder = pivotAlgMotor.getEncoder();
 
     //CONFIGURATIONS FOR Pivot Algae MOTOR BELOW
     pivotAlgConfig = new SparkMaxConfig();
     pivotAlgConfig.idleMode(IdleMode.kBrake);
-    pivotAlgConfig.closedLoop.pidf(1,0,0,0);
+    pivotAlgConfig.closedLoop.pidf(0.1,0,0,0);
+    pivotAlgConfig.closedLoop.feedbackSensor(FeedbackSensor.kPrimaryEncoder);
     pivotAlgConfig.openLoopRampRate(0.5);
     pivotAlgConfig.smartCurrentLimit(40);
+    pivotAlgMotor.configure(pivotAlgConfig,ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
   }
 
   /*Manual Methods*/

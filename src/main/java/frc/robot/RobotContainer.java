@@ -105,10 +105,10 @@ public class RobotContainer {
     NamedCommands.registerCommand("elevator pivot score L4 command", elevatorPivot.elevatorPivotScoreL4Command());
     NamedCommands.registerCommand("elevator score L1 command", elevator.elevatorScoreL1Command());
     NamedCommands.registerCommand("elevator score L4 command", elevator.elevatorScoreL4Command());
-    NamedCommands.registerCommand("Intake score L1 command", intake.intakeScoreCoralL1Command());
+    NamedCommands.registerCommand("Intake score L2 and L3 command", intake.intakeScoreCoralL2and3Command());
     NamedCommands.registerCommand("Intake pivot score L1 command", intakePivot.intakePivotScoreL1Command());
     NamedCommands.registerCommand("Intake pivot score L4 command", intakePivot.intakePivotScoreL4Command());
-    NamedCommands.registerCommand("Intake auto score", intake.intakeAutoScoreCommand());
+    NamedCommands.registerCommand("Intake auto score L4", intake.intakeAutoScoreL4Command());
     NamedCommands.registerCommand("Intake auto pullback", intake.intakeAutoPullBackCommand());
     NamedCommands.registerCommand("Climber drive position", climber.climbDrivePositionCommand());
     NamedCommands.registerCommand("Algae pivot score", algaePivot.algaePivotScoreCommand());
@@ -177,23 +177,23 @@ public class RobotContainer {
   public Command scoreL4() {
     return new SequentialCommandGroup(
       algaePivot.algaePivotScoreCommand(),
+      elevatorPivot.elevatorPivotScoreL4Command(),
       new ParallelCommandGroup(
         elevator.elevatorScoreL4Command(),
-        elevatorPivot.elevatorPivotScoreL4Command(),
         intakePivot.intakePivotScoreL4Command()
       )
     );
   }
 
   // Sets all the moving parts on the elevator into position to intake coral
-  public Command coralPickup() {
+  public Command coralPickupSetPositions() {
     return new SequentialCommandGroup(
       algaePivot.algaePivotScoreCommand(),
       new ParallelCommandGroup(
         elevator.elevatorCoralPickupPositionCommand(),
         elevatorPivot.elevatorPivotCoralPickupPositionCommand(),
         intakePivot.intakePivotCoralPickupPositionCommand(),
-        intake.intakePickupCoralCommand()
+        intake.intakeResetCommand()
       )
     );
   }
@@ -205,7 +205,6 @@ public class RobotContainer {
       elevatorPivot.elevatorPivotDrivePositionCommand(),
       new ParallelCommandGroup(
         elevator.elevatorCoralPickupPositionCommand(),
-        intakePivot.intakePivotCoralPickupPositionCommand(),
         intake.intakeStopCommand()
       ), 
        algaePivot.algaePivotDriveSettingCommand()
@@ -349,7 +348,10 @@ public class RobotContainer {
 
     chooser.addOption("L to 3 R; CS to 5 R", new PathPlannerAuto("left to 3 right and coral intake to 5 right Auto"));
     chooser.addOption("R to 2 L; CS to 4 L", new PathPlannerAuto("right to 2 left and coral intake to 4 left Auto"));
-   
+    chooser.addOption("Drive Forward Center", new PathPlannerAuto("Drive Forward Center"));
+    chooser.addOption("Drive Forward Right", new PathPlannerAuto("Drive Forward Right"));
+    chooser.addOption("Drive Forward Left", new PathPlannerAuto("Drive Forward Left"));
+
     //add rest of autonomous routines here
   
   
@@ -369,7 +371,7 @@ public class RobotContainer {
 
     
     // Testing buttons for driver #1, manual commands
-    driver.rightTrigger().whileTrue(elevator.elevatorUpCommand());
+    /*driver.rightTrigger().whileTrue(elevator.elevatorUpCommand());
     driver.rightTrigger().whileFalse(elevator.elevatorStopCommand());
 
     driver.leftTrigger().whileTrue(elevator.elevatorDownCommand());
@@ -381,14 +383,12 @@ public class RobotContainer {
     driver.leftBumper().whileTrue(elevatorPivot.elevatorPivotDownCommand());
     driver.leftBumper().whileFalse(elevatorPivot.elevatorPivotStopCommand());
 
-    driver.a().whileTrue(intake.intakePickupCoralCommand());
+    driver.a().whileTrue(intake.intakeScoreCoralL4Command());
     driver.a().whileFalse(intake.intakeStopCommand());
 
-    driver.x().whileTrue(intake.intakeScoreCoralL1Command());
+    driver.x().whileTrue(intake.intakeScoreCoralL2and3Command());
     driver.x().whileFalse(intake.intakeStopCommand());
 
-    driver.b().whileTrue(intakePivot.intakePivotDownCommand());
-    driver.b().whileFalse(intakePivot.intakePivotStopCommand());
 
     driver.y().whileTrue(intakePivot.intakePivotUpCommand());
     driver.y().whileFalse(intakePivot.intakePivotStopCommand());
@@ -404,7 +404,7 @@ public class RobotContainer {
 
     driver.povLeft().and(driver.povUp().negate()).and(driver.povRight().negate()).and(driver.povDown().negate()).whileTrue(algaePickup.algaePickupOutCommand());
     driver.povLeft().whileFalse(algaePickup.algaePickupStopCommand());
-
+*/
 
 
 
@@ -439,13 +439,13 @@ public class RobotContainer {
     driver.b().onTrue(algaePivot.algaePivotScoreCommand());*/
 
     //Testing negate buttons
-   /* driver.a().and(driver.rightBumper().negate()).whileTrue(intake.intakeScoreCoralL2toL4Command());
+   driver.a().and(driver.rightBumper().negate()).whileTrue(intake.intakeScoreCoralL4Command());
     driver.a().and(driver.rightBumper()).whileTrue(algaePickup.algaePickupInCommand());
-    driver.start().whileTrue(stopMotorsAll());*/
+    
   
     
    // Competition buttons for driver #1
-   /*  driver.y().and(driver.back().negate()).whileTrue(teleopTo1rightCommand());
+    /*  driver.y().and(driver.back().negate()).whileTrue(teleopTo1rightCommand());
     driver.y().and(driver.back()).whileTrue(teleopTo1leftCommand());
 
     driver.x().and(driver.back().negate()).whileTrue(teleopTo2rightCommand());
@@ -463,17 +463,19 @@ public class RobotContainer {
     driver.a().and(driver.back().negate()).whileTrue(teleopTo6rightCommand());
     driver.a().and(driver.back()).whileTrue(teleopTo6leftCommand());
 
-    driver.rightTrigger().onTrue(climbPositionCommand());
+    driver.rightTrigger().onTrue(climbPositionCommand()); //also scores algae in processor
     driver.leftTrigger().onTrue(climber.ClimbDeepCageCommand());
 
     driver.povUp().and(driver.povDown().negate()).and(driver.povRight().negate()).and(driver.povLeft().negate()).whileTrue(climber.climberDownCommand());
     driver.povUp().whileFalse(climber.climberStopCommand());
-
+    
+    //climbing arm goes down on cage
     driver.povDown().and(driver.povUp().negate()).and(driver.povRight().negate()).and(driver.povLeft().negate()).whileTrue(climber.climberUpCommand());
     driver.povDown().whileFalse(climber.climberStopCommand());
 
-    driver.povLeft().and(driver.povUp().negate()).and(driver.povRight().negate()).and(driver.povDown().negate()).onTrue(driveCommand());
+    driver.povLeft().and(driver.povUp().negate()).and(driver.povRight().negate()).and(driver.povDown().negate()).onTrue(intake.intakeResetCommand());
 */
+
     //Driver #2
     second.back().toggleOnTrue(
       new toggleSpeed(
@@ -489,6 +491,13 @@ public class RobotContainer {
     second.rightTrigger().whileFalse(climber.climberStopCommand());
     second.leftTrigger().whileTrue(climber.climberDownCommand());
     second.leftTrigger().whileFalse(climber.climberStopCommand());
+    second.a().whileTrue(intakePivot.intakePivotCoralPickupPositionCommand());
+    second.y().onTrue(algaePivot.algaePivotScoreCommand());
+    second.povUp().onTrue(algaePivot.algaePivotDriveSettingCommand());
+    second.x().onTrue(elevatorPivot.elevatorPivotCoralPickupPositionCommand());
+    second.povDown().onTrue(elevator.elevatorCoralPickupPositionCommand());
+    second.b().onTrue(driveCommand());
+    second.povRight().onTrue(intake.intakeAutoPullBackCommand());
 
    /* only need if DPad buttons don't work on driver #1 controller  
     second.rightBumper().whileTrue(algaePivot.algaePivotUpCommand());
@@ -503,7 +512,7 @@ public class RobotContainer {
 
     // Competition Buttons for Driver #2
  
-   /*  second.a().onTrue(scoreL1());
+   /*   second.a().onTrue(scoreL1());
     second.x().onTrue(scoreL2());
     second.b().onTrue(scoreL3());
     second.y().onTrue(scoreL4());
@@ -511,14 +520,14 @@ public class RobotContainer {
     second.leftBumper().onTrue(driveCommand());
     second.rightBumper().onTrue(intake.intakeAutoPullBackCommand());
 
-    second.rightTrigger().whileTrue(intake.intakeScoreCoralL2toL4Command());
+    second.rightTrigger().whileTrue(intake.intakeScoreCoralL4Command());
     second.rightTrigger().whileFalse(intake.intakeStopCommand());
-    second.leftTrigger().whileTrue(intake.intakeScoreCoralL1Command());
+    second.leftTrigger().whileTrue(intake.intakeScoreCoralL2and3Command());
     second.leftTrigger().whileFalse(intake.intakeStopCommand());
 
     second.povUp().and(second.povRight().negate()).and(second.povDown().negate()).and(second.povLeft().negate()).onTrue(algaeHighCommand());
     second.povDown().and(second.povUp().negate()).and(second.povRight().negate()).and(second.povLeft().negate()).onTrue(algaeLowCommand());
-    second.povLeft().and(second.povUp().negate()).and(second.povDown().negate()).and(second.povRight().negate()).onTrue(algaeScoreProcessorPositionsCommand());
+    second.povLeft().and(second.povUp().negate()).and(second.povDown().negate()).and(second.povRight().negate()).onTrue(coralPickupSetPositions());
     second.povRight().and(second.povUp().negate()).and(second.povDown().negate()).and(second.povLeft().negate()).whileTrue(algaePickup.algaePickupOutCommand());
     second.povRight().whileFalse(algaePickup.algaePickupStopCommand());
     */

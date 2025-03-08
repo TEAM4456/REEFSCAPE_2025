@@ -7,11 +7,24 @@ import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.SparkBase;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkMaxConfig;
+import com.revrobotics.spark.SparkMax;
+import com.revrobotics.spark.SparkBase;
+import com.revrobotics.spark.config.SparkMaxConfig;
+import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
+import com.revrobotics.RelativeEncoder;
+import com.revrobotics.spark.SparkClosedLoopController;
+import com.revrobotics.spark.SparkLowLevel.MotorType;
+import com.revrobotics.spark.SparkBase.ControlType;
+import com.revrobotics.spark.SparkBase.PersistMode;
+import com.revrobotics.spark.SparkBase.ResetMode;
+import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
+
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.Constants.IntakeSpeeds;
 
 
 public class Intake extends SubsystemBase {
@@ -25,12 +38,15 @@ public class Intake extends SubsystemBase {
 
     //Make a right and left intake for this subsystem, CanID 19 and 20
     intakeMotor = new SparkMax(19, MotorType.kBrushless);
+    intakePIDController = intakeMotor.getClosedLoopController();
     intakeEncoder = intakeMotor.getEncoder();
     intakeConfig = new SparkMaxConfig();
     intakeConfig.idleMode(IdleMode.kBrake);
     intakeConfig.closedLoop.pidf(1,0,0,0);
+    intakeConfig.closedLoop.feedbackSensor(FeedbackSensor.kPrimaryEncoder);
+    intakeConfig.openLoopRampRate(0.5);
     intakeConfig.smartCurrentLimit(40);
-
+    intakeMotor.configure(intakeConfig,ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
    }
   
   /* Create your intake Methods here */
@@ -42,14 +58,17 @@ public class Intake extends SubsystemBase {
   public void intakeAutoPullBack(){
     intakePIDController.setReference(Constants.IntakeSpeeds.intakePullBack, SparkBase.ControlType.kPosition);
   }
-  public void intakeAutoScore(){
-    intakePIDController.setReference(Constants.IntakeSpeeds.intakeAutoScore, SparkBase.ControlType.kPosition);
+  public void intakeReset(){
+    intakePIDController.setReference(0, SparkBase.ControlType.kPosition);
+  }
+  public void intakeAutoScoreL4(){
+    intakePIDController.setReference(Constants.IntakeSpeeds.intakeAutoScoreL4, SparkBase.ControlType.kPosition);
   }
   //When called, this moves both motors to score coral
-  public void intakeScoreCoralL2toL4(){
-    intakeMotor.set(Constants.IntakeSpeeds.intakeScoreCoralL2toL4);
+  public void intakeScoreCoralL4(){
+    intakeMotor.set(-Constants.IntakeSpeeds.intakeScoreCoralL2toL4);
   }
-  public void intakeScoreCoralL1(){
+  public void intakeScoreCoralL2and3(){
     intakeMotor.set(Constants.IntakeSpeeds.intakeScoreCoralL1);
   }
   public void intakeRemoveAlgae(){
@@ -67,16 +86,16 @@ public class Intake extends SubsystemBase {
       return run(() -> intakePickupCoral());
     }
 
-    public Command intakeAutoScoreCommand(){
-      return run(() -> intakeAutoScore()).until(() -> (Math.abs(intakeEncoder.getPosition() - Constants.IntakeSpeeds.intakeAutoScore) < 1));
+    public Command intakeAutoScoreL4Command(){
+      return run(() -> intakeAutoScoreL4()).until(() -> (Math.abs(intakeEncoder.getPosition() - Constants.IntakeSpeeds.intakeAutoScoreL4) < 0.01));
     }
 
-    public Command intakeScoreCoralL2toL4Command(){
-      return run(() -> intakeScoreCoralL2toL4());
+    public Command intakeScoreCoralL4Command(){
+      return run(() -> intakeScoreCoralL4());
     }
 
-    public Command intakeScoreCoralL1Command(){
-      return run(() -> intakeScoreCoralL1());
+    public Command intakeScoreCoralL2and3Command(){
+      return run(() -> intakeScoreCoralL2and3());
     }
     public Command intakeRemoveAlgaeCommand(){
       return run(() -> intakeRemoveAlgae());
@@ -84,6 +103,9 @@ public class Intake extends SubsystemBase {
 
     public Command intakeStopCommand(){
       return run(() -> intakeStop());
+    }
+    public Command intakeResetCommand(){
+      return run(() -> intakeReset());
     }
 
     /*Create set position commands here */

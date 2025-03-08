@@ -49,12 +49,6 @@
         {
           "type": "named",
           "data": {
-            "name": "Intake auto score"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
             "name": "Intake auto pullback"
           }
         },
@@ -98,6 +92,12 @@
           "type": "named",
           "data": {
             "name": "Algae Pivot Drive Setting Command"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Intake auto score L4"
           }
         }
       ]

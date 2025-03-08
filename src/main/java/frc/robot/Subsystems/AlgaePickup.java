@@ -6,6 +6,18 @@ import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkMaxConfig;
+import com.revrobotics.spark.SparkMax;
+import com.revrobotics.spark.SparkBase;
+import com.revrobotics.spark.config.SparkMaxConfig;
+import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
+import com.revrobotics.RelativeEncoder;
+import com.revrobotics.spark.SparkClosedLoopController;
+import com.revrobotics.spark.SparkLowLevel.MotorType;
+import com.revrobotics.spark.SparkBase.ControlType;
+import com.revrobotics.spark.SparkBase.PersistMode;
+import com.revrobotics.spark.SparkBase.ResetMode;
+import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
+
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -28,21 +40,26 @@ public class AlgaePickup extends SubsystemBase {
 
     //Make a right and left intake for this subsystem, CanID 19 and 20
     rightAlgaePickupMotor = new SparkMax(20, MotorType.kBrushless);
+    rightAlgaePickupPIDController = rightAlgaePickupMotor.getClosedLoopController();
     rightAlgaePickupEncoder = rightAlgaePickupMotor.getEncoder();
     rightAlgaePickupConfig = new SparkMaxConfig();
     rightAlgaePickupConfig.idleMode(IdleMode.kBrake);
     rightAlgaePickupConfig.closedLoop.pidf(1,0,0,0);
+    rightAlgaePickupConfig.closedLoop.feedbackSensor(FeedbackSensor.kPrimaryEncoder);
     rightAlgaePickupConfig.openLoopRampRate(0.5);
     rightAlgaePickupConfig.smartCurrentLimit(40);
-    
+    rightAlgaePickupMotor.configure(rightAlgaePickupConfig,ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
 
     leftAlgaePickupMotor = new SparkMax(22, MotorType.kBrushless);
+    leftAlgaePickupPIDController = leftAlgaePickupMotor.getClosedLoopController();
     leftAlgaePickupEncoder = leftAlgaePickupMotor.getEncoder();
     leftAlgaePickupConfig = new SparkMaxConfig();
     leftAlgaePickupConfig.idleMode(IdleMode.kBrake);
     leftAlgaePickupConfig.closedLoop.pidf(1,0,0,0);
+    leftAlgaePickupConfig.closedLoop.feedbackSensor(FeedbackSensor.kPrimaryEncoder);
     leftAlgaePickupConfig.openLoopRampRate(0.5);
     leftAlgaePickupConfig.smartCurrentLimit(40);
+    leftAlgaePickupMotor.configure(leftAlgaePickupConfig,ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
    }
   
   /* Create your intake Methods here */

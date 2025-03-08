@@ -11,12 +11,6 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "Climber drive position"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
                   "name": "Algae pivot score"
                 }
               }

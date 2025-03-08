@@ -10,6 +10,18 @@ import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.SparkBase;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkMaxConfig;
+import com.revrobotics.spark.SparkMax;
+import com.revrobotics.spark.SparkBase;
+import com.revrobotics.spark.config.SparkMaxConfig;
+import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
+import com.revrobotics.RelativeEncoder;
+import com.revrobotics.spark.SparkClosedLoopController;
+import com.revrobotics.spark.SparkLowLevel.MotorType;
+import com.revrobotics.spark.SparkBase.ControlType;
+import com.revrobotics.spark.SparkBase.PersistMode;
+import com.revrobotics.spark.SparkBase.ResetMode;
+import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
+
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -35,20 +47,26 @@ public class Climber extends SubsystemBase {
         // 2nd constructor declaration area
 
         leftClimberMotor  = new SparkMax(16, MotorType.kBrushless); // sets up left climber motor
+        leftClimberPIDController = leftClimberMotor.getClosedLoopController();
         leftClimberEncoder =  leftClimberMotor.getEncoder(); // sets up left climber motor encoder 
         leftClimberConfig = new SparkMaxConfig();  // CONFIGURATIONS FOR LEFT CLIMBER MOTOR BELOW
         leftClimberConfig.idleMode(IdleMode.kBrake);
         leftClimberConfig.closedLoop.pidf(1,0,0,0);
+        leftClimberConfig.closedLoop.feedbackSensor(FeedbackSensor.kPrimaryEncoder);
         leftClimberConfig.openLoopRampRate(0.5);
         leftClimberConfig.smartCurrentLimit(40); 
+        leftClimberMotor.configure(leftClimberConfig,ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
 
         rightClimberMotor = new SparkMax(17, MotorType.kBrushless); // sets up right climber motor
+        rightClimberPIDController = rightClimberMotor.getClosedLoopController();
         rightClimberEncoder =  rightClimberMotor.getEncoder(); // sets up right climber motor encoder
         rightClimberConfig = new SparkMaxConfig(); // CONFIGURATIONS FOR RIGHT CLIMBER MOTOR BELOW
         rightClimberConfig.idleMode(IdleMode.kBrake);
         rightClimberConfig.closedLoop.pidf(1,0,0,0);
+        rightClimberConfig.closedLoop.feedbackSensor(FeedbackSensor.kPrimaryEncoder);
         rightClimberConfig.openLoopRampRate(0.5);
         rightClimberConfig.smartCurrentLimit(40);
+        rightClimberMotor.configure(rightClimberConfig,ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
     }
 
     // Create your Manual and Set Position methods below

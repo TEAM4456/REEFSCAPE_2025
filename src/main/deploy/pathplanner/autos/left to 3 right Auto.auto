@@ -11,13 +11,13 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "Climber drive position"
+                  "name": "Algae pivot score"
                 }
               },
               {
                 "type": "named",
                 "data": {
-                  "name": "Algae pivot score"
+                  "name": "elevator pivot score L4 command"
                 }
               }
             ]
@@ -38,12 +38,6 @@
                 "data": {
                   "name": "Intake pivot score L4 command"
                 }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "elevator pivot score L4 command"
-                }
               }
             ]
           }
@@ -57,7 +51,7 @@
         {
           "type": "named",
           "data": {
-            "name": "Intake auto score"
+            "name": "Intake auto score L4"
           }
         }
       ]

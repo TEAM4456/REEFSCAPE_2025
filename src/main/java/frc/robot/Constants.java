@@ -162,13 +162,13 @@ public final class Constants {
   }
 
   public static final class ElevatorPositions{
-    public static final double ElevatorScoreL1 = 0;
-    public static final double ElevatorScoreL2 = 0;
-    public static final double ElevatorScoreL3 = 0;
-    public static final double ElevatorScoreL4 = 0;
+    public static final double ElevatorScoreL1 = 20;
+    public static final double ElevatorScoreL2 = 38.928;
+    public static final double ElevatorScoreL3 = 91.456;
+    public static final double ElevatorScoreL4 = 155.6146;
 
-    public static final double ElevatorCoralPickupPosition = 0.0;
-    public static final double ElevatorClimbPosition = 0.0;
+    public static final double ElevatorCoralPickupPosition = 11;
+    public static final double ElevatorClimbPosition = 1;
     
     public static final double ElevatorMax = 0;
     public static final double ElevatorMin = 0;
@@ -180,12 +180,12 @@ public final class Constants {
   }
 
   public static final class IntakeSpeeds{
-    public static final double intakePickupCoral = -0.2;
+    public static final double intakePickupCoral = 0.2;
     public static final double intakeScoreCoralL2toL4 = 0.2;
-    public static final double intakeScoreCoralL1 = 0.1;
+    public static final double intakeScoreCoralL1 = 0.4;
     public static final double intakeRemoveAlgae = 0;
-    public static final double intakePullBack = 0;
-    public static final double intakeAutoScore = 0.0;
+    public static final double intakePullBack = -2.049;
+    public static final double intakeAutoScoreL4 = -5;
   }
 
   //All of these values aren't correct, they are just placeholders
@@ -197,34 +197,34 @@ public final class Constants {
     public static final double elevatorPivotMax = 0;
     public static final double elevatorPivotMin = 0;
 
-    public static final double elevatorPivotCoralPickupPosition = 0.0;
+    public static final double elevatorPivotCoralPickupPosition = 102.86;
     public static final double elevatorPivotClimbPosition = 0.0;
 
-    public static final double elevatorPivotScoreL1 = 0.0;
-    public static final double elevatorPivotScoreL2 = 0.0;
-    public static final double elevatorPivotScoreL3 = 0.0;
-    public static final double elevatorPivotScoreL4 = 0.0;
+    public static final double elevatorPivotScoreL1 = 102.86;
+    public static final double elevatorPivotScoreL2 = 40.357;
+    public static final double elevatorPivotScoreL3 = 75.193;
+    public static final double elevatorPivotScoreL4 = 101.74;
 
     public static final double elevatorPivotAlgaeLow = 0.0;
     public static final double elevatorPivotAlgaeHigh = 0.0;
-    public static final double elevatorPivotDrivePosition = 0.0;
+    public static final double elevatorPivotDrivePosition = 130;
   }
 public static final class IntakePivotPositions{
    
-    public static final double intakePivotSpeed = .2;
+    public static final double intakePivotSpeed = .1;
 
     public static final double intakePivotMax = 0;
     public static final double intakePivotMin = 0;
 
-    public static final double intakePivotCoralPickupPosition = 0.0;
+    public static final double intakePivotCoralPickupPosition = -3.738;
     public static final double intakePivotClimbPosition = 0.0;
     public static final double intakePivotDrivePosition = 0.0;
   
 /* REEFSCAPE 2025 CORAL LEVELS (right now it's in inches off ground/arbitrary number so number is lowkey wrong :/ )*/
-  public static final double intakePivotScoreL1 = 0;
-  public static final double intakePivotScoreL2 = 0;
-  public static final double intakePivotScoreL3 = 0;
-  public static final double intakePivotScoreL4 = 0;
+  public static final double intakePivotScoreL1 = -2;
+  public static final double intakePivotScoreL2 = -0.428;
+  public static final double intakePivotScoreL3 = -0.357;
+  public static final double intakePivotScoreL4 = -7.857;
 
   public static final double intakePivotAlgaeHigh = 0.0;
   public static final double intakePivotAlgaeLow = 0.0;
@@ -235,16 +235,16 @@ public static final class AlgaePivotPositions{
   public static final double algaePivotSpeed = .2;
   public static final double algaePivotUp = 0.0;
   public static final double algaePivotDown = 0.0;
-  public static final double algaePivotScore = 0.0;
-  public static final double algaePivotDriveSetting = 0.0;
+  public static final double algaePivotScore = 7.5;
+  public static final double algaePivotDriveSetting = 0.2;
 }
   public static final class ClimberPositions{
-    public static final double climberSpeed = .2;
+    public static final double climberSpeed = .7;
     public static final double climbPosition = 0;
     public static final double ClimbDeepCageLeft = 0;
     public static final double ClimbDeepCageRight = 0;
-    public static final double ClimbDriveLeft = 0;
-    public static final double ClimbDriveRight = 0;
+    public static final double ClimbDriveLeft = 71;
+    public static final double ClimbDriveRight = -71;
   }
   
   public static final class AlgaePickupPositions{ 

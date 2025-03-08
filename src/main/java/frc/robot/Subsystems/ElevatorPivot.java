@@ -9,6 +9,18 @@ import com.revrobotics.spark.config.ClosedLoopConfig;
 
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkMaxConfig;
+import com.revrobotics.spark.SparkMax;
+import com.revrobotics.spark.SparkBase;
+import com.revrobotics.spark.config.SparkMaxConfig;
+import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
+import com.revrobotics.RelativeEncoder;
+import com.revrobotics.spark.SparkClosedLoopController;
+import com.revrobotics.spark.SparkLowLevel.MotorType;
+import com.revrobotics.spark.SparkBase.ControlType;
+import com.revrobotics.spark.SparkBase.PersistMode;
+import com.revrobotics.spark.SparkBase.ResetMode;
+import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
+
 
 
 // Imports for the command system
@@ -33,23 +45,26 @@ public class ElevatorPivot extends SubsystemBase {
   public ElevatorPivot() {
     //Setting the object's values
     pivotElvMotor = new SparkMax(15, MotorType.kBrushless);
+    pivotElvPIDController = pivotElvMotor.getClosedLoopController();
     pivotElvEncoder = pivotElvMotor.getEncoder();
 
     //CONFIGURATIONS FOR Pivot Elevator MOTOR BELOW
     pivotElvConfig = new SparkMaxConfig();
     pivotElvConfig.idleMode(IdleMode.kBrake);
-    pivotElvConfig.closedLoop.pidf(1,0,0,0);
+    pivotElvConfig.closedLoop.pidf(2,0,0,0);
+    pivotElvConfig.closedLoop.feedbackSensor(FeedbackSensor.kPrimaryEncoder);
     pivotElvConfig.openLoopRampRate(0.5);
     pivotElvConfig.smartCurrentLimit(40);
+    pivotElvMotor.configure(pivotElvConfig,ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
   }
 
   /*Manual Methods*/
   // Set's up the command for the elevator pivot movement
   public void elevatorPivotUp() {
-    pivotElvMotor.set(-Constants.ElevatorPivotPositions.elevatorPivotSpeed);
+    pivotElvMotor.set(Constants.ElevatorPivotPositions.elevatorPivotSpeed);
   }
   public void elevatorPivotDown() {
-    pivotElvMotor.set(Constants.ElevatorPivotPositions.elevatorPivotSpeed);
+    pivotElvMotor.set(-Constants.ElevatorPivotPositions.elevatorPivotSpeed);
   }
   public void elevatorPivotStop() {
     pivotElvMotor.set(0);
