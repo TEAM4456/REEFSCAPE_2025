@@ -243,8 +243,8 @@ public static final class AlgaePivotPositions{
     public static final double climbPosition = 0;
     public static final double ClimbDeepCageLeft = 0;
     public static final double ClimbDeepCageRight = 0;
-    public static final double ClimbDriveLeft = 71;
-    public static final double ClimbDriveRight = -71;
+    public static final double ClimbDriveLeft = 75;
+    public static final double ClimbDriveRight = -75;
   }
   
   public static final class AlgaePickupPositions{ 

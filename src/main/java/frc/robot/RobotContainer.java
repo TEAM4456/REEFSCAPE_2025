@@ -38,6 +38,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Commands.TeleopSwerve;
 import frc.robot.Commands.toggleSpeed;
+import frc.robot.Commands.toggleSpeedExtra;
 
 // Subsystem imports
 import frc.robot.Subsystems.AlgaePickup;
@@ -360,7 +361,8 @@ public class RobotContainer {
 
     //Driver #1
     
-    driver.povRight().and(driver.povUp().negate()).and(driver.povLeft().negate()).and(driver.povLeft().negate()).toggleOnTrue(
+    //driver.povRight().and(driver.povUp().negate()).and(driver.povLeft().negate()).and(driver.povLeft().negate()).toggleOnTrue(
+    driver.back().toggleOnTrue(
       new toggleSpeed(
         s_Swerve,
         () -> -driver.getRawAxis(translationAxis),
@@ -396,21 +398,23 @@ public class RobotContainer {
       driver.b().whileTrue(climber.climberUpCommand());
       driver.b().whileFalse(climber.climberStopCommand());
 
-    driver.y().whileTrue(intakePivot.intakePivotUpCommand());
-    driver.y().whileFalse(intakePivot.intakePivotStopCommand());
-
-    driver.povUp().and(driver.povDown().negate()).and(driver.povRight().negate()).and(driver.povLeft().negate()).whileTrue(algaePivot.algaePivotUpCommand());
-    driver.povUp().whileFalse(algaePivot.algaePivotStopCommand());
+    driver.y().onTrue(climber.ClimbDeepCageCommand());
     
-    driver.povDown().and(driver.povUp().negate()).and(driver.povRight().negate()).and(driver.povLeft().negate()).whileTrue(algaePivot.algaePivotDownCommand());
-    driver.povDown().whileFalse(algaePivot.algaePivotStopCommand());
 
-    driver.povRight().and(driver.povUp().negate()).and(driver.povDown().negate()).and(driver.povLeft().negate()).whileTrue(algaePickup.algaePickupInCommand());
-    driver.povRight().whileFalse(algaePickup.algaePickupStopCommand());
+    driver.povUp().and(driver.povDown().negate()).and(driver.povRight().negate()).and(driver.povLeft().negate()).whileTrue(intakePivot.intakePivotUpCommand());
+    driver.povUp().whileFalse(intakePivot.intakePivotStopCommand());
+    
+    driver.povDown().and(driver.povUp().negate()).and(driver.povRight().negate()).and(driver.povLeft().negate()).whileTrue(intakePivot.intakePivotDownCommand());
+    driver.povDown().whileFalse(intakePivot.intakePivotStopCommand());
 
-    driver.povLeft().and(driver.povUp().negate()).and(driver.povRight().negate()).and(driver.povDown().negate()).whileTrue(algaePickup.algaePickupOutCommand());
-    driver.povLeft().whileFalse(algaePickup.algaePickupStopCommand());
+   // driver.povRight().and(driver.povUp().negate()).and(driver.povDown().negate()).and(driver.povLeft().negate()).whileTrue(algaePickup.algaePickupInCommand());
+   // driver.povRight().whileFalse(algaePickup.algaePickupStopCommand());
 
+    //driver.povLeft().and(driver.povUp().negate()).and(driver.povRight().negate()).and(driver.povDown().negate()).whileTrue(algaePickup.algaePickupOutCommand());
+    //driver.povLeft().whileFalse(algaePickup.algaePickupStopCommand());
+
+    driver.povRight().and(driver.povUp().negate()).and(driver.povDown().negate()).and(driver.povLeft().negate()).onTrue(driveCommand());
+    driver.povLeft().and(driver.povUp().negate()).and(driver.povDown().negate()).and(driver.povRight().negate()).onTrue(intake.intakeResetCommand());
 
 
 
