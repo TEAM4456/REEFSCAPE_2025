@@ -545,7 +545,7 @@ public class RobotContainer {
 
     
   //CONTROLLER BINDINGS FOR BACKUP
-    backup.rightTrigger().whileTrue(elevator.elevatorUpCommand());
+   /*  backup.rightTrigger().whileTrue(elevator.elevatorUpCommand());
     backup.rightTrigger().whileFalse(elevator.elevatorStopCommand());
 
     backup.leftTrigger().whileTrue(elevator.elevatorDownCommand());
@@ -577,8 +577,24 @@ public class RobotContainer {
 
     backup.back().whileTrue(intake.intakePickupCoralCommand());
     backup.back().whileFalse(intake.intakeStopCommand());
+*/
+backup.y().and(backup.back().negate()).whileTrue(teleopTo1rightCommand());
+backup.y().and(backup.back()).whileTrue(teleopTo1leftCommand());
 
-    
+backup.x().and(backup.back().negate()).whileTrue(teleopTo2rightCommand());
+backup.x().and(backup.back()).whileTrue(teleopTo2leftCommand());
+
+backup.b().and(backup.back().negate()).whileTrue(teleopTo3rightCommand());
+backup.b().and(backup.back()).whileTrue(teleopTo3leftCommand());
+
+backup.leftBumper().and(backup.back().negate()).whileTrue(teleopTo4rightCommand());
+backup.leftBumper().and(backup.back()).whileTrue(teleopTo4leftCommand());
+
+backup.rightBumper().and(backup.back().negate()).whileTrue(teleopTo5rightCommand());
+backup.rightBumper().and(backup.back()).whileTrue(teleopTo5leftCommand());
+
+backup.a().and(backup.back().negate()).whileTrue(teleopTo6rightCommand());
+backup.a().and(backup.back()).whileTrue(teleopTo6leftCommand());
 
   }
   

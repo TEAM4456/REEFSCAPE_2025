@@ -167,7 +167,7 @@ public final class Constants {
     public static final double ElevatorScoreL3 = 91.456;
     public static final double ElevatorScoreL4 = 155.6146;
 
-    public static final double ElevatorCoralPickupPosition = 11;
+    public static final double ElevatorCoralPickupPosition = 13;
     public static final double ElevatorClimbPosition = 3;
     
     public static final double ElevatorMax = 0;
@@ -184,7 +184,7 @@ public final class Constants {
     public static final double intakeScoreCoralL2toL4 = 0.2;
     public static final double intakeScoreCoralL1 = 0.4;
     public static final double intakeRemoveAlgae = 0;
-    public static final double intakePullBack = -2.049;
+    public static final double intakePullBack = -3;
     public static final double intakeAutoScoreL4 = -5;
   }
 
