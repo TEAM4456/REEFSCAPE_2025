@@ -178,11 +178,12 @@ public class RobotContainer {
   public Command scoreL4() {
     return new SequentialCommandGroup(
       //algaePivot.algaePivotScoreCommand(),
-      elevatorPivot.elevatorPivotScoreL4Command(),
+     
       new ParallelCommandGroup(
         elevator.elevatorScoreL4Command(),
         intakePivot.intakePivotScoreL4Command()
-      )
+      ),
+      elevatorPivot.elevatorPivotScoreL4Command()
     );
   }
 
@@ -352,6 +353,7 @@ public class RobotContainer {
     chooser.addOption("Drive Forward Center", new PathPlannerAuto("Drive Forward Center"));
     chooser.addOption("Drive Forward Right", new PathPlannerAuto("Drive Forward Right"));
     chooser.addOption("Drive Forward Left", new PathPlannerAuto("Drive Forward Left"));
+    chooser.addOption("Test Named Command", new PathPlannerAuto("Test Named Command"));
 
     //add rest of autonomous routines here
   
@@ -369,11 +371,11 @@ public class RobotContainer {
         () -> -driver.getRawAxis(strafeAxis),
         () -> -driver.getRawAxis(rotationAxis)));
     
-    driver.start().whileTrue(stopMotorsAll());
+    //driver.start().whileTrue(stopMotorsAll());
 
     
     // Testing buttons for driver #1, manual commands
-    driver.rightTrigger().whileTrue(elevator.elevatorUpCommand());
+   /*  driver.rightTrigger().whileTrue(elevator.elevatorUpCommand());
     driver.rightTrigger().whileFalse(elevator.elevatorStopCommand());
 
     driver.leftTrigger().whileTrue(elevator.elevatorDownCommand());
@@ -403,9 +405,11 @@ public class RobotContainer {
 
     driver.povUp().and(driver.povDown().negate()).and(driver.povRight().negate()).and(driver.povLeft().negate()).whileTrue(intakePivot.intakePivotUpCommand());
     driver.povUp().whileFalse(intakePivot.intakePivotStopCommand());
+   
+    HERE*/
     
-    driver.povDown().and(driver.povUp().negate()).and(driver.povRight().negate()).and(driver.povLeft().negate()).whileTrue(intakePivot.intakePivotDownCommand());
-    driver.povDown().whileFalse(intakePivot.intakePivotStopCommand());
+    //driver.povDown().and(driver.povUp().negate()).and(driver.povRight().negate()).and(driver.povLeft().negate()).whileTrue(intakePivot.intakePivotDownCommand());
+    //driver.povDown().whileFalse(intakePivot.intakePivotStopCommand());
 
    // driver.povRight().and(driver.povUp().negate()).and(driver.povDown().negate()).and(driver.povLeft().negate()).whileTrue(algaePickup.algaePickupInCommand());
    // driver.povRight().whileFalse(algaePickup.algaePickupStopCommand());
@@ -413,8 +417,8 @@ public class RobotContainer {
     //driver.povLeft().and(driver.povUp().negate()).and(driver.povRight().negate()).and(driver.povDown().negate()).whileTrue(algaePickup.algaePickupOutCommand());
     //driver.povLeft().whileFalse(algaePickup.algaePickupStopCommand());
 
-    driver.povRight().and(driver.povUp().negate()).and(driver.povDown().negate()).and(driver.povLeft().negate()).onTrue(driveCommand());
-    driver.povLeft().and(driver.povUp().negate()).and(driver.povDown().negate()).and(driver.povRight().negate()).onTrue(intake.intakeResetCommand());
+    //driver.povRight().and(driver.povUp().negate()).and(driver.povDown().negate()).and(driver.povLeft().negate()).onTrue(driveCommand());
+    //driver.povLeft().and(driver.povUp().negate()).and(driver.povDown().negate()).and(driver.povRight().negate()).onTrue(intake.intakeResetCommand());
 
 
 
@@ -445,33 +449,36 @@ public class RobotContainer {
     driver.leftTrigger().onTrue(intakePivot.intakePivotAlgaeLowCommand());*/
 
     //Algae Pivot
+
     /*driver.a().onTrue(algaePivot.algaePivotDriveSettingCommand());
     driver.b().onTrue(algaePivot.algaePivotScoreCommand());*/
 
     //Testing negate buttons
-   //driver.a().and(driver.rightBumper().negate()).whileTrue(intake.intakeScoreCoralL4Command());
-   // driver.a().and(driver.rightBumper()).whileTrue(algaePickup.algaePickupInCommand());
+   /*driver.a().and(driver.start().negate()).whileTrue(intake.intakeScoreCoralL4Command());
+   driver.a().and(driver.start().negate()).whileFalse(intake.intakeStopCommand());
+    driver.a().and(driver.start()).whileTrue(intake.intakeScoreCoralL2and3Command());
+    driver.a().and(driver.start()).whileFalse(intake.intakeStopCommand());*/
     
   
     
    // Competition buttons for driver #1
-    /*  driver.y().and(driver.back().negate()).whileTrue(teleopTo1rightCommand());
-    driver.y().and(driver.back()).whileTrue(teleopTo1leftCommand());
+    driver.y().and(driver.start().negate()).whileTrue(teleopTo1rightCommand());
+    driver.y().and(driver.start()).whileTrue(teleopTo1leftCommand());
 
-    driver.x().and(driver.back().negate()).whileTrue(teleopTo2rightCommand());
-    driver.x().and(driver.back()).whileTrue(teleopTo2leftCommand());
+    driver.x().and(driver.start().negate()).whileTrue(teleopTo2rightCommand());
+    driver.x().and(driver.start()).whileTrue(teleopTo2leftCommand());
 
-    driver.b().and(driver.back().negate()).whileTrue(teleopTo3rightCommand());
-    driver.b().and(driver.back()).whileTrue(teleopTo3leftCommand());
+    driver.b().and(driver.start().negate()).whileTrue(teleopTo3rightCommand());
+    driver.b().and(driver.start()).whileTrue(teleopTo3leftCommand());
 
-    driver.leftBumper().and(driver.back().negate()).whileTrue(teleopTo4rightCommand());
-    driver.leftBumper().and(driver.back()).whileTrue(teleopTo4leftCommand());
+    driver.leftBumper().and(driver.start().negate()).whileTrue(teleopTo4rightCommand());
+    driver.leftBumper().and(driver.start()).whileTrue(teleopTo4leftCommand());
 
-    driver.rightBumper().and(driver.back().negate()).whileTrue(teleopTo5rightCommand());
-    driver.rightBumper().and(driver.back()).whileTrue(teleopTo5leftCommand());
+    driver.rightBumper().and(driver.start().negate()).whileTrue(teleopTo5rightCommand());
+    driver.rightBumper().and(driver.start()).whileTrue(teleopTo5leftCommand());
 
-    driver.a().and(driver.back().negate()).whileTrue(teleopTo6rightCommand());
-    driver.a().and(driver.back()).whileTrue(teleopTo6leftCommand());
+    driver.a().and(driver.start().negate()).whileTrue(teleopTo6rightCommand());
+    driver.a().and(driver.start()).whileTrue(teleopTo6leftCommand());
 
     driver.rightTrigger().onTrue(climbPositionCommand()); //also scores algae in processor
     driver.leftTrigger().onTrue(climber.ClimbDeepCageCommand());
@@ -484,7 +491,7 @@ public class RobotContainer {
     driver.povDown().whileFalse(climber.climberStopCommand());
 
     driver.povLeft().and(driver.povUp().negate()).and(driver.povRight().negate()).and(driver.povDown().negate()).onTrue(intake.intakeResetCommand());
-*/
+   
 
     //Driver #2
     second.back().toggleOnTrue(
@@ -540,7 +547,8 @@ public class RobotContainer {
     second.povLeft().and(second.povUp().negate()).and(second.povDown().negate()).and(second.povRight().negate()).onTrue(coralPickupSetPositions());
    // second.povRight().and(second.povUp().negate()).and(second.povDown().negate()).and(second.povLeft().negate()).whileTrue(algaePickup.algaePickupOutCommand());
    // second.povRight().whileFalse(algaePickup.algaePickupStopCommand());
-    
+   second.povUp().and(second.povDown().negate()).and(second.povRight().negate()).and(second.povLeft().negate()).whileTrue(intakePivot.intakePivotUpCommand());
+   second.povUp().whileFalse(intakePivot.intakePivotStopCommand());
     
 
     
@@ -581,17 +589,17 @@ public class RobotContainer {
 backup.y().and(backup.back().negate()).whileTrue(teleopTo1rightCommand());
 backup.y().and(backup.back()).whileTrue(teleopTo1leftCommand());
 
-backup.x().and(backup.back().negate()).whileTrue(teleopTo2rightCommand());
-backup.x().and(backup.back()).whileTrue(teleopTo2leftCommand());
+backup.leftBumper().and(backup.back().negate()).whileTrue(teleopTo2rightCommand());
+backup.leftBumper().and(backup.back()).whileTrue(teleopTo2leftCommand());
 
-backup.b().and(backup.back().negate()).whileTrue(teleopTo3rightCommand());
-backup.b().and(backup.back()).whileTrue(teleopTo3leftCommand());
+backup.rightBumper().and(backup.back().negate()).whileTrue(teleopTo3rightCommand());
+backup.rightBumper().and(backup.back()).whileTrue(teleopTo3leftCommand());
 
-backup.leftBumper().and(backup.back().negate()).whileTrue(teleopTo4rightCommand());
-backup.leftBumper().and(backup.back()).whileTrue(teleopTo4leftCommand());
+backup.x().and(backup.back().negate()).whileTrue(teleopTo4rightCommand());
+backup.x().and(backup.back()).whileTrue(teleopTo4leftCommand());
 
-backup.rightBumper().and(backup.back().negate()).whileTrue(teleopTo5rightCommand());
-backup.rightBumper().and(backup.back()).whileTrue(teleopTo5leftCommand());
+backup.b().and(backup.back().negate()).whileTrue(teleopTo5rightCommand());
+backup.b().and(backup.back()).whileTrue(teleopTo5leftCommand());
 
 backup.a().and(backup.back().negate()).whileTrue(teleopTo6rightCommand());
 backup.a().and(backup.back()).whileTrue(teleopTo6leftCommand());

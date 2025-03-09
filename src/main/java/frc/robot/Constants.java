@@ -163,11 +163,11 @@ public final class Constants {
 
   public static final class ElevatorPositions{
     public static final double ElevatorScoreL1 = 20;
-    public static final double ElevatorScoreL2 = 38.928;
-    public static final double ElevatorScoreL3 = 91.456;
+    public static final double ElevatorScoreL2 = 25;
+    public static final double ElevatorScoreL3 = 80;
     public static final double ElevatorScoreL4 = 155.6146;
 
-    public static final double ElevatorCoralPickupPosition = 13;
+    public static final double ElevatorCoralPickupPosition = 8;
     public static final double ElevatorClimbPosition = 3;
     
     public static final double ElevatorMax = 0;
@@ -181,7 +181,7 @@ public final class Constants {
 
   public static final class IntakeSpeeds{
     public static final double intakePickupCoral = 0.2;
-    public static final double intakeScoreCoralL2toL4 = 0.2;
+    public static final double intakeScoreCoralL2toL4 = 0.1;
     public static final double intakeScoreCoralL1 = 0.4;
     public static final double intakeRemoveAlgae = 0;
     public static final double intakePullBack = -3;
@@ -198,16 +198,16 @@ public final class Constants {
     public static final double elevatorPivotMin = 0;
 
     public static final double elevatorPivotCoralPickupPosition = 102.86;
-    public static final double elevatorPivotClimbPosition = 201.0;
+    public static final double elevatorPivotClimbPosition = 228;
 
     public static final double elevatorPivotScoreL1 = 102.86;
     public static final double elevatorPivotScoreL2 = 40.357;
-    public static final double elevatorPivotScoreL3 = 75.193;
-    public static final double elevatorPivotScoreL4 = 101.74;
+    public static final double elevatorPivotScoreL3 = 105;
+    public static final double elevatorPivotScoreL4 = 165;
 
     public static final double elevatorPivotAlgaeLow = 0.0;
     public static final double elevatorPivotAlgaeHigh = 0.0;
-    public static final double elevatorPivotDrivePosition = 130;
+    public static final double elevatorPivotDrivePosition = 185;
   }
 public static final class IntakePivotPositions{
    
@@ -224,9 +224,9 @@ public static final class IntakePivotPositions{
   public static final double intakePivotScoreL1 = -2;
   public static final double intakePivotScoreL2 = -0.428;
   public static final double intakePivotScoreL3 = -0.357;
-  public static final double intakePivotScoreL4 = -7.857;
+  public static final double intakePivotScoreL4 = -8;
 
-  public static final double intakePivotAlgaeHigh = 0.0;
+  public static final double intakePivotAlgaeHigh = -9.5; //testing for climb position
   public static final double intakePivotAlgaeLow = 0.0;
   
 }
