@@ -161,12 +161,12 @@ public final class Constants {
   }
 
   public static final class ElevatorPositions{
-    public static final double ElevatorScoreL1 = 20;
-    public static final double ElevatorScoreL2 = 25;
-    public static final double ElevatorScoreL3 = 80;
+    public static final double ElevatorScoreL1 = 1;
+    public static final double ElevatorScoreL2 = 32.404;
+    public static final double ElevatorScoreL3 = 82.979;
     public static final double ElevatorScoreL4 = 155.6146;
 
-    public static final double ElevatorCoralPickupPosition = 8;
+    public static final double ElevatorCoralPickupPosition = 3.404;
     public static final double ElevatorClimbPosition = 3;
     
     public static final double ElevatorMax = 0;
@@ -199,10 +199,10 @@ public final class Constants {
     public static final double elevatorPivotCoralPickupPosition = 102.86;
     public static final double elevatorPivotClimbPosition = 228;
 
-    public static final double elevatorPivotScoreL1 = 102.86;
-    public static final double elevatorPivotScoreL2 = 40.357;
+    public static final double elevatorPivotScoreL1 = 20.45;
+    public static final double elevatorPivotScoreL2 = 52.809;
     public static final double elevatorPivotScoreL3 = 105;
-    public static final double elevatorPivotScoreL4 = 165;
+    public static final double elevatorPivotScoreL4 = 139.807;
 
     public static final double elevatorPivotAlgaeLow = 0.0;
     public static final double elevatorPivotAlgaeHigh = 0.0;
@@ -215,14 +215,14 @@ public final class Constants {
     public static final double intakePivotMax = 0;
     public static final double intakePivotMin = 0;
 
-    public static final double intakePivotCoralPickupPosition = -3.738;
-    public static final double intakePivotClimbPosition = 0.0;
+    public static final double intakePivotCoralPickupPosition = -3.5;
+    public static final double intakePivotClimbPosition = -10.5;
     public static final double intakePivotDrivePosition = 0.0;
   
 /* REEFSCAPE 2025 CORAL LEVELS (right now it's in inches off ground/arbitrary number so number is lowkey wrong :/ )*/
-  public static final double intakePivotScoreL1 = -2;
-  public static final double intakePivotScoreL2 = -0.428;
-  public static final double intakePivotScoreL3 = -0.357;
+  public static final double intakePivotScoreL1 = -1.2;
+  public static final double intakePivotScoreL2 = -0.5;
+  public static final double intakePivotScoreL3 = -0.2857;
   public static final double intakePivotScoreL4 = -8;
 
   public static final double intakePivotAlgaeHigh = -9.5; //testing for climb position
@@ -257,7 +257,7 @@ public static final class AlgaePivotPositions{
     public static final Transform3d ROBOT_TO_LIMELIGHT2 = new Transform3d(
         new Translation3d(-0.1905, -0.1905, 0.4064)/* relative to center of robot (+x value when camera is toward front, -x value when camera is toward back, 
         +y value camera is mounted to left of robot center, -y value when camera is mounted right of robot center, +z value when camera is mounted above ground level) */,
-         new Rotation3d(0, Math.toRadians(-10), Math.toRadians(180))/*y rotation for pitch is 180 degrees when camera faces robot back */);
+         new Rotation3d(0, 0, Math.toRadians(180))/*y rotation for pitch is 180 degrees when camera faces robot back */);
   }
 
   public static final class FieldConstants{

@@ -53,9 +53,9 @@ public class Vision extends SubsystemBase {
         SmartDashboard.putNumber("Pose Ambiguity", ambiguity);
 
         // Reject poses with ambiguity greater than 0.2
-       /*  if (ambiguity > 0.2) {
+        if (ambiguity > 0.2) {
             return Optional.empty();
-        } */
+        } 
 
          return robotPose;
         }

@@ -70,8 +70,8 @@ public class RobotContainer {
   //   new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
 
   // Subsystems object declarations
-  private final AlgaePickup algaePickup = new AlgaePickup();
-  private final AlgaePivot algaePivot = new AlgaePivot();
+  //private final AlgaePickup algaePickup = new AlgaePickup();
+ // private final AlgaePivot algaePivot = new AlgaePivot();
   private final Climber climber = new Climber();
   private final Elevator elevator = new Elevator();
   private final ElevatorPivot elevatorPivot = new ElevatorPivot();
@@ -112,12 +112,12 @@ public class RobotContainer {
     NamedCommands.registerCommand("Intake auto score L4", intake.intakeAutoScoreL4Command());
     NamedCommands.registerCommand("Intake auto pullback", intake.intakeAutoPullBackCommand());
     NamedCommands.registerCommand("Climber drive position", climber.climbDrivePositionCommand());
-    NamedCommands.registerCommand("Algae pivot score", algaePivot.algaePivotScoreCommand());
+    //NamedCommands.registerCommand("Algae pivot score", algaePivot.algaePivotScoreCommand());
     NamedCommands.registerCommand("Elevator Pivot Drive Position Command", elevatorPivot.elevatorPivotDrivePositionCommand());
     NamedCommands.registerCommand("Elevator Coral Pickup Position Command", elevator.elevatorCoralPickupPositionCommand());
     NamedCommands.registerCommand("Intake Pivot Coral Pickup Position Command", intakePivot.intakePivotCoralPickupPositionCommand());
     NamedCommands.registerCommand("Intake Stop Command", intake.intakeStopCommand());
-    NamedCommands.registerCommand("Algae Pivot Drive Setting Command", algaePivot.algaePivotDriveSettingCommand());
+   // NamedCommands.registerCommand("Algae Pivot Drive Setting Command", algaePivot.algaePivotDriveSettingCommand());
 
   }
   
@@ -128,8 +128,8 @@ public class RobotContainer {
   // Stops all moters except the drive system
   public Command stopMotorsAll() {
     return new ParallelCommandGroup(
-      algaePickup.algaePickupStopCommand(),
-      algaePivot.algaePivotStopCommand(),
+      //algaePickup.algaePickupStopCommand(),
+      //algaePivot.algaePivotStopCommand(),
       climber.climberStopCommand(),
       elevator.elevatorStopCommand(),
       elevatorPivot.elevatorPivotStopCommand(),
@@ -234,35 +234,35 @@ public class RobotContainer {
   // Goes to algae high
   public Command algaeHighCommand() {
     return new SequentialCommandGroup(
-      algaePivot.algaePivotScoreCommand(),
+      //algaePivot.algaePivotScoreCommand(),
       new ParallelCommandGroup(
         elevator.elevatorAlgaeHighCommand(),
         elevatorPivot.elevatorPivotAlgaeHighCommand(),
         intakePivot.intakePivotAlgaeHighCommand(),
         intake.intakeStopCommand()
-      ),
-      algaePickup.algaePickupInCommand()
+      )//,
+      //algaePickup.algaePickupInCommand()
     );
   }
   
   // Goes to algae low
   public Command algaeLowCommand() {
     return new SequentialCommandGroup(
-      algaePivot.algaePivotScoreCommand(),
+     // algaePivot.algaePivotScoreCommand(),
       new ParallelCommandGroup(
         elevator.elevatorAlgaeLowCommand(),
         elevatorPivot.elevatorPivotAlgaeLowCommand(),
         intakePivot.intakePivotAlgaeLowCommand(),
         intake.intakeStopCommand()
-      ),
-      algaePickup.algaePickupInCommand()
+      )//,
+     // algaePickup.algaePickupInCommand()
     );
   }
  
   // Sets subsystems in position to score algae in Proccessor
   public Command algaeScoreProcessorPositionsCommand() {
     return new SequentialCommandGroup(
-      algaePivot.algaePivotScoreCommand(),
+     // algaePivot.algaePivotScoreCommand(),
       new ParallelCommandGroup(
         elevator.elevatorClimbPositionCommand(),
         elevatorPivot.elevatorPivotClimbPositionCommand(),
@@ -276,134 +276,134 @@ public class RobotContainer {
 
   public Command teleopTo1rightCommand() {
     return new ParallelCommandGroup(
-      new PathPlannerAuto("teleop to 1 right"),
+      new PathPlannerAuto("teleop to 1 right")/*,
       new toggleSpeed(
         s_Swerve,
         () -> -driver.getRawAxis(translationAxis),
         () -> -driver.getRawAxis(strafeAxis),
-        () -> -driver.getRawAxis(rotationAxis))
-    ); 
+        () -> -driver.getRawAxis(rotationAxis)*/);
+    
   }
 
   public Command teleopTo1leftCommand() {
     return new ParallelCommandGroup(
-      new PathPlannerAuto("teleop to 1 left"),
+      new PathPlannerAuto("teleop to 1 left")/*,
       new toggleSpeed(
         s_Swerve,
         () -> -driver.getRawAxis(translationAxis),
         () -> -driver.getRawAxis(strafeAxis),
-        () -> -driver.getRawAxis(rotationAxis))
-    ); 
+        () -> -driver.getRawAxis(rotationAxis)*/);
+    
   }
 
   public Command teleopTo2rightCommand() {
     return new ParallelCommandGroup(
-      new PathPlannerAuto("teleop to 2 right"),
+      new PathPlannerAuto("teleop to 2 right")/*,
       new toggleSpeed(
         s_Swerve,
         () -> -driver.getRawAxis(translationAxis),
         () -> -driver.getRawAxis(strafeAxis),
-        () -> -driver.getRawAxis(rotationAxis))
-    ); 
+        () -> -driver.getRawAxis(rotationAxis)*/);
+    
   }
 
   public Command teleopTo2leftCommand() {
     return new ParallelCommandGroup(
-      new PathPlannerAuto("teleop to 2 left"),
+      new PathPlannerAuto("teleop to 2 left")/*,
       new toggleSpeed(
         s_Swerve,
         () -> -driver.getRawAxis(translationAxis),
         () -> -driver.getRawAxis(strafeAxis),
-        () -> -driver.getRawAxis(rotationAxis))
-    ); 
+        () -> -driver.getRawAxis(rotationAxis)*/);
+    
   }
 
   public Command teleopTo3rightCommand() {
     return new ParallelCommandGroup(
-      new PathPlannerAuto("teleop to 3 right"),
+      new PathPlannerAuto("teleop to 3 right")/*,
       new toggleSpeed(
         s_Swerve,
         () -> -driver.getRawAxis(translationAxis),
         () -> -driver.getRawAxis(strafeAxis),
-        () -> -driver.getRawAxis(rotationAxis))
-    ); 
+        () -> -driver.getRawAxis(rotationAxis)*/);
+    
   }
 
   public Command teleopTo3leftCommand() {
     return new ParallelCommandGroup(
-      new PathPlannerAuto("teleop to 3 left"),
+      new PathPlannerAuto("teleop to 3 left")/*,
       new toggleSpeed(
         s_Swerve,
         () -> -driver.getRawAxis(translationAxis),
         () -> -driver.getRawAxis(strafeAxis),
-        () -> -driver.getRawAxis(rotationAxis))
-    ); 
+        () -> -driver.getRawAxis(rotationAxis)*/);
+    
   }
 
   public Command teleopTo4rightCommand() {
     return new ParallelCommandGroup(
-      new PathPlannerAuto("teleop to 4 right"),
+      new PathPlannerAuto("teleop to 4 right")/*,
       new toggleSpeed(
         s_Swerve,
         () -> -driver.getRawAxis(translationAxis),
         () -> -driver.getRawAxis(strafeAxis),
-        () -> -driver.getRawAxis(rotationAxis))
-    ); 
+        () -> -driver.getRawAxis(rotationAxis)*/);
+    
   }
 
   public Command teleopTo4leftCommand() {
     return new ParallelCommandGroup(
-      new PathPlannerAuto("teleop to 4 left"),
+      new PathPlannerAuto("teleop to 4 left")/*,
       new toggleSpeed(
         s_Swerve,
         () -> -driver.getRawAxis(translationAxis),
         () -> -driver.getRawAxis(strafeAxis),
-        () -> -driver.getRawAxis(rotationAxis))
-    ); 
+        () -> -driver.getRawAxis(rotationAxis)*/);
+    
   }
 
   public Command teleopTo5rightCommand() {
     return new ParallelCommandGroup(
-      new PathPlannerAuto("teleop to 5 right"),
+      new PathPlannerAuto("teleop to 5 right")/*,
       new toggleSpeed(
         s_Swerve,
         () -> -driver.getRawAxis(translationAxis),
         () -> -driver.getRawAxis(strafeAxis),
-        () -> -driver.getRawAxis(rotationAxis))
-    ); 
+        () -> -driver.getRawAxis(rotationAxis)*/);
+    
   }
 
   public Command teleopTo5leftCommand() {
     return new ParallelCommandGroup(
-      new PathPlannerAuto("teleop to 5 left"),
+      new PathPlannerAuto("teleop to 5 left")/*,
       new toggleSpeed(
         s_Swerve,
         () -> -driver.getRawAxis(translationAxis),
         () -> -driver.getRawAxis(strafeAxis),
-        () -> -driver.getRawAxis(rotationAxis))
-    ); 
+        () -> -driver.getRawAxis(rotationAxis)*/);
+    
   }
   
   public Command teleopTo6rightCommand() {
     return new ParallelCommandGroup(
-      new PathPlannerAuto("teleop to 6 right"),
+      new PathPlannerAuto("teleop to 6 right")/*,
       new toggleSpeed(
         s_Swerve,
         () -> -driver.getRawAxis(translationAxis),
         () -> -driver.getRawAxis(strafeAxis),
-        () -> -driver.getRawAxis(rotationAxis))
-    ); 
+        () -> -driver.getRawAxis(rotationAxis)*/);
+    
   }
 
   public Command teleopTo6leftCommand() {
     return new ParallelCommandGroup(
-      new PathPlannerAuto("teleop to 6 left"),
+      new PathPlannerAuto("teleop to 6 left")/*,
       new toggleSpeed(
         s_Swerve,
         () -> -driver.getRawAxis(translationAxis),
         () -> -driver.getRawAxis(strafeAxis),
-        () -> -driver.getRawAxis(rotationAxis))
-    ); 
+        () -> -driver.getRawAxis(rotationAxis)*/);
+    
   }
 
   //WEEK OF 3/10 TELEOP COMMANDS FOR COMP
@@ -437,7 +437,7 @@ public class RobotContainer {
   public Command rightTo2RightAutoCommand() {
     return new SequentialCommandGroup(
       driveCommand(),
-      new PathPlannerAuto("teleop to 2 right"),
+      new PathPlannerAuto("right to 2 right Auto"),
       new ParallelCommandGroup(
         elevator.elevatorScoreL4Command(),
         intakePivot.intakePivotScoreL4Command()
@@ -450,7 +450,7 @@ public class RobotContainer {
   public Command rightTo2LeftAutoCommand() {
     return new SequentialCommandGroup(
       driveCommand(),
-      new PathPlannerAuto("teleop to 2 left"),
+      new PathPlannerAuto("right to 2 left Auto"),
       new ParallelCommandGroup(
         elevator.elevatorScoreL4Command(),
         intakePivot.intakePivotScoreL4Command()
@@ -463,7 +463,7 @@ public class RobotContainer {
   public Command leftTo3RightAutoCommand() {
     return new SequentialCommandGroup(
       driveCommand(),
-      new PathPlannerAuto("teleop to 3 right"),
+      new PathPlannerAuto("left to 3 right Auto"),
       new ParallelCommandGroup(
         elevator.elevatorScoreL4Command(),
         intakePivot.intakePivotScoreL4Command()
@@ -476,7 +476,7 @@ public class RobotContainer {
   public Command leftTo3LeftAutoCommand() {
     return new SequentialCommandGroup(
       driveCommand(),
-      new PathPlannerAuto("teleop to 3 left"),
+      new PathPlannerAuto("left to 3 left Auto"),
       new ParallelCommandGroup(
         elevator.elevatorScoreL4Command(),
         intakePivot.intakePivotScoreL4Command()
@@ -489,7 +489,7 @@ public class RobotContainer {
   public Command rightTo4RightAutoCommand() {
     return new SequentialCommandGroup(
       driveCommand(),
-      new PathPlannerAuto("teleop to 4 right"),
+      new PathPlannerAuto("right to 4 right Auto"),
       new ParallelCommandGroup(
         elevator.elevatorScoreL4Command(),
         intakePivot.intakePivotScoreL4Command()
@@ -502,7 +502,7 @@ public class RobotContainer {
   public Command rightTo4LeftAutoCommand() {
     return new SequentialCommandGroup(
       driveCommand(),
-      new PathPlannerAuto("teleop to 4 left"),
+      new PathPlannerAuto("right to 4 left Auto"),
       new ParallelCommandGroup(
         elevator.elevatorScoreL4Command(),
         intakePivot.intakePivotScoreL4Command()
@@ -515,7 +515,7 @@ public class RobotContainer {
   public Command leftTo5RightAutoCommand() {
     return new SequentialCommandGroup(
       driveCommand(),
-      new PathPlannerAuto("teleop to 5 right"),
+      new PathPlannerAuto("left to 5 right Auto"),
       new ParallelCommandGroup(
         elevator.elevatorScoreL4Command(),
         intakePivot.intakePivotScoreL4Command()
@@ -528,7 +528,7 @@ public class RobotContainer {
   public Command leftTo5LeftAutoCommand() {
     return new SequentialCommandGroup(
       driveCommand(),
-      new PathPlannerAuto("teleop to 5 left"),
+      new PathPlannerAuto("left to 5 left Auto"),
       new ParallelCommandGroup(
         elevator.elevatorScoreL4Command(),
         intakePivot.intakePivotScoreL4Command()
@@ -574,12 +574,12 @@ public class RobotContainer {
     chooser.addOption("L to 5 R", leftTo5RightAutoCommand());
     chooser.addOption("L to 5 L", leftTo5LeftAutoCommand());
 
-    chooser.addOption("L to 3 R; CS to 5 R", new PathPlannerAuto("left to 3 right and coral intake to 5 right Auto"));
-    chooser.addOption("R to 2 L; CS to 4 L", new PathPlannerAuto("right to 2 left and coral intake to 4 left Auto"));
+    //chooser.addOption("L to 3 R; CS to 5 R", new PathPlannerAuto("left to 3 right and coral intake to 5 right Auto"));
+    //chooser.addOption("R to 2 L; CS to 4 L", new PathPlannerAuto("right to 2 left and coral intake to 4 left Auto"));
     chooser.addOption("Drive Forward Center", new PathPlannerAuto("Drive Forward Center"));
     chooser.addOption("Drive Forward Right", new PathPlannerAuto("Drive Forward Right"));
     chooser.addOption("Drive Forward Left", new PathPlannerAuto("Drive Forward Left"));
-    chooser.addOption("Test Named Command", new PathPlannerAuto("Test Named Command"));
+    //chooser.addOption("Test Named Command", new PathPlannerAuto("Test Named Command"));
 
     //add rest of autonomous routines here
   
