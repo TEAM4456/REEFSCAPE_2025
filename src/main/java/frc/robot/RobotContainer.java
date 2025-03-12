@@ -275,51 +275,277 @@ public class RobotContainer {
   // Pathplanner autos for TELEOP
 
   public Command teleopTo1rightCommand() {
-    return new PathPlannerAuto("teleop to 1 right");
+    return new ParallelCommandGroup(
+      new PathPlannerAuto("teleop to 1 right"),
+      new toggleSpeed(
+        s_Swerve,
+        () -> -driver.getRawAxis(translationAxis),
+        () -> -driver.getRawAxis(strafeAxis),
+        () -> -driver.getRawAxis(rotationAxis))
+    ); 
   }
 
   public Command teleopTo1leftCommand() {
-    return new PathPlannerAuto("teleop to 1 left");
+    return new ParallelCommandGroup(
+      new PathPlannerAuto("teleop to 1 left"),
+      new toggleSpeed(
+        s_Swerve,
+        () -> -driver.getRawAxis(translationAxis),
+        () -> -driver.getRawAxis(strafeAxis),
+        () -> -driver.getRawAxis(rotationAxis))
+    ); 
   }
 
   public Command teleopTo2rightCommand() {
-    return new PathPlannerAuto("teleop to 2 right");
+    return new ParallelCommandGroup(
+      new PathPlannerAuto("teleop to 2 right"),
+      new toggleSpeed(
+        s_Swerve,
+        () -> -driver.getRawAxis(translationAxis),
+        () -> -driver.getRawAxis(strafeAxis),
+        () -> -driver.getRawAxis(rotationAxis))
+    ); 
   }
 
   public Command teleopTo2leftCommand() {
-    return new PathPlannerAuto("teleop to 2 left");
+    return new ParallelCommandGroup(
+      new PathPlannerAuto("teleop to 2 left"),
+      new toggleSpeed(
+        s_Swerve,
+        () -> -driver.getRawAxis(translationAxis),
+        () -> -driver.getRawAxis(strafeAxis),
+        () -> -driver.getRawAxis(rotationAxis))
+    ); 
   }
 
   public Command teleopTo3rightCommand() {
-    return new PathPlannerAuto("teleop to 3 right");
+    return new ParallelCommandGroup(
+      new PathPlannerAuto("teleop to 3 right"),
+      new toggleSpeed(
+        s_Swerve,
+        () -> -driver.getRawAxis(translationAxis),
+        () -> -driver.getRawAxis(strafeAxis),
+        () -> -driver.getRawAxis(rotationAxis))
+    ); 
   }
 
   public Command teleopTo3leftCommand() {
-    return new PathPlannerAuto("teleop to 3 left");
+    return new ParallelCommandGroup(
+      new PathPlannerAuto("teleop to 3 left"),
+      new toggleSpeed(
+        s_Swerve,
+        () -> -driver.getRawAxis(translationAxis),
+        () -> -driver.getRawAxis(strafeAxis),
+        () -> -driver.getRawAxis(rotationAxis))
+    ); 
   }
 
   public Command teleopTo4rightCommand() {
-    return new PathPlannerAuto("teleop to 4 right");
+    return new ParallelCommandGroup(
+      new PathPlannerAuto("teleop to 4 right"),
+      new toggleSpeed(
+        s_Swerve,
+        () -> -driver.getRawAxis(translationAxis),
+        () -> -driver.getRawAxis(strafeAxis),
+        () -> -driver.getRawAxis(rotationAxis))
+    ); 
   }
 
   public Command teleopTo4leftCommand() {
-    return new PathPlannerAuto("teleop to 4 left");
+    return new ParallelCommandGroup(
+      new PathPlannerAuto("teleop to 4 left"),
+      new toggleSpeed(
+        s_Swerve,
+        () -> -driver.getRawAxis(translationAxis),
+        () -> -driver.getRawAxis(strafeAxis),
+        () -> -driver.getRawAxis(rotationAxis))
+    ); 
   }
 
   public Command teleopTo5rightCommand() {
-    return new PathPlannerAuto("teleop to 5 right");
+    return new ParallelCommandGroup(
+      new PathPlannerAuto("teleop to 5 right"),
+      new toggleSpeed(
+        s_Swerve,
+        () -> -driver.getRawAxis(translationAxis),
+        () -> -driver.getRawAxis(strafeAxis),
+        () -> -driver.getRawAxis(rotationAxis))
+    ); 
   }
 
   public Command teleopTo5leftCommand() {
-    return new PathPlannerAuto("teleop to 5 left");
+    return new ParallelCommandGroup(
+      new PathPlannerAuto("teleop to 5 left"),
+      new toggleSpeed(
+        s_Swerve,
+        () -> -driver.getRawAxis(translationAxis),
+        () -> -driver.getRawAxis(strafeAxis),
+        () -> -driver.getRawAxis(rotationAxis))
+    ); 
   }
   
   public Command teleopTo6rightCommand() {
-    return new PathPlannerAuto("teleop to 6 right");
+    return new ParallelCommandGroup(
+      new PathPlannerAuto("teleop to 6 right"),
+      new toggleSpeed(
+        s_Swerve,
+        () -> -driver.getRawAxis(translationAxis),
+        () -> -driver.getRawAxis(strafeAxis),
+        () -> -driver.getRawAxis(rotationAxis))
+    ); 
   }
 
   public Command teleopTo6leftCommand() {
-    return new PathPlannerAuto("teleop to 6 left");
+    return new ParallelCommandGroup(
+      new PathPlannerAuto("teleop to 6 left"),
+      new toggleSpeed(
+        s_Swerve,
+        () -> -driver.getRawAxis(translationAxis),
+        () -> -driver.getRawAxis(strafeAxis),
+        () -> -driver.getRawAxis(rotationAxis))
+    ); 
+  }
+
+  //WEEK OF 3/10 TELEOP COMMANDS FOR COMP
+
+  public Command centerTo1RightAutoCommand() {
+    return new SequentialCommandGroup(
+      driveCommand(),
+      new PathPlannerAuto("teleop to 1 right"),
+      new ParallelCommandGroup(
+        elevator.elevatorScoreL4Command(),
+        intakePivot.intakePivotScoreL4Command()
+      ),
+      elevatorPivot.elevatorPivotScoreL4Command(),
+      intake.intakeAutoScoreL4Command()
+    ); 
+  }
+
+  public Command centerTo1LeftAutoCommand() {
+    return new SequentialCommandGroup(
+      driveCommand(),
+      new PathPlannerAuto("teleop to 1 left"),
+      new ParallelCommandGroup(
+        elevator.elevatorScoreL4Command(),
+        intakePivot.intakePivotScoreL4Command()
+      ),
+      elevatorPivot.elevatorPivotScoreL4Command(),
+      intake.intakeAutoScoreL4Command()
+    ); 
+  }
+
+  public Command rightTo2RightAutoCommand() {
+    return new SequentialCommandGroup(
+      driveCommand(),
+      new PathPlannerAuto("teleop to 2 right"),
+      new ParallelCommandGroup(
+        elevator.elevatorScoreL4Command(),
+        intakePivot.intakePivotScoreL4Command()
+      ),
+      elevatorPivot.elevatorPivotScoreL4Command(),
+      intake.intakeAutoScoreL4Command()
+    ); 
+  }
+
+  public Command rightTo2LeftAutoCommand() {
+    return new SequentialCommandGroup(
+      driveCommand(),
+      new PathPlannerAuto("teleop to 2 left"),
+      new ParallelCommandGroup(
+        elevator.elevatorScoreL4Command(),
+        intakePivot.intakePivotScoreL4Command()
+      ),
+      elevatorPivot.elevatorPivotScoreL4Command(),
+      intake.intakeAutoScoreL4Command()
+    ); 
+  }
+
+  public Command leftTo3RightAutoCommand() {
+    return new SequentialCommandGroup(
+      driveCommand(),
+      new PathPlannerAuto("teleop to 3 right"),
+      new ParallelCommandGroup(
+        elevator.elevatorScoreL4Command(),
+        intakePivot.intakePivotScoreL4Command()
+      ),
+      elevatorPivot.elevatorPivotScoreL4Command(),
+      intake.intakeAutoScoreL4Command()
+    ); 
+  }
+
+  public Command leftTo3LeftAutoCommand() {
+    return new SequentialCommandGroup(
+      driveCommand(),
+      new PathPlannerAuto("teleop to 3 left"),
+      new ParallelCommandGroup(
+        elevator.elevatorScoreL4Command(),
+        intakePivot.intakePivotScoreL4Command()
+      ),
+      elevatorPivot.elevatorPivotScoreL4Command(),
+      intake.intakeAutoScoreL4Command()
+    ); 
+  }
+
+  public Command rightTo4RightAutoCommand() {
+    return new SequentialCommandGroup(
+      driveCommand(),
+      new PathPlannerAuto("teleop to 4 right"),
+      new ParallelCommandGroup(
+        elevator.elevatorScoreL4Command(),
+        intakePivot.intakePivotScoreL4Command()
+      ),
+      elevatorPivot.elevatorPivotScoreL4Command(),
+      intake.intakeAutoScoreL4Command()
+    ); 
+  }
+
+  public Command rightTo4LeftAutoCommand() {
+    return new SequentialCommandGroup(
+      driveCommand(),
+      new PathPlannerAuto("teleop to 4 left"),
+      new ParallelCommandGroup(
+        elevator.elevatorScoreL4Command(),
+        intakePivot.intakePivotScoreL4Command()
+      ),
+      elevatorPivot.elevatorPivotScoreL4Command(),
+      intake.intakeAutoScoreL4Command()
+    ); 
+  }
+
+  public Command leftTo5RightAutoCommand() {
+    return new SequentialCommandGroup(
+      driveCommand(),
+      new PathPlannerAuto("teleop to 5 right"),
+      new ParallelCommandGroup(
+        elevator.elevatorScoreL4Command(),
+        intakePivot.intakePivotScoreL4Command()
+      ),
+      elevatorPivot.elevatorPivotScoreL4Command(),
+      intake.intakeAutoScoreL4Command()
+    ); 
+  }
+
+  public Command leftTo5LeftAutoCommand() {
+    return new SequentialCommandGroup(
+      driveCommand(),
+      new PathPlannerAuto("teleop to 5 left"),
+      new ParallelCommandGroup(
+        elevator.elevatorScoreL4Command(),
+        intakePivot.intakePivotScoreL4Command()
+      ),
+      elevatorPivot.elevatorPivotScoreL4Command(),
+      intake.intakeAutoScoreL4Command()
+    ); 
+  }
+
+  public Command fullAutoLeftCommand()
+  {
+    return new PathPlannerAuto("left to 3 right and coral intake to 5 right Auto");
+  }
+
+  public Command fullAutoRightCommand()
+  {
+    return new PathPlannerAuto("right to 2 left and coral intake to 4 left Auto");
   }
 
 
@@ -337,16 +563,16 @@ public class RobotContainer {
   private void configureButtonBindings() {
     chooser.setDefaultOption("nothing", null);
     
-    chooser.addOption("C to 1 R", new PathPlannerAuto("Center to 1 right Auto"));
-    chooser.addOption("C to 1 L ", new PathPlannerAuto("Center to 1 left Auto"));
-    chooser.addOption("R to 2 R", new PathPlannerAuto("right to 2 right Auto"));
-    chooser.addOption("R to 2 L", new PathPlannerAuto("right to 2 left Auto"));
-    chooser.addOption("L to 3 R", new PathPlannerAuto("left to 3 right Auto"));
-    chooser.addOption("L to 3 L", new PathPlannerAuto("left to 3 left Auto"));
-    chooser.addOption("R to 4 R", new PathPlannerAuto("right to 4 right Auto"));
-    chooser.addOption("R to 4 L", new PathPlannerAuto("right to 4 left Auto"));
-    chooser.addOption("L to 5 R", new PathPlannerAuto("left to 5 right Auto"));
-    chooser.addOption("L to 5 L", new PathPlannerAuto("left to 5 left Auto"));
+    chooser.addOption("C to 1 R", centerTo1RightAutoCommand());
+    chooser.addOption("C to 1 L ", centerTo1LeftAutoCommand());
+    chooser.addOption("R to 2 R", rightTo2RightAutoCommand());
+    chooser.addOption("R to 2 L", rightTo2LeftAutoCommand());
+    chooser.addOption("L to 3 R", leftTo3RightAutoCommand());
+    chooser.addOption("L to 3 L", leftTo3LeftAutoCommand());
+    chooser.addOption("R to 4 R", rightTo4RightAutoCommand());
+    chooser.addOption("R to 4 L", rightTo4LeftAutoCommand());
+    chooser.addOption("L to 5 R", leftTo5RightAutoCommand());
+    chooser.addOption("L to 5 L", leftTo5LeftAutoCommand());
 
     chooser.addOption("L to 3 R; CS to 5 R", new PathPlannerAuto("left to 3 right and coral intake to 5 right Auto"));
     chooser.addOption("R to 2 L; CS to 4 L", new PathPlannerAuto("right to 2 left and coral intake to 4 left Auto"));
@@ -357,7 +583,7 @@ public class RobotContainer {
 
     //add rest of autonomous routines here
   
-  
+    
   
     //Create Driver Button mapping here
 
@@ -460,37 +686,39 @@ public class RobotContainer {
     driver.a().and(driver.start()).whileFalse(intake.intakeStopCommand());*/
     
   
-    
+   
    // Competition buttons for driver #1
     driver.y().and(driver.start().negate()).whileTrue(teleopTo1rightCommand());
     driver.y().and(driver.start()).whileTrue(teleopTo1leftCommand());
 
-    driver.x().and(driver.start().negate()).whileTrue(teleopTo2rightCommand());
-    driver.x().and(driver.start()).whileTrue(teleopTo2leftCommand());
+    driver.x().and(driver.start().negate()).whileTrue(teleopTo4rightCommand());
+    driver.x().and(driver.start()).whileTrue(teleopTo4leftCommand());
 
-    driver.b().and(driver.start().negate()).whileTrue(teleopTo3rightCommand());
-    driver.b().and(driver.start()).whileTrue(teleopTo3leftCommand());
+    driver.b().and(driver.start().negate()).whileTrue(teleopTo5rightCommand());
+    driver.b().and(driver.start()).whileTrue(teleopTo5leftCommand());
 
-    driver.leftBumper().and(driver.start().negate()).whileTrue(teleopTo4rightCommand());
-    driver.leftBumper().and(driver.start()).whileTrue(teleopTo4leftCommand());
+    driver.leftBumper().and(driver.start().negate()).whileTrue(teleopTo2rightCommand());
+    driver.leftBumper().and(driver.start()).whileTrue(teleopTo2leftCommand());
 
-    driver.rightBumper().and(driver.start().negate()).whileTrue(teleopTo5rightCommand());
-    driver.rightBumper().and(driver.start()).whileTrue(teleopTo5leftCommand());
+    driver.rightBumper().and(driver.start().negate()).whileTrue(teleopTo3rightCommand());
+    driver.rightBumper().and(driver.start()).whileTrue(teleopTo3leftCommand());
 
     driver.a().and(driver.start().negate()).whileTrue(teleopTo6rightCommand());
     driver.a().and(driver.start()).whileTrue(teleopTo6leftCommand());
+    
+    driver.rightTrigger().whileTrue(elevator.elevatorUpCommand()); 
+    driver.rightTrigger().whileFalse(elevator.elevatorStopCommand());
+    driver.leftTrigger().whileTrue(elevator.elevatorDownCommand());
+    driver.leftTrigger().whileFalse(elevator.elevatorStopCommand());
 
-    driver.rightTrigger().onTrue(climbPositionCommand()); //also scores algae in processor
-    driver.leftTrigger().onTrue(climber.ClimbDeepCageCommand());
-
-    driver.povUp().and(driver.povDown().negate()).and(driver.povRight().negate()).and(driver.povLeft().negate()).whileTrue(climber.climberDownCommand());
+    driver.povUp().and(driver.povDown().negate()).and(driver.povRight().negate()).and(driver.povLeft().negate()).whileTrue(climber.climberUpCommand());
     driver.povUp().whileFalse(climber.climberStopCommand());
     
     //climbing arm goes down on cage
-    driver.povDown().and(driver.povUp().negate()).and(driver.povRight().negate()).and(driver.povLeft().negate()).whileTrue(climber.climberUpCommand());
+    driver.povDown().and(driver.povUp().negate()).and(driver.povRight().negate()).and(driver.povLeft().negate()).whileTrue(climber.climberDownCommand());
     driver.povDown().whileFalse(climber.climberStopCommand());
 
-    driver.povLeft().and(driver.povUp().negate()).and(driver.povRight().negate()).and(driver.povDown().negate()).onTrue(intake.intakeResetCommand());
+    driver.povLeft().and(driver.povUp().negate()).and(driver.povRight().negate()).and(driver.povDown().negate()).onTrue(climbPositionCommand());
    
 
     //Driver #2
@@ -535,22 +763,26 @@ public class RobotContainer {
     second.y().onTrue(scoreL4());
 
     second.leftBumper().onTrue(driveCommand());
-    second.rightBumper().onTrue(intake.intakeAutoPullBackCommand());
+    //second.rightBumper().onTrue(intake.intakeAutoPullBackCommand());
+    second.rightBumper().onTrue(coralPickupSetPositions());
 
-    second.rightTrigger().whileTrue(intake.intakeScoreCoralL4Command());
-    second.rightTrigger().whileFalse(intake.intakeStopCommand());
-    second.leftTrigger().whileTrue(intake.intakeScoreCoralL2and3Command());
-    second.leftTrigger().whileFalse(intake.intakeStopCommand());
+
+    second.rightTrigger().and(second.back().negate()).whileTrue(intake.intakeScoreCoralL4Command());
+    second.rightTrigger().and(second.back().negate()).whileFalse(intake.intakeStopCommand());
+    second.rightTrigger().and(second.back()).whileTrue(intake.intakeScoreCoralL2and3Command());
+    second.rightTrigger().and(second.back()).whileFalse(intake.intakeStopCommand());
 
     //second.povUp().and(second.povRight().negate()).and(second.povDown().negate()).and(second.povLeft().negate()).onTrue(algaeHighCommand());
     //second.povDown().and(second.povUp().negate()).and(second.povRight().negate()).and(second.povLeft().negate()).onTrue(algaeLowCommand());
-    second.povLeft().and(second.povUp().negate()).and(second.povDown().negate()).and(second.povRight().negate()).onTrue(coralPickupSetPositions());
+    //second.povDown().and(second.povUp().negate()).and(second.povLeft().negate()).and(second.povRight().negate()).onTrue(coralPickupSetPositions());
    // second.povRight().and(second.povUp().negate()).and(second.povDown().negate()).and(second.povLeft().negate()).whileTrue(algaePickup.algaePickupOutCommand());
    // second.povRight().whileFalse(algaePickup.algaePickupStopCommand());
    second.povUp().and(second.povDown().negate()).and(second.povRight().negate()).and(second.povLeft().negate()).whileTrue(intakePivot.intakePivotUpCommand());
    second.povUp().whileFalse(intakePivot.intakePivotStopCommand());
-    
-
+   second.povRight().and(second.povUp().negate()).and(second.povLeft().negate()).and(second.povDown().negate()).whileTrue(elevatorPivot.elevatorPivotUpCommand());
+   second.povRight().whileFalse(elevatorPivot.elevatorPivotStopCommand());
+   second.povLeft().and(second.povUp().negate()).and(second.povDown().negate()).and(second.povRight().negate()).whileTrue(elevatorPivot.elevatorPivotDownCommand()); 
+   second.povLeft().whileFalse(elevatorPivot.elevatorPivotStopCommand()); 
     
   //CONTROLLER BINDINGS FOR BACKUP
    /*  backup.rightTrigger().whileTrue(elevator.elevatorUpCommand());

@@ -21,7 +21,6 @@ import frc.lib.configs.SwerveModuleConstants;
 
 
 public final class Constants {
-
   public static final class Swerve {
     public static final double stickDeadband = 0.15;
 
@@ -209,7 +208,7 @@ public final class Constants {
     public static final double elevatorPivotAlgaeHigh = 0.0;
     public static final double elevatorPivotDrivePosition = 185;
   }
-public static final class IntakePivotPositions{
+  public static final class IntakePivotPositions{
    
     public static final double intakePivotSpeed = .1;
 
