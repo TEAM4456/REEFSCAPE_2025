@@ -93,7 +93,7 @@ public class RobotContainer {
             s_Swerve,
             () -> -driver.getRawAxis(translationAxis),
             () -> -driver.getRawAxis(strafeAxis),
-            () -> -driver.getRawAxis(rotationAxis)));
+            () -> -driver.getRawAxis(rotationAxis)/2));
 
     // Puts Sendable Chooser on SmartDashboard
     chooser = AutoBuilder.buildAutoChooser();
@@ -207,7 +207,8 @@ public class RobotContainer {
       elevatorPivot.elevatorPivotDrivePositionCommand(),
       new ParallelCommandGroup(
         elevator.elevatorCoralPickupPositionCommand(),
-        intake.intakeStopCommand()
+        intakePivot.intakePivotDrivePositiCommand()
+        //intake.intakeStopCommand()
       )
        //,algaePivot.algaePivotDriveSettingCommand()
     );
@@ -221,8 +222,8 @@ public class RobotContainer {
       new ParallelCommandGroup(
         elevator.elevatorClimbPositionCommand(),
         elevatorPivot.elevatorPivotClimbPositionCommand(),
-        intakePivot.intakePivotClimbPositionCommand(),
-        intake.intakeStopCommand()
+        intakePivot.intakePivotClimbPositionCommand()
+        //intake.intakeStopCommand()
         //,algaePickup.algaePickupStopCommand()
       ),
     //algaePivot.algaePivotDriveSettingCommand(),
@@ -410,14 +411,29 @@ public class RobotContainer {
 
   public Command centerTo1RightAutoCommand() {
     return new SequentialCommandGroup(
-      driveCommand(),
-      new PathPlannerAuto("teleop to 1 right"),
+        driveCommand(),
+        teleopTo1rightCommand(),
       new ParallelCommandGroup(
         elevator.elevatorScoreL4Command(),
         intakePivot.intakePivotScoreL4Command()
       ),
       elevatorPivot.elevatorPivotScoreL4Command(),
-      intake.intakeAutoScoreL4Command()
+      intake.intakeAutoScoreL4Command(),
+      driveCommand()
+    ); 
+  }
+
+  public Command centerTo1RightL1AutoCommand() {
+    return new SequentialCommandGroup(
+        driveCommand(),
+        teleopTo1rightCommand(),
+      new ParallelCommandGroup(
+        elevator.elevatorScoreL1Command(),
+        intakePivot.intakePivotScoreL1Command()
+      ),
+      elevatorPivot.elevatorPivotScoreL1Command(),
+      intake.intakeAutoScoreL1Command(),
+      driveCommand()
     ); 
   }
 
@@ -430,7 +446,8 @@ public class RobotContainer {
         intakePivot.intakePivotScoreL4Command()
       ),
       elevatorPivot.elevatorPivotScoreL4Command(),
-      intake.intakeAutoScoreL4Command()
+      intake.intakeAutoScoreL4Command(),
+      driveCommand()
     ); 
   }
 
@@ -443,7 +460,8 @@ public class RobotContainer {
         intakePivot.intakePivotScoreL4Command()
       ),
       elevatorPivot.elevatorPivotScoreL4Command(),
-      intake.intakeAutoScoreL4Command()
+      intake.intakeAutoScoreL4Command(),
+      driveCommand()
     ); 
   }
 
@@ -456,9 +474,39 @@ public class RobotContainer {
         intakePivot.intakePivotScoreL4Command()
       ),
       elevatorPivot.elevatorPivotScoreL4Command(),
-      intake.intakeAutoScoreL4Command()
+      intake.intakeAutoScoreL4Command(),
+      driveCommand()
     ); 
   }
+
+//outline of code for two piece
+ /*  public Command twoLeftToRightCoralIntakeAutoCommand() {
+    return new SequentialCommandGroup(
+      driveCommand(),
+      new PathPlannerAuto("2 left to right coral intake Auto"),
+      new ParallelCommandGroup(
+        elevator.elevatorScoreL4Command(),
+        intakePivot.intakePivotScoreL4Command()
+      ),
+      elevatorPivot.elevatorPivotScoreL4Command(),
+      intake.intakeAutoScoreL4Command(),
+      driveCommand()
+    ); 
+  }
+//more parts of the code for the two piece
+  public Command rightCoralIntakeTo4LeftCommand() {
+    return new SequentialCommandGroup(
+      driveCommand(),
+      new PathPlannerAuto("right coral intake to 4 left Auto"),
+      new ParallelCommandGroup(
+        elevator.elevatorScoreL4Command(),
+        intakePivot.intakePivotScoreL4Command()
+      ),
+      elevatorPivot.elevatorPivotScoreL4Command(),
+      intake.intakeAutoScoreL4Command(),
+      driveCommand()
+    ); 
+  } */
 
   public Command leftTo3RightAutoCommand() {
     return new SequentialCommandGroup(
@@ -564,6 +612,7 @@ public class RobotContainer {
     chooser.setDefaultOption("nothing", null);
     
     chooser.addOption("C to 1 R", centerTo1RightAutoCommand());
+    chooser.addOption("L1 C to 1 R", centerTo1RightL1AutoCommand());
     chooser.addOption("C to 1 L ", centerTo1LeftAutoCommand());
     chooser.addOption("R to 2 R", rightTo2RightAutoCommand());
     chooser.addOption("R to 2 L", rightTo2LeftAutoCommand());
@@ -722,12 +771,12 @@ public class RobotContainer {
    
 
     //Driver #2
-    second.back().toggleOnTrue(
+    /*second.back().toggleOnTrue(
       new toggleSpeed(
         s_Swerve,
         () -> -second.getRawAxis(translationAxis),
         () -> -second.getRawAxis(strafeAxis),
-        () -> -second.getRawAxis(rotationAxis)));
+        () -> -second.getRawAxis(rotationAxis)));*/
 
     second.start().whileTrue(stopMotorsAll());
 
