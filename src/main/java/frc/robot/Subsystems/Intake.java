@@ -64,6 +64,9 @@ public class Intake extends SubsystemBase {
   public void intakeAutoScoreL4(){
     intakePIDController.setReference(Constants.IntakeSpeeds.intakeAutoScoreL4, SparkBase.ControlType.kPosition);
   }
+  public void intakeAutoScoreL1(){
+    intakePIDController.setReference(Constants.IntakeSpeeds.intakeAutoScoreL1, SparkBase.ControlType.kPosition);
+  }
   //When called, this moves both motors to score coral
   public void intakeScoreCoralL4(){
     intakeMotor.set(-Constants.IntakeSpeeds.intakeScoreCoralL2toL4);
@@ -87,7 +90,11 @@ public class Intake extends SubsystemBase {
     }
 
     public Command intakeAutoScoreL4Command(){
-      return run(() -> intakeAutoScoreL4()).until(() -> (Math.abs(intakeEncoder.getPosition() - Constants.IntakeSpeeds.intakeAutoScoreL4) < 0.01));
+      return run(() -> intakeAutoScoreL4()).until(() -> (Math.abs(intakeEncoder.getPosition() - Constants.IntakeSpeeds.intakeAutoScoreL4) < 1));
+    }
+
+    public Command intakeAutoScoreL1Command(){
+      return run(() -> intakeAutoScoreL1()).until(() -> (Math.abs(intakeEncoder.getPosition() - Constants.IntakeSpeeds.intakeAutoScoreL1) < 1));
     }
 
     public Command intakeScoreCoralL4Command(){
@@ -107,6 +114,7 @@ public class Intake extends SubsystemBase {
     public Command intakeResetCommand(){
       return run(() -> intakeReset());
     }
+    
 
     /*Create set position commands here */
 

@@ -129,6 +129,9 @@ public class IntakePivot extends SubsystemBase {
       return run(() -> intakePivotClimbPosition()).until(() -> (Math.abs(intakePivotEncoder.getPosition() - Constants.IntakePivotPositions.intakePivotClimbPosition) < 1));
     }
     
+    public Command intakePivotDrivePositiCommand(){
+      return run(() -> intakePivotDrivePosition()).until(() -> (Math.abs(intakePivotEncoder.getPosition() - Constants.IntakePivotPositions.intakePivotDrivePosition) < 1));
+    }
   @Override
     public void periodic(){
       SmartDashboard.putNumber("intakePivotPosition",intakePivotEncoder.getPosition());

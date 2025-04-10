@@ -5,9 +5,16 @@
     "data": {
       "commands": [
         {
-          "type": "path",
+          "type": "sequential",
           "data": {
-            "pathName": "auto to 5 left"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "3 to leftcoralintake"
+                }
+              }
+            ]
           }
         }
       ]

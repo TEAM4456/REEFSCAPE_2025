@@ -5,9 +5,9 @@
     "data": {
       "commands": [
         {
-          "type": "path",
+          "type": "named",
           "data": {
-            "pathName": "auto to 5 left"
+            "name": "Intake pivot score L4 command"
           }
         }
       ]

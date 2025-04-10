@@ -5,53 +5,9 @@
     "data": {
       "commands": [
         {
-          "type": "parallel",
-          "data": {
-            "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "Algae pivot score"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "elevator pivot score L4 command"
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "parallel",
-          "data": {
-            "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "elevator score L4 command"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "Intake pivot score L4 command"
-                }
-              }
-            ]
-          }
-        },
-        {
           "type": "path",
           "data": {
             "pathName": "auto to 4 right"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Intake auto score L4"
           }
         }
       ]
