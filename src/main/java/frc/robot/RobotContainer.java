@@ -360,7 +360,7 @@ public class RobotContainer {
     //Create Driver Button mapping here
 
     //Driver #1
-    
+    /* 
     //driver.povRight().and(driver.povUp().negate()).and(driver.povLeft().negate()).and(driver.povLeft().negate()).toggleOnTrue(
     driver.back().toggleOnTrue(
       new toggleSpeed(
@@ -415,7 +415,7 @@ public class RobotContainer {
 
     driver.povRight().and(driver.povUp().negate()).and(driver.povDown().negate()).and(driver.povLeft().negate()).onTrue(driveCommand());
     driver.povLeft().and(driver.povUp().negate()).and(driver.povDown().negate()).and(driver.povRight().negate()).onTrue(intake.intakeResetCommand());
-
+    */
 
 
  //Testing buttons for driver #1, set position commands
@@ -486,15 +486,15 @@ public class RobotContainer {
     driver.povLeft().and(driver.povUp().negate()).and(driver.povRight().negate()).and(driver.povDown().negate()).onTrue(intake.intakeResetCommand());
 */
 
-    //Driver #2
-    second.back().toggleOnTrue(
+    //Driver Open House
+    driver.back().toggleOnTrue(
       new toggleSpeed(
         s_Swerve,
         () -> -second.getRawAxis(translationAxis),
         () -> -second.getRawAxis(strafeAxis),
         () -> -second.getRawAxis(rotationAxis)));
 
-    second.start().whileTrue(stopMotorsAll());
+    driver.start().whileTrue(stopMotorsAll());
 
    // Testing buttons for driver #2, manual commands
    /*  second.rightTrigger().whileTrue(climber.climberUpCommand());
@@ -522,22 +522,22 @@ public class RobotContainer {
 
     // Competition Buttons for Driver #2
  
-    second.a().onTrue(scoreL1());
-    second.x().onTrue(scoreL2());
-    second.b().onTrue(scoreL3());
-    second.y().onTrue(scoreL4());
+    driver.a().onTrue(scoreL1());
+    driver.x().onTrue(scoreL2());
+    driver.b().onTrue(scoreL3());
+    driver.y().onTrue(scoreL4());
 
-    second.leftBumper().onTrue(driveCommand());
-    second.rightBumper().onTrue(intake.intakeAutoPullBackCommand());
+    driver.leftBumper().onTrue(driveCommand());
+    driver.rightBumper().onTrue(intake.intakeAutoPullBackCommand());
 
-    second.rightTrigger().whileTrue(intake.intakeScoreCoralL4Command());
-    second.rightTrigger().whileFalse(intake.intakeStopCommand());
-    second.leftTrigger().whileTrue(intake.intakeScoreCoralL2and3Command());
-    second.leftTrigger().whileFalse(intake.intakeStopCommand());
+    driver.rightTrigger().whileTrue(intake.intakeScoreCoralL4Command());
+    driver.rightTrigger().whileFalse(intake.intakeStopCommand());
+    driver.leftTrigger().whileTrue(intake.intakeScoreCoralL2and3Command());
+    driver.leftTrigger().whileFalse(intake.intakeStopCommand());
 
     //second.povUp().and(second.povRight().negate()).and(second.povDown().negate()).and(second.povLeft().negate()).onTrue(algaeHighCommand());
     //second.povDown().and(second.povUp().negate()).and(second.povRight().negate()).and(second.povLeft().negate()).onTrue(algaeLowCommand());
-    second.povLeft().and(second.povUp().negate()).and(second.povDown().negate()).and(second.povRight().negate()).onTrue(coralPickupSetPositions());
+    driver.povLeft().and(driver.povUp().negate()).and(driver.povDown().negate()).and(driver.povRight().negate()).onTrue(coralPickupSetPositions());
    // second.povRight().and(second.povUp().negate()).and(second.povDown().negate()).and(second.povLeft().negate()).whileTrue(algaePickup.algaePickupOutCommand());
    // second.povRight().whileFalse(algaePickup.algaePickupStopCommand());
     
