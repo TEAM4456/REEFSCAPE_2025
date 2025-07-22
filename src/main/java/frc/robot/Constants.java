@@ -21,7 +21,6 @@ import frc.lib.configs.SwerveModuleConstants;
 
 
 public final class Constants {
-
   public static final class Swerve {
     public static final double stickDeadband = 0.15;
 
@@ -162,23 +161,31 @@ public final class Constants {
   }
 
   public static final class ElevatorPositions{
-    public static final double ElevatorScoreL1 = 0;
-    public static final double ElevatorScoreL2 = 0;
-    public static final double ElevatorScoreL3 = 0;
-    public static final double ElevatorScoreL4 = 0;
+    public static final double ElevatorScoreL1 = 1;
+    public static final double ElevatorScoreL2 = 32.404;
+    public static final double ElevatorScoreL3 = 82.979;
+    public static final double ElevatorScoreL4 = 155.6146;
 
-    public static final double ElevatorCoralPickupPosition = 0.0;
-    public static final double ElevatorClimbPosition = 0.0;
+    public static final double ElevatorCoralPickupPosition = 3.404;
+    public static final double ElevatorClimbPosition = 3;
     
     public static final double ElevatorMax = 0;
     public static final double ElevatorMin = 0;
 
     public static final double elevatorSpeed = .2;
+
+    public static final double ElevatorAlgaeLow = 0.0;
+    public static final double ElevatorAlgaeHigh = 0.0;
   }
 
   public static final class IntakeSpeeds{
-    public static final double intakePickupCoral = -150;
-    public static final double intakeScoreCoral = 0;
+    public static final double intakePickupCoral = 0.2;
+    public static final double intakeScoreCoralL2toL4 = 0.1;
+    public static final double intakeScoreCoralL1 = 0.4;
+    public static final double intakeRemoveAlgae = 0;
+    public static final double intakePullBack = -3;
+    public static final double intakeAutoScoreL4 = -5;
+    public static final double intakeAutoScoreL1 = 2;
   }
 
   //All of these values aren't correct, they are just placeholders
@@ -190,46 +197,68 @@ public final class Constants {
     public static final double elevatorPivotMax = 0;
     public static final double elevatorPivotMin = 0;
 
-    public static final double elevatorPivotCoralPickupPosition = 0.0;
-    public static final double elevatorPivotClimbPosition = 0.0;
+    public static final double elevatorPivotCoralPickupPosition = 102.86;
+    public static final double elevatorPivotClimbPosition = 179;
 
-    public static final double elevatorPivotScoreL1 = 0.0;
-    public static final double elevatorPivotScoreL2 = 0.0;
-    public static final double elevatorPivotScoreL3 = 0.0;
-    public static final double elevatorPivotScoreL4 = 0.0;
+    public static final double elevatorPivotScoreL1 = 20.45;
+    public static final double elevatorPivotScoreL2 = 52.809;
+    public static final double elevatorPivotScoreL3 = 105;
+    public static final double elevatorPivotScoreL4 = 139.807;
+
+    public static final double elevatorPivotAlgaeLow = 0.0;
+    public static final double elevatorPivotAlgaeHigh = 0.0;
+    public static final double elevatorPivotDrivePosition = 160;
   }
-public static final class IntakePivotPositions{
+  public static final class IntakePivotPositions{
    
-    public static final double intakePivotSpeed = .2;
+    public static final double intakePivotSpeed = .1;
 
     public static final double intakePivotMax = 0;
     public static final double intakePivotMin = 0;
 
-    public static final double intakePivotCoralPickupPosition = 0.0;
-    public static final double intakePivotClimbPosition = 0.0;
+    public static final double intakePivotCoralPickupPosition = -3.5;
+    public static final double intakePivotClimbPosition = -12.1;
+    public static final double intakePivotDrivePosition = -1;
   
 /* REEFSCAPE 2025 CORAL LEVELS (right now it's in inches off ground/arbitrary number so number is lowkey wrong :/ )*/
-  public static final double intakePivotScoreL1 = 18;
-  public static final double intakePivotScoreL2 = 31.875;
-  public static final double intakePivotScoreL3 = 47.625;
-  public static final double intakePivotScoreL4 = 72;
+  public static final double intakePivotScoreL1 = -1.2;
+  public static final double intakePivotScoreL2 = -0.5;
+  public static final double intakePivotScoreL3 = -0.2857;
+  public static final double intakePivotScoreL4 = -8;
+
+  public static final double intakePivotAlgaeHigh = -9.5; //testing for climb position
+  public static final double intakePivotAlgaeLow = 0.0;
   
 }
-
+public static final class AlgaePivotPositions{
+  
+  public static final double algaePivotSpeed = .2;
+  public static final double algaePivotUp = 0.0;
+  public static final double algaePivotDown = 0.0;
+  public static final double algaePivotScore = 7.5;
+  public static final double algaePivotDriveSetting = 0.2;
+}
   public static final class ClimberPositions{
-    public static final double climberSpeed = .2;
-    public static final double climbPosition = .2;
-    public static final double ClimbDeepCageLeft = .2;
-    public static final double ClimbDeepCageRight = .2;
+    public static final double climberSpeed = .7;
+    public static final double climbPosition = 0;
+    public static final double ClimbDeepCageLeft = 0;
+    public static final double ClimbDeepCageRight = 0;
+    public static final double ClimbDriveLeft = 75;
+    public static final double ClimbDriveRight = -75;
+  }
+  
+  public static final class AlgaePickupPositions{ 
+    public static final double algaePickupSpeed = 0.2;
   }
  
 
   public static final class VisionConstants {
     public static final Transform3d ROBOT_TO_LIMELIGHT1 = new Transform3d(
-      new Pose3d(new Translation3d(-.35, -.15,.22),new Rotation3d(Math.toRadians(-43), Math.toRadians(180), 0)),
-      new Pose3d(new Translation3d(0,0,0), new Rotation3d(0, 0, 0)));
+      new Translation3d(0, -0.295,0.345),new Rotation3d(Math.toRadians(90), Math.toRadians(180), 0)); //Not sure if Rotation 3D is correct
     public static final Transform3d ROBOT_TO_LIMELIGHT2 = new Transform3d(
-        new Translation3d(.42, 0, 0.4572), new Rotation3d(0, Math.toRadians(180), 0));
+        new Translation3d(-0.1905, -0.1905, 0.4064)/* relative to center of robot (+x value when camera is toward front, -x value when camera is toward back, 
+        +y value camera is mounted to left of robot center, -y value when camera is mounted right of robot center, +z value when camera is mounted above ground level) */,
+         new Rotation3d(0, 0, Math.toRadians(180))/*y rotation for pitch is 180 degrees when camera faces robot back */);
   }
 
   public static final class FieldConstants{
