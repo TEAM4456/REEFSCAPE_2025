@@ -2,44 +2,50 @@ package frc.robot;
 
 import java.util.HashMap;
 
-import com.revrobotics.CANSparkBase.IdleMode;
+import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 
-import edu.wpi.first.math.VecBuilder;
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Rotation3d;
+import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.lib.configs.SwerveModuleConstants;
 
 
 public final class Constants {
-
   public static final class Swerve {
-    public static final double stickDeadband = 0.1;
+    public static final double stickDeadband = 0.15;
 
     public static final int pigeonID = 6;
     public static final boolean invertGyro = false; // Always ensure Gyro is CCW+ CW-
 
     /* Drivetrain Constants */
-    public static final double trackWidth = Units.inchesToMeters(22.5);
-    public static final double wheelBase = Units.inchesToMeters(28.5);
+    public static final double trackWidth = Units.inchesToMeters(20.5);//wheel to wheel width, not frame to frame
+    public static final double wheelBase = Units.inchesToMeters(27);//wheel to wheel length, not frame to frame
     public static final double wheelDiameter = Units.inchesToMeters(4.0);
     public static final double wheelCircumference = wheelDiameter * Math.PI;
 
     public static final double openLoopRamp = 0.25;
     public static final double closedLoopRamp = 0.0;
 
-    public static final double driveGearRatio = (8.14 / 1.0); // 6.75:1
-    public static final double angleGearRatio = (150/7 / 1.0); //150/7:1
+    public static final double driveGearRatio = (5.36 / 1.0); // FOR L3+ on the Swerve Drive MK4c
+    public static final double angleGearRatio = (12.8 / 1.0); //For MK4c swerve drive
 
     public static final SwerveDriveKinematics swerveKinematics =
+    //XY plane is robot relative with +x is forward (front of robot) and +y is left
       new SwerveDriveKinematics(
-          new Translation2d(wheelBase / 2.0, trackWidth / 2.0),
-          new Translation2d(wheelBase / 2.0, -trackWidth / 2.0),
-          new Translation2d(-wheelBase / 2.0, trackWidth / 2.0),
-          new Translation2d(-wheelBase / 2.0, -trackWidth / 2.0));
+          new Translation2d(-wheelBase / 2.0, -trackWidth / 2.0), // Mod 0
+          new Translation2d(-wheelBase / 2.0, trackWidth / 2.0), // Mod 1
+          new Translation2d(wheelBase / 2.0, -trackWidth / 2.0), // Mod 2
+          new Translation2d(wheelBase / 2.0, trackWidth / 2.0)); // Mod 3
 
     /* Swerve Voltage Compensation */
     public static final double voltageComp = 12.0;
@@ -80,49 +86,50 @@ public final class Constants {
     public static final IdleMode driveNeutralMode = IdleMode.kBrake;
 
     /* Motor Inverts */
-    public static final boolean driveInvert = true;
-    public static final boolean angleInvert = true;
+    public static final boolean driveInvert = false; //not inverted when motors are mounted from above on SDS modules (ex. MK4c)
+    public static final boolean angleInvert = false;
 
     /* Angle Encoder Invert */
     public static final boolean canCoderInvert = false;
 
     /* Module Specific Constants */
+    /*ASSIGNS THE ANGLE MOTORS, DRIVE MOTORS, AND CAN CODERS OF THE ROBOT */
     /* Back Right Module - Module 0 */
     public static final class Mod0 {
-      public static final int angleMotorID = 4;
+      public static final int angleMotorID = 6;
       public static final int driveMotorID = 5;
-      public static final int canCoderID = 6;
-      public static final Rotation2d angleOffset = Rotation2d.fromDegrees(61.875+180);
+      public static final int canCoderID = 11;
+      public static final Rotation2d angleOffset = Rotation2d.fromDegrees(338.64);
       public static final SwerveModuleConstants constants =
           new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
     }
 
     /* Back Left Module - Module 1 */
     public static final class Mod1 {
-      public static final int angleMotorID = 7;
-      public static final int driveMotorID = 8;
-      public static final int canCoderID = 9;
-      public static final Rotation2d angleOffset = Rotation2d.fromDegrees(127.617+180);
+      public static final int angleMotorID = 8;
+      public static final int driveMotorID = 7;
+      public static final int canCoderID = 12;
+      public static final Rotation2d angleOffset = Rotation2d.fromDegrees(210.6);
       public static final SwerveModuleConstants constants =
           new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
     }
 
     /* Front Right Module - Module 2 */
     public static final class Mod2 {
-      public static final int angleMotorID = 1;
-      public static final int driveMotorID = 2;
-      public static final int canCoderID = 3;
-      public static final Rotation2d angleOffset = Rotation2d.fromDegrees(87.6269);
+      public static final int angleMotorID = 4;
+      public static final int driveMotorID = 3;
+      public static final int canCoderID = 10;
+      public static final Rotation2d angleOffset = Rotation2d.fromDegrees(140.6);
       public static final SwerveModuleConstants constants =
           new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
     }
 
     /* Front Left Module - Module 3 */
     public static final class Mod3 {
-      public static final int angleMotorID = 10;
-      public static final int driveMotorID = 11;
-      public static final int canCoderID = 12;
-      public static final Rotation2d angleOffset = Rotation2d.fromDegrees(350.5078+180);
+      public static final int angleMotorID = 2;
+      public static final int driveMotorID = 1;
+      public static final int canCoderID = 9;
+      public static final Rotation2d angleOffset = Rotation2d.fromDegrees(220.34);
       public static final SwerveModuleConstants constants =
           new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
     }
@@ -154,20 +161,124 @@ public final class Constants {
   }
 
   public static final class ElevatorPositions{
-    public static final double rightElevatorUp = -150;
-    public static final double rightElevatorDown = 0;
+    public static final double ElevatorScoreL1 = 1;
+    public static final double ElevatorScoreL2 = 32.404;
+    public static final double ElevatorScoreL3 = 82.979;
+    public static final double ElevatorScoreL4 = 155.6146;
 
-    public static final double leftElevatorUp = 150;
-    public static final double leftElevatorDown = 0;
+    public static final double ElevatorCoralPickupPosition = 3.404;
+    public static final double ElevatorClimbPosition = 3;
+    
+    public static final double ElevatorMax = 0;
+    public static final double ElevatorMin = 0;
 
-    public static final double elevatorSpeed = .3;
+    public static final double elevatorSpeed = .2;
+
+    public static final double ElevatorAlgaeLow = 0.0;
+    public static final double ElevatorAlgaeHigh = 0.0;
+  }
+
+  public static final class IntakeSpeeds{
+    public static final double intakePickupCoral = 0.2;
+    public static final double intakeScoreCoralL2toL4 = 0.1;
+    public static final double intakeScoreCoralL1 = 0.4;
+    public static final double intakeRemoveAlgae = 0;
+    public static final double intakePullBack = -3;
+    public static final double intakeAutoScoreL4 = -5;
+    public static final double intakeAutoScoreL1 = 2;
+  }
+
+  //All of these values aren't correct, they are just placeholders
+  //Variables have been set up though to be referenced within other classes
+  public static final class ElevatorPivotPositions{
+  
+    public static final double elevatorPivotSpeed = .2;
+
+    public static final double elevatorPivotMax = 0;
+    public static final double elevatorPivotMin = 0;
+
+    public static final double elevatorPivotCoralPickupPosition = 102.86;
+    public static final double elevatorPivotClimbPosition = 179;
+
+    public static final double elevatorPivotScoreL1 = 20.45;
+    public static final double elevatorPivotScoreL2 = 52.809;
+    public static final double elevatorPivotScoreL3 = 105;
+    public static final double elevatorPivotScoreL4 = 139.807;
+
+    public static final double elevatorPivotAlgaeLow = 0.0;
+    public static final double elevatorPivotAlgaeHigh = 0.0;
+    public static final double elevatorPivotDrivePosition = 160;
+  }
+  public static final class IntakePivotPositions{
+   
+    public static final double intakePivotSpeed = .1;
+
+    public static final double intakePivotMax = 0;
+    public static final double intakePivotMin = 0;
+
+    public static final double intakePivotCoralPickupPosition = -3.5;
+    public static final double intakePivotClimbPosition = -12.1;
+    public static final double intakePivotDrivePosition = -1;
+  
+/* REEFSCAPE 2025 CORAL LEVELS (right now it's in inches off ground/arbitrary number so number is lowkey wrong :/ )*/
+  public static final double intakePivotScoreL1 = -1.2;
+  public static final double intakePivotScoreL2 = -0.5;
+  public static final double intakePivotScoreL3 = -0.2857;
+  public static final double intakePivotScoreL4 = -8;
+
+  public static final double intakePivotAlgaeHigh = -9.5; //testing for climb position
+  public static final double intakePivotAlgaeLow = 0.0;
+  
+}
+public static final class AlgaePivotPositions{
+  
+  public static final double algaePivotSpeed = .2;
+  public static final double algaePivotUp = 0.0;
+  public static final double algaePivotDown = 0.0;
+  public static final double algaePivotScore = 7.5;
+  public static final double algaePivotDriveSetting = 0.2;
+}
+  public static final class ClimberPositions{
+    public static final double climberSpeed = .7;
+    public static final double climbPosition = 0;
+    public static final double ClimbDeepCageLeft = 0;
+    public static final double ClimbDeepCageRight = 0;
+    public static final double ClimbDriveLeft = 75;
+    public static final double ClimbDriveRight = -75;
+  }
+  
+  public static final class AlgaePickupPositions{ 
+    public static final double algaePickupSpeed = 0.2;
   }
  
 
   public static final class VisionConstants {
     public static final Transform3d ROBOT_TO_LIMELIGHT1 = new Transform3d(
-        new Translation3d(-.35, -.15,.22), new Rotation3d(Math.toRadians(-43), Math.toRadians(180), 0));
+      new Translation3d(0, -0.295,0.345),new Rotation3d(Math.toRadians(90), Math.toRadians(180), 0)); //Not sure if Rotation 3D is correct
     public static final Transform3d ROBOT_TO_LIMELIGHT2 = new Transform3d(
-        new Translation3d(.04, 0, 1.10), new Rotation3d(0, Math.toRadians(180), 0));
+        new Translation3d(-0.1905, -0.1905, 0.4064)/* relative to center of robot (+x value when camera is toward front, -x value when camera is toward back, 
+        +y value camera is mounted to left of robot center, -y value when camera is mounted right of robot center, +z value when camera is mounted above ground level) */,
+         new Rotation3d(0, 0, Math.toRadians(180))/*y rotation for pitch is 180 degrees when camera faces robot back */);
+  }
+
+  public static final class FieldConstants{
+    public static final double FIELD_LENGTH = 17.55; //field length in meters
+    public static final double FIELD_WIDTH = 8.05; //field width in meters
+    //while not technically a constant, the alliance color is used so frequently, we put it in constants so it can be easily accessed from anywhere in the code
+    public static boolean isRedAlliance(){
+      return DriverStation.getAlliance().isPresent() && DriverStation.getAlliance().get() == Alliance.Red;
+    }
+    //these functions allow us to mirror a pose2d / translation2d to the correct side of the field to match our alliance color
+    public static Translation2d flipTranslationForAlliance(Translation2d translation){
+      return isRedAlliance()? new Translation2d( FIELD_LENGTH - translation.getX(), translation.getY()): translation;
+    }
+    public static Pose2d flipPoseForAlliance(Pose2d pose){
+      return isRedAlliance()? new Pose2d( FIELD_LENGTH - pose.getX(), pose.getY(), Rotation2d.fromDegrees(180).minus(pose.getRotation())): pose;
+    }
+    //pose for scoring in processor
+
+    //poses for scoring coral
+
+  
   }
 }
