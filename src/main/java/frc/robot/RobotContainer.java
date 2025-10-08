@@ -586,17 +586,6 @@ public class RobotContainer {
     ); 
   }
 
-  public Command fullAutoLeftCommand()
-  {
-    return new PathPlannerAuto("left to 3 right and coral intake to 5 right Auto");
-  }
-
-  public Command fullAutoRightCommand()
-  {
-    return new PathPlannerAuto("right to 2 left and coral intake to 4 left Auto");
-  }
-
-
   //Create Autonomous Routines here (sequences for first 15s of match)
   //See Crescendo's code for examples
   /**
@@ -630,182 +619,17 @@ public class RobotContainer {
     chooser.addOption("Drive Forward Left", new PathPlannerAuto("Drive Forward Left"));
     //chooser.addOption("Test Named Command", new PathPlannerAuto("Test Named Command"));
 
-    //add rest of autonomous routines here
-  
-    
-  
-    //Create Driver Button mapping here
-
-    //Driver #1
-    /* 
-    //driver.povRight().and(driver.povUp().negate()).and(driver.povLeft().negate()).and(driver.povLeft().negate()).toggleOnTrue(
+    //Driver Open House
     driver.back().toggleOnTrue(
       new toggleSpeed(
         s_Swerve,
         () -> -driver.getRawAxis(translationAxis),
         () -> -driver.getRawAxis(strafeAxis),
         () -> -driver.getRawAxis(rotationAxis)));
-    
-    //driver.start().whileTrue(stopMotorsAll());
-
-    
-    // Testing buttons for driver #1, manual commands
-   /*  driver.rightTrigger().whileTrue(elevator.elevatorUpCommand());
-    driver.rightTrigger().whileFalse(elevator.elevatorStopCommand());
-
-    driver.leftTrigger().whileTrue(elevator.elevatorDownCommand());
-    driver.leftTrigger().whileFalse(elevator.elevatorStopCommand());
-    
-    driver.rightBumper().whileTrue(elevatorPivot.elevatorPivotUpCommand());
-    driver.rightBumper().whileFalse(elevatorPivot.elevatorPivotStopCommand());
-
-    driver.leftBumper().whileTrue(elevatorPivot.elevatorPivotDownCommand());
-    driver.leftBumper().whileFalse(elevatorPivot.elevatorPivotStopCommand());
-
-    //driver.a().whileTrue(intake.intakeScoreCoralL4Command());
-    //driver.a().whileFalse(intake.intakeStopCommand());
-    driver.a().onTrue(climbPositionCommand());
-
-
-    //driver.x().whileTrue(intake.intakeScoreCoralL2and3Command());
-    //driver.x().whileFalse(intake.intakeStopCommand());
-      driver.x().whileTrue(climber.climberDownCommand());
-      driver.x().whileFalse(climber.climberStopCommand());
-
-      driver.b().whileTrue(climber.climberUpCommand());
-      driver.b().whileFalse(climber.climberStopCommand());
-
-    driver.y().onTrue(climber.ClimbDeepCageCommand());
-    
-
-    driver.povUp().and(driver.povDown().negate()).and(driver.povRight().negate()).and(driver.povLeft().negate()).whileTrue(intakePivot.intakePivotUpCommand());
-    driver.povUp().whileFalse(intakePivot.intakePivotStopCommand());
-   
-    HERE*/
-    
-    //driver.povDown().and(driver.povUp().negate()).and(driver.povRight().negate()).and(driver.povLeft().negate()).whileTrue(intakePivot.intakePivotDownCommand());
-    //driver.povDown().whileFalse(intakePivot.intakePivotStopCommand());
-
-   // driver.povRight().and(driver.povUp().negate()).and(driver.povDown().negate()).and(driver.povLeft().negate()).whileTrue(algaePickup.algaePickupInCommand());
-   // driver.povRight().whileFalse(algaePickup.algaePickupStopCommand());
-
-    //driver.povLeft().and(driver.povUp().negate()).and(driver.povRight().negate()).and(driver.povDown().negate()).whileTrue(algaePickup.algaePickupOutCommand());
-    //driver.povLeft().whileFalse(algaePickup.algaePickupStopCommand());
-
-    driver.povRight().and(driver.povUp().negate()).and(driver.povDown().negate()).and(driver.povLeft().negate()).onTrue(driveCommand());
-    driver.povLeft().and(driver.povUp().negate()).and(driver.povDown().negate()).and(driver.povRight().negate()).onTrue(intake.intakeResetCommand());
-    
-
-
- //Testing buttons for driver #1, set position commands
-
-    //Elevator
-    /*driver.a().onTrue(elevator.elevatorScoreL1Command());
-    driver.b().onTrue(elevator.elevatorScoreL2Command());
-    driver.x().onTrue(elevator.elevatorScoreL3Command());
-    driver.y().onTrue(elevator.elevatorScoreL4Command());
-    driver.rightTrigger().onTrue(elevator.elevatorAlgaeHighCommand());
-    driver.leftTrigger().onTrue(elevator.elevatorAlgaeLowCommand());*/
-
-    //Elevator Pivot
-    /*driver.a().onTrue(elevatorPivot.elevatorPivotScoreL1Command());
-    driver.b().onTrue(elevatorPivot.elevatorPivotScoreL2Command());
-    driver.x().onTrue(elevatorPivot.elevatorPivotScoreL3Command());
-    driver.y().onTrue(elevatorPivot.elevatorPivotScoreL4Command());
-    driver.rightTrigger().onTrue(elevatorPivot.elevatorPivotAlgaeHighCommand());
-    driver.leftTrigger().onTrue(elevatorPivot.elevatorPivotAlgaeLowCommand());*/
-
-    //Intake Pivot
-   /*  driver.a().onTrue(intakePivot.intakePivotScoreL1Command());
-    driver.b().onTrue(intakePivot.intakePivotScoreL2Command());
-    driver.x().onTrue(intakePivot.intakePivotScoreL3Command());
-    driver.y().onTrue(intakePivot.intakePivotScoreL4Command());
-    driver.rightTrigger().onTrue(intakePivot.intakePivotAlgaeHighCommand());
-    driver.leftTrigger().onTrue(intakePivot.intakePivotAlgaeLowCommand());*/
-
-    //Algae Pivot
-
-    /*driver.a().onTrue(algaePivot.algaePivotDriveSettingCommand());
-    driver.b().onTrue(algaePivot.algaePivotScoreCommand());*/
-
-    //Testing negate buttons
-   /*driver.a().and(driver.start().negate()).whileTrue(intake.intakeScoreCoralL4Command());
-   driver.a().and(driver.start().negate()).whileFalse(intake.intakeStopCommand());
-    driver.a().and(driver.start()).whileTrue(intake.intakeScoreCoralL2and3Command());
-    driver.a().and(driver.start()).whileFalse(intake.intakeStopCommand());*/
-    
-  
-   
-   // Competition buttons for driver #1
-   /* 
-    driver.y().and(driver.start().negate()).whileTrue(teleopTo1rightCommand());
-    driver.y().and(driver.start()).whileTrue(teleopTo1leftCommand());
-
-    driver.x().and(driver.start().negate()).whileTrue(teleopTo4rightCommand());
-    driver.x().and(driver.start()).whileTrue(teleopTo4leftCommand());
-
-    driver.b().and(driver.start().negate()).whileTrue(teleopTo5rightCommand());
-    driver.b().and(driver.start()).whileTrue(teleopTo5leftCommand());
-
-    driver.leftBumper().and(driver.start().negate()).whileTrue(teleopTo2rightCommand());
-    driver.leftBumper().and(driver.start()).whileTrue(teleopTo2leftCommand());
-
-    driver.rightBumper().and(driver.start().negate()).whileTrue(teleopTo3rightCommand());
-    driver.rightBumper().and(driver.start()).whileTrue(teleopTo3leftCommand());
-
-    driver.a().and(driver.start().negate()).whileTrue(teleopTo6rightCommand());
-    driver.a().and(driver.start()).whileTrue(teleopTo6leftCommand());
-    
-    driver.rightTrigger().whileTrue(elevator.elevatorUpCommand()); 
-    driver.rightTrigger().whileFalse(elevator.elevatorStopCommand());
-    driver.leftTrigger().whileTrue(elevator.elevatorDownCommand());
-    driver.leftTrigger().whileFalse(elevator.elevatorStopCommand());
-
-    driver.povUp().and(driver.povDown().negate()).and(driver.povRight().negate()).and(driver.povLeft().negate()).whileTrue(climber.climberUpCommand());
-    driver.povUp().whileFalse(climber.climberStopCommand());
-    
-    //climbing arm goes down on cage
-    driver.povDown().and(driver.povUp().negate()).and(driver.povRight().negate()).and(driver.povLeft().negate()).whileTrue(climber.climberDownCommand());
-    driver.povDown().whileFalse(climber.climberStopCommand());
-
-    driver.povLeft().and(driver.povUp().negate()).and(driver.povRight().negate()).and(driver.povDown().negate()).onTrue(climbPositionCommand());
-   */
-
-    //Driver Open House
-    driver.back().toggleOnTrue(
-      new toggleSpeed(
-        s_Swerve,
-        () -> -second.getRawAxis(translationAxis),
-        () -> -second.getRawAxis(strafeAxis),
-        () -> -second.getRawAxis(rotationAxis)));
 
     driver.start().whileTrue(stopMotorsAll());
 
-   // Testing buttons for driver #2, manual commands
-   /*  second.rightTrigger().whileTrue(climber.climberUpCommand());
-    second.rightTrigger().whileFalse(climber.climberStopCommand());
-    second.leftTrigger().whileTrue(climber.climberDownCommand());
-    second.leftTrigger().whileFalse(climber.climberStopCommand());
-    second.a().whileTrue(intakePivot.intakePivotCoralPickupPositionCommand());
-    second.y().onTrue(algaePivot.algaePivotScoreCommand());
-    second.povUp().onTrue(algaePivot.algaePivotDriveSettingCommand());
-    second.x().onTrue(elevatorPivot.elevatorPivotCoralPickupPositionCommand());
-    second.povDown().onTrue(elevator.elevatorCoralPickupPositionCommand());
-    second.b().onTrue(driveCommand());
-    second.povRight().onTrue(intake.intakeAutoPullBackCommand());*/
-
-   /* only need if DPad buttons don't work on driver #1 controller  
-    second.rightBumper().whileTrue(algaePivot.algaePivotUpCommand());
-    second.rightBumper().whileFalse(algaePivot.algaePivotStopCommand());
-    second.leftBumper().whileTrue(algaePivot.algaePivotDownCommand());
-    second.leftBumper().whileFalse(algaePivot.algaePivotStopCommand());
-
-    second.x().whileTrue(algaePivot.algaePivotDownCommand());
-    second.x().whileFalse(algaePivot.algaePivotStopCommand());
-    second.b().whileTrue(algaePivot.algaePivotDownCommand());
-    second.b().whileFalse(algaePivot.algaePivotStopCommand()); */
-
-    // Competition Buttons for Driver #2
+    //Buttons for Open House
  
     driver.a().onTrue(scoreL1());
     driver.x().onTrue(scoreL2());
@@ -820,70 +644,12 @@ public class RobotContainer {
     driver.leftTrigger().whileTrue(intake.intakeScoreCoralL2and3Command());
     driver.leftTrigger().whileFalse(intake.intakeStopCommand());
 
-    //second.povUp().and(second.povRight().negate()).and(second.povDown().negate()).and(second.povLeft().negate()).onTrue(algaeHighCommand());
-    //second.povDown().and(second.povUp().negate()).and(second.povRight().negate()).and(second.povLeft().negate()).onTrue(algaeLowCommand());
-    driver.povLeft().and(driver.povUp().negate()).and(driver.povDown().negate()).and(driver.povRight().negate()).onTrue(coralPickupSetPositions());
-   // second.povRight().and(second.povUp().negate()).and(second.povDown().negate()).and(second.povLeft().negate()).whileTrue(algaePickup.algaePickupOutCommand());
-   // second.povRight().whileFalse(algaePickup.algaePickupStopCommand());
-   driver.povUp().and(driver.povDown().negate()).and(driver.povRight().negate()).and(driver.povLeft().negate()).whileTrue(intakePivot.intakePivotUpCommand());
-   driver.povUp().whileFalse(intakePivot.intakePivotStopCommand());
-   driver.povRight().and(driver.povUp().negate()).and(driver.povLeft().negate()).and(driver.povDown().negate()).whileTrue(elevatorPivot.elevatorPivotUpCommand());
-   driver.povRight().whileFalse(elevatorPivot.elevatorPivotStopCommand());
-   driver.povLeft().and(driver.povUp().negate()).and(driver.povDown().negate()).and(driver.povRight().negate()).whileTrue(elevatorPivot.elevatorPivotDownCommand()); 
-   driver.povLeft().whileFalse(elevatorPivot.elevatorPivotStopCommand()); 
-    
-  //CONTROLLER BINDINGS FOR BACKUP
-   /*  backup.rightTrigger().whileTrue(elevator.elevatorUpCommand());
-    backup.rightTrigger().whileFalse(elevator.elevatorStopCommand());
-
-    backup.leftTrigger().whileTrue(elevator.elevatorDownCommand());
-    backup.leftTrigger().whileFalse(elevator.elevatorStopCommand());
-    
-    backup.rightBumper().whileTrue(elevatorPivot.elevatorPivotUpCommand());
-    backup.rightBumper().whileFalse(elevatorPivot.elevatorPivotStopCommand());
-
-    backup.leftBumper().whileTrue(elevatorPivot.elevatorPivotDownCommand());
-    backup.leftBumper().whileFalse(elevatorPivot.elevatorPivotStopCommand());
-
-    backup.b().whileTrue(intakePivot.intakePivotDownCommand());
-    backup.b().whileFalse(intakePivot.intakePivotStopCommand());
-
-    backup.y().whileTrue(intakePivot.intakePivotUpCommand());
-    backup.y().whileFalse(intakePivot.intakePivotStopCommand());
-
-    backup.povUp().and(second.povRight().negate()).and(second.povDown().negate()).and(second.povLeft().negate()).whileTrue(algaePivot.algaePivotUpCommand());
-    backup.povUp().whileFalse(algaePivot.algaePivotStopCommand());
-    
-    backup.povDown().and(second.povRight().negate()).and(second.povUp().negate()).and(second.povLeft().negate()).whileTrue(algaePivot.algaePivotDownCommand());
-    backup.povDown().whileFalse(algaePivot.algaePivotStopCommand());
-
-    backup.povRight().and(second.povUp().negate()).and(second.povDown().negate()).and(second.povLeft().negate()).whileTrue(algaePickup.algaePickupInCommand());
-    backup.povRight().whileFalse(algaePickup.algaePickupStopCommand());
-
-    backup.povLeft().and(second.povRight().negate()).and(second.povDown().negate()).and(second.povUp().negate()).whileTrue(algaePickup.algaePickupOutCommand());
-    backup.povLeft().whileFalse(algaePickup.algaePickupStopCommand());
-
-    backup.back().whileTrue(intake.intakePickupCoralCommand());
-    backup.back().whileFalse(intake.intakeStopCommand());
-*/
-backup.y().and(backup.back().negate()).whileTrue(teleopTo1rightCommand());
-backup.y().and(backup.back()).whileTrue(teleopTo1leftCommand());
-
-backup.leftBumper().and(backup.back().negate()).whileTrue(teleopTo2rightCommand());
-backup.leftBumper().and(backup.back()).whileTrue(teleopTo2leftCommand());
-
-backup.rightBumper().and(backup.back().negate()).whileTrue(teleopTo3rightCommand());
-backup.rightBumper().and(backup.back()).whileTrue(teleopTo3leftCommand());
-
-backup.x().and(backup.back().negate()).whileTrue(teleopTo4rightCommand());
-backup.x().and(backup.back()).whileTrue(teleopTo4leftCommand());
-
-backup.b().and(backup.back().negate()).whileTrue(teleopTo5rightCommand());
-backup.b().and(backup.back()).whileTrue(teleopTo5leftCommand());
-
-backup.a().and(backup.back().negate()).whileTrue(teleopTo6rightCommand());
-backup.a().and(backup.back()).whileTrue(teleopTo6leftCommand());
-
+    driver.povUp().and(driver.povDown().negate()).and(driver.povRight().negate()).and(driver.povLeft().negate()).whileTrue(intakePivot.intakePivotUpCommand());
+    driver.povUp().whileFalse(intakePivot.intakePivotStopCommand());
+    driver.povRight().and(driver.povUp().negate()).and(driver.povLeft().negate()).and(driver.povDown().negate()).whileTrue(elevatorPivot.elevatorPivotUpCommand());
+    driver.povRight().whileFalse(elevatorPivot.elevatorPivotStopCommand());
+    driver.povLeft().and(driver.povUp().negate()).and(driver.povDown().negate()).and(driver.povRight().negate()).whileTrue(elevatorPivot.elevatorPivotDownCommand()); 
+    driver.povLeft().whileFalse(elevatorPivot.elevatorPivotStopCommand()); 
   }
   
   public Swerve getSwerve(){
