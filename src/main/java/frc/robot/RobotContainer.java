@@ -644,8 +644,11 @@ public class RobotContainer {
     driver.leftTrigger().whileTrue(intake.intakeScoreCoralL2and3Command());
     driver.leftTrigger().whileFalse(intake.intakeStopCommand());
 
-    driver.povUp().and(driver.povDown().negate()).and(driver.povRight().negate()).and(driver.povLeft().negate()).whileTrue(intakePivot.intakePivotUpCommand());
-    driver.povUp().whileFalse(intakePivot.intakePivotStopCommand());
+    driver.povUp().and(driver.povDown().negate()).and(driver.povRight().negate()).and(driver.povLeft().negate()).whileTrue(elevator.elevatorUpCommand());
+    driver.povUp().whileFalse(elevator.elevatorStopCommand());
+    driver.povDown().and(driver.povUp().negate()).and(driver.povRight().negate()).and(driver.povLeft().negate()).whileTrue(elevator.elevatorDownCommand());
+    driver.povDown().whileFalse(elevator.elevatorStopCommand());
+
     driver.povRight().and(driver.povUp().negate()).and(driver.povLeft().negate()).and(driver.povDown().negate()).whileTrue(elevatorPivot.elevatorPivotUpCommand());
     driver.povRight().whileFalse(elevatorPivot.elevatorPivotStopCommand());
     driver.povLeft().and(driver.povUp().negate()).and(driver.povDown().negate()).and(driver.povRight().negate()).whileTrue(elevatorPivot.elevatorPivotDownCommand()); 
