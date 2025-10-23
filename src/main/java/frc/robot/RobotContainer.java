@@ -637,7 +637,7 @@ public class RobotContainer {
     driver.y().onTrue(scoreL4());
 
     driver.leftBumper().onTrue(driveCommand());
-    driver.rightBumper().onTrue(intake.intakeAutoPullBackCommand());
+    driver.rightBumper().onTrue(coralPickupSetPositions());
 
     driver.rightTrigger().whileTrue(intake.intakeScoreCoralL4Command());
     driver.rightTrigger().whileFalse(intake.intakeStopCommand());
